@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "565332534805",
+    "project_id": "gac-project-b507f",
+    "storage_bucket": "gac-project-b507f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565332534805:android:c64f8431ab9c163c4a501c",
+        "android_client_info": {
+          "package_name": "com.example.gac"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRFF19lx_RT1cih7HTEAFrq8s68u07iuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,37 +5,41 @@ import 'package:gac/core/utils/app_text_styles.dart';
 
 class LoginMethodItem extends StatelessWidget {
   const LoginMethodItem({
-    super.key, required this.image, required this.text,
+    super.key, required this.image, required this.text, this.onTap,
   });
 final String image,text;
+final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16.h),
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 17.h),
-      width: double.infinity,
-      decoration: ShapeDecoration(
-          shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Color(
-            0xffDDDFDF,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.only(bottom: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 17.h),
+        width: double.infinity,
+        decoration: ShapeDecoration(
+            shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: Color(
+              0xffDDDFDF,
+            ),
           ),
-        ),
-        borderRadius: BorderRadius.circular(
-          16,
-        ),
-      )),
-      child: Row(
-        children: [
-          SvgPicture.asset(image),
-          Spacer(),
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyles.bold16,
+          borderRadius: BorderRadius.circular(
+            16,
           ),
-          Spacer() //Text('تسجيل الدخول بواسطة جوجل',textAlign: TextAlign.center,)
-        ],
+        )),
+        child: Row(
+          children: [
+            SvgPicture.asset(image),
+            Spacer(),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyles.bold16,
+            ),
+            Spacer() //Text('تسجيل الدخول بواسطة جوجل',textAlign: TextAlign.center,)
+          ],
+        ),
       ),
     );
   }

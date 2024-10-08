@@ -31,4 +31,13 @@ Icon suffixIcon = const Icon(Icons.visibility);
       emit(SignInSuccessState(userEntity: user));
     });
   }
+  Future<void> signInWithGoogle() async {
+    emit(SignInLoadingState());
+    var result = await authRepo.signInWithGoogle();
+    result.fold((failure) {
+      emit(SignInFailureState(message: failure.message));
+    }, (user) {
+      emit(SignInSuccessState(userEntity: user));
+    });
+  }
 }

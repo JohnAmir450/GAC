@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gac/core/helper_functions/cache_helper.dart';
 import 'package:gac/core/helper_functions/on_generate_routes.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/services/get_it_service.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/bloc_observer.dart';
+import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/firebase_options.dart';
 import 'package:gac/generated/l10n.dart';
 
@@ -16,6 +18,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+  await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
   setupGetIt();
   runApp(const MyApp());
@@ -28,6 +31,7 @@ class MyApp extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
+    bool isOnBoardingViewed=CacheHelper.getData(key:kIsOnboardingViewKey) ?? false;
     return ScreenUtilInit(
       designSize:const Size(360, 800),
        minTextAdapt: true,
@@ -50,7 +54,7 @@ class MyApp extends StatelessWidget {
               locale: const Locale('ar'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoutes,
-        initialRoute: Routes.onBoardingView,
+        initialRoute:isOnBoardingViewed? Routes.loginView:Routes.onBoardingView,
       ),
     );
   }

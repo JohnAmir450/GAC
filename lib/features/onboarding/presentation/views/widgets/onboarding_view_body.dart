@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gac/core/helper_functions/cache_helper.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/app_images.dart';
+import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/features/onboarding/presentation/views/widgets/onboarding_background.dart';
@@ -37,6 +39,7 @@ class OnBoardingViewBody extends StatelessWidget {
                   flex: 1,
                 ),
                 CustomButton(text: 'ابدأ الان', onPressed: () {
+                  CacheHelper.saveData(key: kIsOnboardingViewKey, value: true);
                   context.pushNamed(Routes.loginView);
                 }),
                 const Spacer(

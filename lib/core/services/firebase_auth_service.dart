@@ -60,4 +60,8 @@ Future<User> signInWithEmailAndPassword({required String email, required String 
       throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
+
+  Future deleteUser() async { 
+      await FirebaseAuth.instance.currentUser!.delete();
+  }
 }

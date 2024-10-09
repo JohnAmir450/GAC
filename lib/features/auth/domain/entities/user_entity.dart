@@ -15,6 +15,13 @@ factory UserEntity.fromFirebase(User user){
     uId: user.uid,
   );
 }
+factory UserEntity.fromJson(Map<String, dynamic> json) {
+  return UserEntity(
+    name: json['name'],
+    email: json['email'],
+    uId: json['uId'],
+  );
+}
 toMap() {
   return {
     'name': name,

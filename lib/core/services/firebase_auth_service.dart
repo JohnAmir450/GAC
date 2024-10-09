@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:gac/core/errors/custom_exceptions.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -43,6 +44,19 @@ Future<User> signInWithEmailAndPassword({required String email, required String 
       throw CustomException(message: mapException(e));
     }catch (e){
       log('there was an Exception from Firebase Auth google Service: ${e.toString()}');
+      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
+    }
+  }
+
+  Future<User> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken!.tokenString);
+      return (await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential)).user!;
+    } on FirebaseAuthException catch (e) {
+      throw CustomException(message: mapException(e));
+    }catch (e){
+      log('there was an Exception from Firebase Auth facebook Service: ${e.toString()}');
       throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }

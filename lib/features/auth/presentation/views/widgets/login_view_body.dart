@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gac/core/utils/app_images.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/core/widgets/custom_text_field.dart';
@@ -67,20 +68,23 @@ class LoginViewBody extends StatelessWidget {
                 onTap: (){
                   cubit.signInWithGoogle();
                 },
-                image: 'assets/images/google_icon.svg',
+                image: Assets.assetsImagesGoogleIcon,
                 text: 'تسجيل الدخول بواسطة جوجل',
               ),
              
               Visibility(
                 visible: Platform.isIOS,
                 child: const LoginMethodItem(
-                  image: 'assets/images/apple_icon.svg',
+                  image: Assets.assetsImagesAppleIcon,
                   text: 'تسجيل الدخول بواسطة ابل',
                 ),
               ),
               
-              const LoginMethodItem(
-                image: 'assets/images/facebook_icon.svg',
+               LoginMethodItem(
+                onTap: (){
+                  cubit.signInWithFacebook();
+                },
+                image: Assets.assetsImagesFacebookIcon,
                 text: 'تسجيل الدخول بواسطة فيسبوك',
               )
             ],

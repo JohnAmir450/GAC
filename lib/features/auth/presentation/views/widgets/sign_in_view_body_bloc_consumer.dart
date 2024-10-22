@@ -17,7 +17,7 @@ class SignInViewBodyBlocConsumer extends StatelessWidget {
     return BlocConsumer<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccessState) {
-          context.pushNamed(Routes.homeView);
+          context.pushNamed(Routes.mainView);
         }
         if (state is SignInFailureState) {
           context.pop();

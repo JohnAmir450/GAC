@@ -73,5 +73,13 @@ class Assets {
   /// Assets for assetsImagesShoppingCart
   /// assets/images/shopping_cart.svg
   static const String assetsImagesShoppingCart = "assets/images/shopping_cart.svg";
+
+  /// Assets for assetsImagesTestImage
+  /// assets/images/test_image.png
+  static const String assetsImagesTestImage = "assets/images/test_image.png";
+
+  /// Assets for assetsImagesUser
+  /// assets/images/user.svg
+  static const String assetsImagesUser = "assets/images/user.svg";
 }
 

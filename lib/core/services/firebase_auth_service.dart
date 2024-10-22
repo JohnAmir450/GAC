@@ -64,4 +64,7 @@ Future<User> signInWithEmailAndPassword({required String email, required String 
   Future deleteUser() async { 
       await FirebaseAuth.instance.currentUser!.delete();
   }
+  bool isLoggedIn(){
+  return FirebaseAuth.instance.currentUser!=null;
+}
 }

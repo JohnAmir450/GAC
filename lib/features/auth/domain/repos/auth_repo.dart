@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gac/core/errors/failures.dart';
 import 'package:gac/features/auth/domain/entities/user_entity.dart';
 
@@ -16,4 +17,6 @@ abstract class AuthRepo {
   Future addUserData({required UserEntity userEntity}); 
 
   Future<UserEntity> getUserData({required String uId});
+
+  Future saveUserData({required UserEntity userEntity});
 }

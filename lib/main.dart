@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
 import 'package:gac/core/helper_functions/on_generate_routes.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
+import 'package:gac/core/services/firebase_auth_service.dart';
 import 'package:gac/core/services/get_it_service.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/bloc_observer.dart';
@@ -31,7 +32,16 @@ class MyApp extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
-    bool isOnBoardingViewed=CacheHelper.getData(key:kIsOnboardingViewKey) ?? false;
+     String getRoute(){
+      bool isOnboardingViewed=CacheHelper.getData( key: kIsOnboardingViewKey,);
+    var isLoggedIn = FirebaseAuthService().isLoggedIn();
+    if(isLoggedIn && isOnboardingViewed){
+      return Routes.mainView;
+    }else if(!isLoggedIn && isOnboardingViewed){
+      return Routes.loginView;
+    }else{
+      return Routes.onBoardingView;
+    }}
     return ScreenUtilInit(
       designSize:const Size(360, 800),
        minTextAdapt: true,
@@ -54,7 +64,7 @@ class MyApp extends StatelessWidget {
               locale: const Locale('ar'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoutes,
-        initialRoute:isOnBoardingViewed? Routes.loginView:Routes.onBoardingView,
+        initialRoute:getRoute(),
       ),
     );
   }

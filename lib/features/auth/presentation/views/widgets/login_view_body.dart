@@ -19,7 +19,7 @@ class LoginViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit=context.read<SignInCubit>();
+    var cubit = context.read<SignInCubit>();
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 24.h),
@@ -27,33 +27,36 @@ class LoginViewBody extends StatelessWidget {
           key: cubit.formKey,
           child: Column(
             children: [
-               CustomTextFormField(
+              CustomTextFormField(
                 controller: cubit.emailController,
-                onChanged: (value){
-                  cubit.emailController.text=value;
+                onChanged: (value) {
+                  cubit.emailController.text = value;
                 },
                 hintText: 'البريد الالكتروني',
                 textInputType: TextInputType.emailAddress,
               ),
               verticalSpace(16.h),
-               CustomTextFormField(
-                controller: cubit.passwordController,
-                onChanged: (value){
-                  cubit.passwordController.text=value;
+              BlocBuilder<SignInCubit, SignInState>(
+                builder: (context, state) {
+                  return CustomTextFormField(
+                    controller: cubit.passwordController,
+                    onChanged: (value) {
+                      cubit.passwordController.text = value;
+                    },
+                    isObscured: cubit.isObscured,
+                    hintText: 'كلمة المرور',
+                    suffixIcon: GestureDetector(
+                        onTap: () {
+                          cubit.changePasswordVisibility();
+                        },
+                        child: cubit.suffixIcon),
+                  );
                 },
-                isObscured: cubit.isObscured,
-                hintText: 'كلمة المرور',
-                textInputType: TextInputType.visiblePassword,
-                suffixIcon: GestureDetector(onTap: (){
-                  cubit.changePasswordVisibility();
-                },
-                  child: cubit.suffixIcon
-                ),
               ),
               verticalSpace(45.h),
-               CustomButton(
-                onPressed: (){
-                  if(cubit.formKey.currentState!.validate()){
+              CustomButton(
+                onPressed: () {
+                  if (cubit.formKey.currentState!.validate()) {
                     cubit.signIn();
                   }
                 },
@@ -64,14 +67,13 @@ class LoginViewBody extends StatelessWidget {
               verticalSpace(37.h),
               const OrDivider(),
               verticalSpace(16.h),
-               LoginMethodItem(
-                onTap: (){
+              LoginMethodItem(
+                onTap: () {
                   cubit.signInWithGoogle();
                 },
                 image: Assets.assetsImagesGoogleIcon,
                 text: 'تسجيل الدخول بواسطة جوجل',
               ),
-             
               Visibility(
                 visible: Platform.isIOS,
                 child: const LoginMethodItem(
@@ -79,9 +81,8 @@ class LoginViewBody extends StatelessWidget {
                   text: 'تسجيل الدخول بواسطة ابل',
                 ),
               ),
-              
-               LoginMethodItem(
-                onTap: (){
+              LoginMethodItem(
+                onTap: () {
                   cubit.signInWithFacebook();
                 },
                 image: Assets.assetsImagesFacebookIcon,

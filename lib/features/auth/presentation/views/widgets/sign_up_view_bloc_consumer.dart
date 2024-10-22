@@ -17,7 +17,7 @@ class SignUpViewBlocConsumer extends StatelessWidget {
     return BlocConsumer<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if(state is SignUpSuccessState){
-          context.pushNamed(Routes.homeView);
+          context.pushNamed(Routes.mainView);
         }if(state is SignUpFailureState){
           context.pop();
           showSnackBar(context, text: state.message, color: Colors.red);

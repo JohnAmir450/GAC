@@ -90,6 +90,7 @@ class SignUpViewBody extends StatelessWidget {
                 },
               ),
               verticalSpace(25.h),
+              
               const AlreadyHaveAnAccount()
             ],
           ),

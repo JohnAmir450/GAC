@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:gac/core/utils/app_colors.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+ import 'package:flutter/material.dart';
+ import 'package:gac/core/widgets/custom_animated_loading_widget.dart';
 
 Future<dynamic> showLoadingDialog(BuildContext context) {
-    return showDialog(context: context, builder:(context)=> Center(child: LoadingAnimationWidget.inkDrop(
-          color: AppColors.secondaryColor, size: 32)));
+    return showDialog(context: context, builder:(context)=> const CustomAnimatedLoadingWidget());
   }
+
+

@@ -9,8 +9,9 @@ import 'package:gac/features/home/presentation/views/domain/entities/featured_it
 import 'package:gac/features/home/presentation/views/widgets/featured_item_button.dart';
 
 class FeaturedItem extends StatelessWidget {
+  final VoidCallback onNavigateToAllProducts;
   final FeaturedItemsEntity featuredEntity;
-  const FeaturedItem({super.key,required this.featuredEntity});
+  const FeaturedItem({super.key,required this.featuredEntity, required this.onNavigateToAllProducts});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class FeaturedItem extends StatelessWidget {
                         style: TextStyles.bold16.copyWith(color: Colors.white),
                       ),
                       verticalSpace(8.h),
-                      FeaturedItemButton()
+                      FeaturedItemButton(text: 'تسوق الان',onNavigateToAllProducts: onNavigateToAllProducts,)
                     ],
                   ),
                 )),

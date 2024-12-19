@@ -16,3 +16,5 @@ final class SignUpFailureState extends SignUpState {
   SignUpFailureState({required this.message});
 }
 final class SingUpChangePasswordVisibility extends SignUpState {}
+
+final class SignUpVerificationSentState extends SignUpState {}

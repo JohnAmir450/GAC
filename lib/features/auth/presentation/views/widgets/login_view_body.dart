@@ -1,10 +1,12 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gac/core/helper_functions/extentions.dart';
+import 'package:gac/core/helper_functions/rouutes.dart';
+import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_images.dart';
+import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/core/widgets/custom_text_field.dart';
@@ -62,7 +64,13 @@ class LoginViewBody extends StatelessWidget {
                 },
                 text: 'تسجيل الدخول',
               ),
-              verticalSpace(33.h),
+               verticalSpace(8.h),
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: TextButton(onPressed: (){
+                  context.pushNamed(Routes.resetPasswordView);
+                },child: Text('نسيت كلمة المرور ؟',style: TextStyles.bold13.copyWith(color: AppColors.primaryColor)),)),
+              verticalSpace(16.h),
               const DontHaveAnAccount(),
               verticalSpace(37.h),
               const OrDivider(),

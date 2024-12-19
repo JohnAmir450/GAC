@@ -19,3 +19,13 @@ final class SignInFailureState extends SignInState {
   SignInFailureState({required this.message});
 }
 final class SingInChangePasswordVisibility extends SignInState {}
+
+
+final class SendEmailToResetPasswordSuccessState extends SignInState {}
+
+
+final class SendEmailToResetPasswordFailureState extends SignInState {
+  final String errMessage;
+
+  SendEmailToResetPasswordFailureState({required this.errMessage});
+}

@@ -3,8 +3,9 @@ import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 
 class FeaturedItemButton extends StatelessWidget {
-  const FeaturedItemButton({super.key});
-
+  final VoidCallback onNavigateToAllProducts;
+  const FeaturedItemButton({super.key, required this.text, required this.onNavigateToAllProducts});
+final String text;
   @override
   Widget build(BuildContext context) {
     return  SizedBox(
@@ -15,10 +16,12 @@ class FeaturedItemButton extends StatelessWidget {
           ),
           backgroundColor: Colors.white,
         ),
-        onPressed: (){},
+        onPressed: (){
+          onNavigateToAllProducts();
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 4),
-          child: Text('تسوق الان',style: TextStyles.bold13.copyWith(color: AppColors.primaryColor),),
+          child: Text(text,style: TextStyles.bold13.copyWith(color: AppColors.primaryColor),),
         ),
       ),
     );

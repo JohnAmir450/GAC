@@ -11,6 +11,7 @@ class FirebaseAuthService {
     try {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+     await credential.user?.sendEmailVerification();
       return credential.user!;
     } on FirebaseAuthException catch (e) {
       throw CustomException(message: mapException(e));
@@ -67,4 +68,12 @@ Future<User> signInWithEmailAndPassword({required String email, required String 
   bool isLoggedIn(){
   return FirebaseAuth.instance.currentUser!=null;
 }
+Future<void> sendEmailToResetPassword({required String email}) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      log('there was an Exception from sendEmailToResetPassword: ${e.toString()}');
+      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
+    }
+  }
 }

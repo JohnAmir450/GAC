@@ -30,6 +30,14 @@ class Assets {
   /// assets/images/bold_user.svg
   static const String assetsImagesBoldUser = "assets/images/bold_user.svg";
 
+  /// Assets for assetsImagesCalendar
+  /// assets/images/calendar.svg
+  static const String assetsImagesCalendar = "assets/images/calendar.svg";
+
+  /// Assets for assetsImagesCaloriesPicture
+  /// assets/images/calories_picture.svg
+  static const String assetsImagesCaloriesPicture = "assets/images/calories_picture.svg";
+
   /// Assets for assetsImagesCategories
   /// assets/images/categories.svg
   static const String assetsImagesCategories = "assets/images/categories.svg";
@@ -66,9 +74,17 @@ class Assets {
   /// assets/images/notification.svg
   static const String assetsImagesNotification = "assets/images/notification.svg";
 
+  /// Assets for assetsImagesOrganicPicture
+  /// assets/images/organic_picture.svg
+  static const String assetsImagesOrganicPicture = "assets/images/organic_picture.svg";
+
   /// Assets for assetsImagesPageViewItem1BackgroundImage
   /// assets/images/page_view_item1_background_image.svg
   static const String assetsImagesPageViewItem1BackgroundImage = "assets/images/page_view_item1_background_image.svg";
+
+  /// Assets for assetsImagesProductPageBackground
+  /// assets/images/product_page_background.jpg
+  static const String assetsImagesProductPageBackground = "assets/images/product_page_background.jpg";
 
   /// Assets for assetsImagesShoppingCart
   /// assets/images/shopping_cart.svg

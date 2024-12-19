@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/features/auth/domain/entities/user_entity.dart';
 import 'package:gac/features/auth/domain/repos/auth_repo.dart';
 import 'package:meta/meta.dart';
+
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
@@ -17,6 +20,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   bool isTermsChecked = false;
   Icon suffixIcon = const Icon(Icons.visibility);
   bool isObscured = true;
+   Timer? verificationTimer;
 
   void changePasswordVisibility() {
     isObscured = !isObscured;
@@ -33,9 +37,46 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: passwordController.text,
         name: nameController.text);
     result.fold((failure) {
-      emit(SignUpFailureState(message: failure.message));
-    }, (user) {
+      if (failure.message=='الرجاء تفعيل الحساب من خلال البريد الالكتروني') {
+        emit(SignUpVerificationSentState());
+          
+          verificationTimer = Timer.periodic(const Duration(seconds: 2), (timer) async {
+            final currentUser =  FirebaseAuth.instance.currentUser;
+            await currentUser?.reload();
+            if (currentUser?.emailVerified ?? false) {
+              verificationTimer?.cancel();
+              var userEntity=UserEntity(
+                name: nameController.text,
+                email: emailController.text,
+                uId: currentUser!.uid,
+                cartList: []
+              );
+              await authRepo.addUserData(userEntity: userEntity);
+              await authRepo.getUserData(uId: currentUser.uid);
+              await authRepo.saveUserData(userEntity: userEntity);
+              emit(SignUpSuccessState(userEntity: userEntity));
+              
+              await close();
+            } if (timer.tick > 15) { // Example: 2 minutes
+              await currentUser?.delete();
+              verificationTimer?.cancel();
+              emit(SignUpFailureState(message: 'انتهت صلاحيةالتحقق من البريد الالكتروني، حاول مرة اخرى!'));
+            }
+          
+          });
+        
+      }
+         emit(SignUpFailureState(message: failure.message));
+      
+     
+    }, (user)async {
       emit(SignUpSuccessState(userEntity: user));
     });
   }
+   @override
+  Future<void> close() {
+    verificationTimer?.cancel(); // Cancel the timer if the cubit is disposed
+    return super.close();
+  }
+ 
 }

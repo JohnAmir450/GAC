@@ -9,6 +9,7 @@ import 'package:gac/core/services/database_service.dart';
 import 'package:gac/core/services/firebase_auth_service.dart';
 import 'package:gac/core/utils/backend_endpoints.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
+import 'package:gac/features/auth/data/models/user_model.dart';
 import 'package:gac/features/auth/domain/entities/user_entity.dart';
 import 'package:gac/features/auth/domain/repos/auth_repo.dart';
 
@@ -27,10 +28,16 @@ class AuthRepoImpl implements AuthRepo {
     try {
       user = await firebaseAuthService.createUserWithEmailAndPassword(
           email: email, password: password);
+
+      if (!user.emailVerified) {
+        return Left(ServerFailure(
+            message: 'الرجاء تفعيل الحساب من خلال البريد الالكتروني'));
+      }
       var userEntity = UserEntity(
         name: name,
         email: email,
         uId: user.uid,
+        cartList: []
       );
       await addUserData(userEntity: userEntity);
       await getUserData(uId: user.uid);
@@ -70,7 +77,7 @@ class AuthRepoImpl implements AuthRepo {
     User? user;
     try {
       user = await firebaseAuthService.signInWithGoogle();
-      var userEntity = UserEntity.fromFirebase(user);
+      var userEntity = UserModel.fromFirebase(user).toEntity();
       var isUserExist = await databaseService.checkIfDataExist(
           path: BackendEndpoints.getUserData, uId: user.uid);
       if (isUserExist) {
@@ -98,7 +105,7 @@ class AuthRepoImpl implements AuthRepo {
     User? user;
     try {
       user = await firebaseAuthService.signInWithFacebook();
-      var userEntity = UserEntity.fromFirebase(user);
+      var userEntity = UserModel.fromFirebase(user).toEntity();
       var isUserExist = await databaseService.checkIfDataExist(
           path: BackendEndpoints.getUserData, uId: user.uid);
       if (isUserExist) {
@@ -126,19 +133,31 @@ class AuthRepoImpl implements AuthRepo {
     await databaseService.addUserData(
         uId: userEntity.uId,
         path: BackendEndpoints.addUserData,
-        data: userEntity.toMap());
+        data: UserModel.fromEntity(userEntity).toMap());
   }
 
   @override
   Future<UserEntity> getUserData({required String uId}) async {
     var userData = await databaseService.getData(
-        path: BackendEndpoints.getUserData, uId: uId);
-    return UserEntity.fromJson(userData);
+        path: BackendEndpoints.getUserData, documentId: uId);
+        UserEntity userEntity = UserModel.fromJson(userData).toEntity();
+    return userEntity;
   }
-  
+
   @override
-  Future saveUserData({required UserEntity userEntity})async {
-   var userData=jsonEncode(userEntity.toMap());
-   await CacheHelper.saveData(key: kSaveUserDataKey, value: userData);
+  Future saveUserData({required UserEntity userEntity}) async {
+    var userData = jsonEncode(UserModel.fromEntity(userEntity).toMap());
+    await CacheHelper.saveData(key: kSaveUserDataKey, value: userData);
+  }
+
+  @override
+  Future<Either<Failure, void>> sendPasswordResetEmail(
+      {required String email}) async {
+    try {
+      await firebaseAuthService.sendEmailToResetPassword(email: email);
+      return right(null);
+    } on CustomException catch (e) {
+      return left(ServerFailure(message: e.message));
+    }
   }
 }

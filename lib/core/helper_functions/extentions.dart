@@ -16,4 +16,11 @@ extension Navigation on BuildContext {
   void pop() {
     Navigator.of(this).pop();
   }
+
+   Future<dynamic> pushWidget(Widget widget) {
+    return Navigator.of(this).push(MaterialPageRoute(builder: (_) => widget));
+  }
+   Future<dynamic> pushReplacementWidget(Widget widget) {
+    return Navigator.of(this).pushReplacement(MaterialPageRoute(builder: (_) => widget));
+  }
 }

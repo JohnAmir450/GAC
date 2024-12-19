@@ -1,32 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gac/core/entities/cart_entity.dart';
 
-class UserEntity{
+class UserEntity {
   final String name;
   final String email;
   final String uId;
+  List<CartEntity> cartList;
 
-  
-UserEntity({required this.name, required this.email, required this.uId});
-
-factory UserEntity.fromFirebase(User user){
-  return UserEntity(
-    name: user.displayName?? '',
-    email: user.email?? '',
-    uId: user.uid,
-  );
-}
-factory UserEntity.fromJson(Map<String, dynamic> json) {
-  return UserEntity(
-    name: json['name'],
-    email: json['email'],
-    uId: json['uId'],
-  );
-}
-toMap() {
-  return {
-    'name': name,
-    'email': email,
-    'uId': uId,
-  };
-}
+  UserEntity(
+      {required this.name,
+      required this.email,
+      required this.uId,
+     required  this.cartList});
 }

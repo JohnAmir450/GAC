@@ -6,12 +6,13 @@ import '../domain/entities/featured_items_entity.dart';
 
 class FeaturedList extends StatelessWidget {
   final List<FeaturedItemsEntity> featuredItemsEntityList ;
-  const FeaturedList({super.key, required this.featuredItemsEntityList});
+  final VoidCallback onNavigateToAllProducts;
+  const FeaturedList({super.key, required this.featuredItemsEntityList, required this.onNavigateToAllProducts});
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-        itemBuilder: (context, index, realIndex) =>  FeaturedItem(featuredEntity: featuredItemsEntityList[index],),
+        itemBuilder: (context, index, realIndex) =>  FeaturedItem(featuredEntity: featuredItemsEntityList[index],onNavigateToAllProducts: onNavigateToAllProducts,),
         itemCount: featuredItemsEntityList.length,
         options: CarouselOptions(
           scrollDirection: Axis.horizontal,

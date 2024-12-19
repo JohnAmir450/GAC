@@ -15,6 +15,8 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController secondNameController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool isTermsChecked = false;
@@ -35,7 +37,10 @@ class SignUpCubit extends Cubit<SignUpState> {
     var result = await authRepo.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
-        name: nameController.text);
+        name: nameController.text,
+        secondName: secondNameController.text,
+        phoneNumber: phoneNumberController.text
+        );
     result.fold((failure) {
       if (failure.message=='الرجاء تفعيل الحساب من خلال البريد الالكتروني') {
         emit(SignUpVerificationSentState());
@@ -48,6 +53,8 @@ class SignUpCubit extends Cubit<SignUpState> {
               var userEntity=UserEntity(
                 name: nameController.text,
                 email: emailController.text,
+                secondName: secondNameController.text,
+                phoneNumber: phoneNumberController.text,
                 uId: currentUser!.uid,
                 cartList: []
               );

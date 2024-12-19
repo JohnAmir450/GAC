@@ -4,16 +4,22 @@ import 'package:gac/features/auth/domain/entities/user_entity.dart';
 
 abstract class AuthRepo {
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword(
-      {required String email, required String password, required String name});
+      {required String email,
+      required String password,
+      required String name,
+      required String secondName,
+      required String phoneNumber,});
 
-  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
-      {required String email, required String password,});
+  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
 
   Future<Either<Failure, UserEntity>> signInWithGoogle();
 
   Future<Either<Failure, UserEntity>> signInWithFacebook();
 
-  Future addUserData({required UserEntity userEntity}); 
+  Future addUserData({required UserEntity userEntity});
 
   Future<UserEntity> getUserData({required String uId});
 

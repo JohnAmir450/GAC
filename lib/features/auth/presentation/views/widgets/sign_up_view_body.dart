@@ -24,9 +24,17 @@ class SignUpViewBody extends StatelessWidget {
             children: [
               CustomTextFormField(
                 controller: cubit.nameController,
-                hintText: 'الاسم بالكامل',
+                hintText: 'الاسم الاول',
                 onChanged: (value) {
                   cubit.nameController.text = value;
+                },
+              ),
+              verticalSpace(16.h),
+              CustomTextFormField(
+                controller: cubit.secondNameController,
+                hintText: 'الاسم الثاني',
+                onChanged: (value) {
+                  cubit.secondNameController.text = value;
                 },
               ),
               verticalSpace(16.h),
@@ -35,6 +43,15 @@ class SignUpViewBody extends StatelessWidget {
                 hintText: 'البريد الالكتروني',
                 onChanged: (value) {
                   cubit.emailController.text = value;
+                },
+              ),
+              verticalSpace(16.h),
+              CustomTextFormField(
+                controller: cubit.phoneNumberController,
+                textInputType: TextInputType.phone,
+                hintText: 'رقم الهاتف',
+                onChanged: (value) {
+                  cubit.phoneNumberController.text = value;
                 },
               ),
               verticalSpace(16.h),

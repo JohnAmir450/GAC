@@ -23,7 +23,10 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword(
       {required String email,
       required String password,
-      required String name}) async {
+      required String name,
+      required String secondName,
+      required String phoneNumber
+      }) async {
     User? user;
     try {
       user = await firebaseAuthService.createUserWithEmailAndPassword(
@@ -35,6 +38,8 @@ class AuthRepoImpl implements AuthRepo {
       }
       var userEntity = UserEntity(
         name: name,
+        secondName: secondName,
+        phoneNumber: phoneNumber,
         email: email,
         uId: user.uid,
         cartList: []

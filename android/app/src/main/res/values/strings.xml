@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">GAC</string>
+<string name="facebook_app_id">1061649312182920</string>
+<string name="fb_login_protocol_scheme">fb1234</string>
+<string name="facebook_client_token">225893500538bd5a77eb5b5abec0d70b</string>
+</resources>

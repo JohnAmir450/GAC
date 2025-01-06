@@ -4,12 +4,25 @@ import 'package:gac/core/utils/app_text_styles.dart';
 class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final TextInputType? textInputType;
+  final int maxLines;
   final Widget? suffixIcon;
   final TextEditingController? controller;
+  final EdgeInsetsGeometry? contentPadding;
   final bool? isObscured;
   final void Function(String)? onChanged;
-  const CustomTextFormField(
-      {super.key, required this.hintText, this.textInputType, this.suffixIcon, this.onChanged, this.controller, this.isObscured});
+  final bool needsValidation;
+  const CustomTextFormField({
+    super.key,
+    required this.hintText,
+    this.textInputType,
+    this.suffixIcon,
+    this.onChanged,
+    this.controller,
+    this.isObscured,
+    this.maxLines = 1,
+    this.contentPadding,
+    this.needsValidation=true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +30,16 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       obscureText: isObscured ?? false,
       onChanged: onChanged,
-      validator:(value){
-        if(value==null || value.isEmpty){
+      validator:needsValidation? (value) {
+        if (value == null || value.isEmpty) {
           return 'هذا الحقل مطلوب';
         }
         return null;
-      } ,
+      }: null,
       keyboardType: textInputType ?? TextInputType.emailAddress,
       decoration: InputDecoration(
+        hintMaxLines: maxLines,
+        contentPadding: contentPadding,
         suffixIcon: suffixIcon,
         suffixIconColor: const Color(0xff949D9E),
         hintText: hintText,

@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
               locale: const Locale('ar'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoutes,
-        initialRoute:getRoute(),
+        initialRoute:Routes.onBoardingView,
       ),
     );
   }

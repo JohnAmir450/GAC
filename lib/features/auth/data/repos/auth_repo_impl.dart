@@ -23,7 +23,10 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword(
       {required String email,
       required String password,
-      required String name}) async {
+      required String name,
+      required String secondName,
+      required String phoneNumber
+      }) async {
     User? user;
     try {
       user = await firebaseAuthService.createUserWithEmailAndPassword(
@@ -35,9 +38,12 @@ class AuthRepoImpl implements AuthRepo {
       }
       var userEntity = UserEntity(
         name: name,
+        secondName: secondName,
+        phoneNumber: phoneNumber,
         email: email,
         uId: user.uid,
-        cartList: []
+        cartList: [],
+        userLocations: [],
       );
       await addUserData(userEntity: userEntity);
       await getUserData(uId: user.uid);
@@ -63,6 +69,7 @@ class AuthRepoImpl implements AuthRepo {
       var user = await firebaseAuthService.signInWithEmailAndPassword(
           email: email, password: password);
       var userEntity = await getUserData(uId: user.uid);
+      userEntity.cartList=[];
       await saveUserData(userEntity: userEntity);
       return Right(userEntity);
     } on CustomException catch (e) {
@@ -130,7 +137,7 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future addUserData({required UserEntity userEntity}) async {
-    await databaseService.addUserData(
+    await databaseService.addData(
         uId: userEntity.uId,
         path: BackendEndpoints.addUserData,
         data: UserModel.fromEntity(userEntity).toMap());

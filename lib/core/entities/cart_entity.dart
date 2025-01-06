@@ -10,8 +10,6 @@ final class CartEntity {
       
      });
 
-     num calculateTotalPrice() {  
-    return productEntity.price * quantity;
-  }
+   
  
 }

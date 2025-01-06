@@ -70,9 +70,17 @@ class Assets {
   /// assets/images/home.svg
   static const String assetsImagesHome = "assets/images/home.svg";
 
+  /// Assets for assetsImagesIllustrations
+  /// assets/images/Illustrations.svg
+  static const String assetsImagesIEmptyCart = "assets/images/Illustrations.svg";
+
   /// Assets for assetsImagesNotification
   /// assets/images/notification.svg
   static const String assetsImagesNotification = "assets/images/notification.svg";
+
+  /// Assets for assetsImagesOrderConfirmedSuccessfully
+  /// assets/images/order_confirmed_successfully.svg
+  static const String assetsImagesOrderConfirmedSuccessfully = "assets/images/order_confirmed_successfully.svg";
 
   /// Assets for assetsImagesOrganicPicture
   /// assets/images/organic_picture.svg

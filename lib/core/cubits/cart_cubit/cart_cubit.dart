@@ -42,7 +42,8 @@ class CartCubit extends Cubit<CartState> {
     }, (stream) {
       stream.distinct().listen((products) {
        
-        emit(CartCubitGetProductsSuccessState(products: products));
+        emit(CartCubitGetProductsSuccessState(products: products,
+          ));
       }, onError: (error) {
         emit(CartCubitGetProductsFailureState(errorMessage: error.toString()));
       });

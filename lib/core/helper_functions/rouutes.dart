@@ -5,5 +5,6 @@ class Routes{
   static const signUpView = '/signUpView';
   static const mainView = '/mainView';
   static const homeView = '/homeView';
-   static const productView = '/productView';
+  static const productView = '/productView';
+  static const checkoutView = '/checkoutView';
 }

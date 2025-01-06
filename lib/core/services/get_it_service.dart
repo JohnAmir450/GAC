@@ -1,5 +1,7 @@
 import 'package:gac/core/repos/cart_repo/cart_repo.dart';
 import 'package:gac/core/repos/cart_repo/cart_repo_impl.dart';
+import 'package:gac/core/repos/orders_repo/orders_repo.dart';
+import 'package:gac/core/repos/orders_repo/orders_repo_impl.dart';
 import 'package:gac/core/repos/products_repo/products_repo.dart';
 import 'package:gac/core/repos/products_repo/products_repo_impl.dart';
 import 'package:gac/core/services/database_service.dart';
@@ -31,6 +33,13 @@ void setupGetIt() {
 
    getIt.registerSingleton<CartRepo>(
     CartRepoImpl(
+      
+      databaseService: getIt<DatabaseService>(),
+    ),
+  );
+
+   getIt.registerSingleton<OrdersRepo>(
+    OrdersRepoImpl(
       
       databaseService: getIt<DatabaseService>(),
     ),

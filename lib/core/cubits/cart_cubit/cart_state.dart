@@ -7,8 +7,9 @@ final class CartCubitInitialState extends CartState {}
 
 final class CartCubitGetProductsSuccessState extends CartState {
   final List<CartEntity> products;
+
   
-  CartCubitGetProductsSuccessState({required this.products,});
+  CartCubitGetProductsSuccessState( {required this.products});
 }
 
 final class CartCubitGetProductsFailureState extends CartState {

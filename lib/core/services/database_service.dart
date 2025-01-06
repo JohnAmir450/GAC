@@ -1,5 +1,5 @@
 abstract class DatabaseService {
-  Future<void> addUserData({
+  Future<void> addData({
     required String path,
     String? uId,
     required Map<String, dynamic> data,
@@ -43,5 +43,6 @@ abstract class DatabaseService {
     required String productCode, // Unique product code to fetch price
   });
 
+Future<void> emptyCart({required String userId});
   // Stream<double> getProductPrice(String productCode);
 }

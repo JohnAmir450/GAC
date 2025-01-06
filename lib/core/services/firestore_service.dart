@@ -5,7 +5,7 @@ import 'package:gac/core/services/database_service.dart';
 class FireStoreService implements DatabaseService {
   FirebaseFirestore firesotre = FirebaseFirestore.instance;
   @override
-  Future<void> addUserData(
+  Future<void> addData(
       {required String path,
       String? uId,
       required Map<String, dynamic> data}) async {
@@ -198,6 +198,21 @@ Stream<double> getProductPriceStream({
     throw Exception('Error fetching product price stream: $e');
   }
 }
+@override
+Future<void> emptyCart({required String userId}) async {
+  try {
+    // Reference to the user document
+    final userRef = firesotre.collection('users').doc(userId);
+
+    // Update the cartList field to an empty list
+    await userRef.update({'cartList': []});
+
+    print('Cart has been emptied successfully for user: $userId');
+  } catch (e) {
+    throw CustomException(message: 'Failed to empty the cart: ${e.toString()}');
+  }
+}
+
 
 // @override
 // Stream<double> getProductPrice(String productCode) {

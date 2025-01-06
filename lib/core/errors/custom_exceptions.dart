@@ -66,7 +66,7 @@ String mapException(FirebaseAuthException e) {
       return 'تم إلغاء تسجيل الدخول إلى فيسبوك';
       
     default:
-      return 'حدث خطأ ما، حاول مرة اخرى';
+      return 'حدث خطاء ما، حاول مرة اخرى';
   }
 }
    

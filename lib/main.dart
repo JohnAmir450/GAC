@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +14,7 @@ import 'package:gac/core/utils/bloc_observer.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/firebase_options.dart';
 import 'package:gac/generated/l10n.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,11 @@ void main() async{
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
   setupGetIt();
+  
   runApp(const MyApp());
+ 
+  OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
+  OneSignal.Notifications.requestPermission(true);
 }
 
 class MyApp extends StatelessWidget {

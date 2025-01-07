@@ -10,6 +10,7 @@ import 'package:gac/features/checkout/presentation/views/widgets/checkout_steps.
 import 'package:gac/features/checkout/presentation/views/widgets/checkout_steps_page_view.dart';
 import 'package:gac/features/home/presentation/views/manager/add_order/orders_cubit.dart';
 
+
 class CheckoutViewBody extends StatefulWidget {
   const CheckoutViewBody({super.key});
 
@@ -21,7 +22,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   late PageController _pageController;
   int _currentStep = 0;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  ValueNotifier<AutovalidateMode> autoValidateMode = ValueNotifier(AutovalidateMode.disabled);
+  ValueNotifier<AutovalidateMode> autoValidateMode =
+      ValueNotifier(AutovalidateMode.disabled);
   @override
   void initState() {
     _pageController = PageController(initialPage: _currentStep);
@@ -56,7 +58,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Column(
       children: [
         CheckoutSteps(
@@ -66,7 +67,6 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         ),
         Expanded(
           child: CheckoutStepsPageView(
-            
             pageController: _pageController,
             formKey: _formKey,
             autoValidateMode: autoValidateMode,
@@ -74,18 +74,17 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         ),
         CustomButton(
             text: _currentStep == 2 ? "تأكيد الطلب" : "التالي",
-            onPressed: () {
+            onPressed: () async {
               if (_currentStep == 1) {
                 _handleAddressValidation();
-
-              }else if (_currentStep == 2) {
+              } else if (_currentStep == 2) {
                 var orderEntity = context.read<OrderEntity>();
-                context.read<OrdersCubit>().addOrder(orderEntity:orderEntity );
-                  saveUserLocationData(shippingAddressModel: ShippingAddressModel.fromEntity(orderEntity.shippingAddressEntity));
-              }
-              else{
-                 
+                context.read<OrdersCubit>().addOrder(orderEntity: orderEntity);
+                saveUserLocationData(
+                    shippingAddressModel: ShippingAddressModel.fromEntity(
+                        orderEntity.shippingAddressEntity));
                
+              } else {
                 _goToNextStep();
               }
             }),
@@ -94,15 +93,22 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   }
 
   void _handleAddressValidation() {
-    if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       _goToNextStep();
-      }else{
-        autoValidateMode.value = AutovalidateMode.always;
-      }
+    } else {
+      autoValidateMode.value = AutovalidateMode.always;
+    }
   }
-  Future saveUserLocationData({required ShippingAddressModel shippingAddressModel})async {
-    var userData = jsonEncode(ShippingAddressModel.fromEntity(context.read<OrderEntity>().shippingAddressEntity).toJson());
-    await CacheHelper.saveData(key: kSaveUserLocationKey, value: userData);
 
+  Future saveUserLocationData(
+      {required ShippingAddressModel shippingAddressModel}) async {
+    var userData = jsonEncode(ShippingAddressModel.fromEntity(
+            context.read<OrderEntity>().shippingAddressEntity)
+        .toJson());
+    await CacheHelper.saveData(key: kSaveUserLocationKey, value: userData);
   }
 }
+
+
+
+

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gac/core/helper_functions/extentions.dart';
+import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/widgets/custom_animated_loading_widget.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
@@ -17,7 +19,7 @@ class AddOrderCubitBlocBuilder extends StatelessWidget {
        if(state is AddOrderSuccessState){
          var orderID=context.read<OrderEntity>().orderId;
         showSnackBar(context, text: 'تم اضافة الطلب بنجاح');
-        Navigator.push(context, MaterialPageRoute(builder: (context) => OrderConfirmedSuccessfully(orderId:orderID)));
+        context.pushNamed(Routes.orderConfirmedSuccessfullyView,arguments: orderID);
        }else if (state is AddOrderFailureState){
         showSnackBar(context, text: state.errorMessage);
        }

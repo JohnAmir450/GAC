@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
+import 'package:gac/core/services/notidication_service.dart';
 import 'package:gac/core/utils/app_images.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
@@ -28,7 +29,9 @@ class OrderConfirmedSuccessfully extends StatelessWidget {
             verticalSpace(8),
             Text(' رقم الطلب : $orderId# ',style: TextStyles.semiBold16.copyWith(color: Color(0xff4E5556)),),
               Spacer(),
-            CustomButton(text: 'رجوع للصفحة الرئيسية',onPressed: (){
+            CustomButton(text: 'رجوع للصفحة الرئيسية',onPressed: ()async{
+            await   NotificationService().sendNotification(
+                    );
               context.pushNamed(Routes.mainView);
             },),
           ],),

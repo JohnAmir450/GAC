@@ -47,6 +47,7 @@ class _MainViewState extends State<MainView> {
         return const AllProductsView(); 
       case 2:
       return const CartView();
+
       default:
         return HomeView(onNavigateToAllProducts: navigateToAllProducts,);
     }

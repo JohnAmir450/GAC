@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gac/core/cubits/cart_cubit/cart_cubit.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/app_colors.dart';
-import 'package:gac/core/utils/app_images.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/features/home/presentation/views/widgets/cart_products_list.dart';
 import 'package:gac/features/home/presentation/views/widgets/custom_all_products_app_bar.dart';
+import 'package:gac/features/home/presentation/views/widgets/empty_cart_view_widget.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12),
       child: BlocConsumer<CartCubit, CartState>(
         listener: (context, state) {
@@ -36,65 +34,58 @@ class CartViewBody extends StatelessWidget {
         builder: (context, state) {
           if (state is CartCubitGetProductsSuccessState) {
             if (state.products.isNotEmpty) {
-              return Stack(
-                children: [
-                  Column(
-                    children: [
-                      const CustomApplicationAppBar(
-                        title: 'سلة التسوق',
-                        showNotificationIcon: false,
-                      ),
-                      verticalSpace(30),
-                      Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          color: const Color(0xffEBF9F1),
-                          child: Center(
-                            child: Text(
-                              'لديك ${state.products.length} منتجات في سلة التسوق',
-                              style: TextStyles.bold13,
-                            ),
-                          )),
-                      verticalSpace(30),
-                      CartProductsList(
-                        products: state.products,
-                      ),
-                    ],
+              return CustomScrollView(
+                slivers: [
+                  const SliverToBoxAdapter(
+                    child: CustomApplicationAppBar(
+                      title: 'سلة التسوق',
+                      showNotificationIcon: false,
+                    ),
                   ),
-                  Positioned(
-                      bottom: MediaQuery.sizeOf(context).height * 0.48,
-                      left: 8,
-                      right: 8,
-                      child: CustomButton(
-                        text:
-                            (' تأكيد الطلب : ${context.read<CartCubit>().getTotalPrice(state.products).toString()} جنيه'),
-                        onPressed: () {
-                        
-                          context.pushNamed(
-                            Routes.checkoutView,
-                            arguments: {
-                              'cartItems': state.products,
-                              'totalPrice': context
-                                  .read<CartCubit>()
-                                  .getTotalPrice(state.products),
-                            },
-                          );
-                        },
-                      ))
+                  SliverToBoxAdapter(
+                    child: verticalSpace(30),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      color: const Color(0xffEBF9F1),
+                      child: Center(
+                        child: Text(
+                          'لديك ${state.products.length} منتجات في سلة التسوق',
+                          style: TextStyles.bold13,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: verticalSpace(30),
+                  ),
+                  CartProductsList(products: state.products),
+                  SliverToBoxAdapter(
+                    child: verticalSpace(30),
+                  ),
+                  SliverToBoxAdapter(
+                    child: CustomButton(
+                      text:
+                          (' تأكيد الطلب : ${context.read<CartCubit>().getTotalPrice(state.products).toString()} جنيه'),
+                      onPressed: () {
+                        context.pushNamed(
+                          Routes.checkoutView,
+                          arguments: {
+                            'cartItems': state.products,
+                            'totalPrice': context
+                                .read<CartCubit>()
+                                .getTotalPrice(state.products),
+                          },
+                        );
+                      },
+                    ),
+                  ),
                 ],
               );
             } else {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  verticalSpace(50),
-                  Center(
-                      child: SvgPicture.asset(Assets.assetsImagesIEmptyCart)),
-                      const Text('لا يوجد منتجات في سلة التسوق',style: TextStyles.bold19,),
-                      verticalSpace(8),
-                      const Text('يمكنك اضافة منتجات من القائمة',style: TextStyles.semiBold16,)
-                ],
-              );
+              return const EmptyCartViewWidget();
             }
           } else if (state is CartCubitGetProductsFailureState) {
             return Center(child: Text(state.errorMessage));
@@ -108,6 +99,7 @@ class CartViewBody extends StatelessWidget {
           }
         },
       ),
-    ));
+    );
   }
 }
+

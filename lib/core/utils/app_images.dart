@@ -42,6 +42,10 @@ class Assets {
   /// assets/images/categories.svg
   static const String assetsImagesCategories = "assets/images/categories.svg";
 
+  /// Assets for assetsImagesEmptyCart
+  /// assets/images/empty_cart.svg
+  static const String assetsImagesEmptyCart = "assets/images/empty_cart.svg";
+
   /// Assets for assetsImagesFacebookIcon
   /// assets/images/facebook_icon.svg
   static const String assetsImagesFacebookIcon = "assets/images/facebook_icon.svg";
@@ -70,10 +74,6 @@ class Assets {
   /// assets/images/home.svg
   static const String assetsImagesHome = "assets/images/home.svg";
 
-  /// Assets for assetsImagesIllustrations
-  /// assets/images/Illustrations.svg
-  static const String assetsImagesIEmptyCart = "assets/images/Illustrations.svg";
-
   /// Assets for assetsImagesNotification
   /// assets/images/notification.svg
   static const String assetsImagesNotification = "assets/images/notification.svg";
@@ -93,6 +93,10 @@ class Assets {
   /// Assets for assetsImagesProductPageBackground
   /// assets/images/product_page_background.jpg
   static const String assetsImagesProductPageBackground = "assets/images/product_page_background.jpg";
+
+  /// Assets for assetsImagesProfilePicture
+  /// assets/images/profile_picture.png
+  static const String assetsImagesProfilePicture = "assets/images/profile_picture.png";
 
   /// Assets for assetsImagesShoppingCart
   /// assets/images/shopping_cart.svg

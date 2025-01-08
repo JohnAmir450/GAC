@@ -6,7 +6,7 @@ import 'package:gac/features/auth/domain/entities/user_entity.dart';
 class UserModel {
   final String name;
   final String secondName;
-  final String phoneNumber;
+   String phoneNumber;
   final String email;
   final String uId;
   List<CartModel> cartList;
@@ -90,5 +90,25 @@ class UserModel {
         uId: uId,
         cartList: cartList.map((e) => e.toEntity()).toList(),
         userLocations: userLocations?.map((e) => e.toEntity()).toList());
+  } 
+  
+   UserModel copyWith({
+    String? name,
+    String? secondName,
+    String? phoneNumber,
+    String? email,
+    String? uId,
+    List<CartModel>? cartList,
+    List<UserLocationsModel>? userLocations,
+  }) {
+    return UserModel(
+      name: name ?? this.name,
+      secondName: secondName ?? this.secondName,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      uId: uId ?? this.uId,
+      cartList: cartList ?? this.cartList,
+      userLocations: userLocations ?? this.userLocations,
+    );
   }
 }

@@ -54,10 +54,7 @@ class ProductViewBody extends StatelessWidget {
           title: '100%',
           subtitle: 'اورجانيك',
           trailing: SvgPicture.asset(Assets.assetsImagesOrganicPicture)),
-      ProductDetailedModel(
-          title: '${productEntity.numberOfCalories} كالوري',
-          subtitle: '100 جرام',
-          trailing: SvgPicture.asset(Assets.assetsImagesCaloriesPicture)),
+    
     ];
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {

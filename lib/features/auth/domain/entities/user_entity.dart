@@ -19,4 +19,24 @@ class UserEntity {
      required  this.cartList,
      this.userLocations
      });
+
+       UserEntity copyWith({
+    String? name,
+    String? secondName,
+    String? phoneNumber,
+    String? email,
+    String? uId,
+    List<CartEntity>? cartList,
+    List<UserLocationsEntity>? userLocations,
+  }) {
+    return UserEntity(
+      name: name ?? this.name,
+      secondName: secondName ?? this.secondName,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      email: email ?? this.email,
+      uId: uId ?? this.uId,
+      cartList: cartList ?? this.cartList,
+      userLocations: userLocations ?? this.userLocations,
+    );
+  }
 }

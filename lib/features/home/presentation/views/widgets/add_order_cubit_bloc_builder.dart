@@ -5,7 +5,6 @@ import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/widgets/custom_animated_loading_widget.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
-import 'package:gac/features/checkout/presentation/views/order_confirmed_successfully.dart';
 import 'package:gac/features/home/presentation/views/manager/add_order/orders_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 

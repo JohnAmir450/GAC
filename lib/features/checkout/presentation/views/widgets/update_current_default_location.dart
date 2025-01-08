@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
@@ -5,7 +7,9 @@ import 'package:gac/core/helper_functions/get_user_data.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_text_field.dart';
+import 'package:gac/features/auth/data/models/user_model.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
+import 'package:gac/features/home/presentation/views/manager/add_order/orders_cubit.dart';
 
 class UpdateCurrentDefaultLocation extends StatelessWidget {
   const UpdateCurrentDefaultLocation({
@@ -17,34 +21,35 @@ class UpdateCurrentDefaultLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool visibleUpdateAddressFields(){
-      if(CacheHelper.getData(key: kSaveUserLocationKey)==null){
+    bool visibleUpdateAddressFields() {
+      if (CacheHelper.getData(key: kSaveUserLocationKey) == null) {
         return true;
-      }else{
-        if(defaultLocation){
+      } else {
+        if (defaultLocation) {
           return false;
-        }else{
+        } else {
           return true;
         }
-      } 
-      
+      }
     }
+
     return Visibility(
       visible: visibleUpdateAddressFields(),
       child: Column(
         children: [
-      
           Visibility(
             visible: getUserData().phoneNumber.isEmpty,
             child: CustomTextFormField(
               needsValidation: true,
               textInputType: TextInputType.phone,
               onChanged: (value) {
-                
+           
+               
                 context
                     .read<OrderEntity>()
                     .shippingAddressEntity
                     .customerPhone = value;
+              
               },
               hintText: ' رقم الهاتف',
             ),
@@ -53,7 +58,6 @@ class UpdateCurrentDefaultLocation extends StatelessWidget {
           CustomTextFormField(
             needsValidation: true,
             onChanged: (value) {
-             
               context
                   .read<OrderEntity>()
                   .shippingAddressEntity
@@ -65,7 +69,6 @@ class UpdateCurrentDefaultLocation extends StatelessWidget {
           CustomTextFormField(
             needsValidation: true,
             onChanged: (value) {
-            
               context.read<OrderEntity>().shippingAddressEntity.customerCity =
                   value;
             },
@@ -75,7 +78,6 @@ class UpdateCurrentDefaultLocation extends StatelessWidget {
           CustomTextFormField(
             needsValidation: true,
             onChanged: (value) {
-            
               context
                   .read<OrderEntity>()
                   .shippingAddressEntity
@@ -85,9 +87,8 @@ class UpdateCurrentDefaultLocation extends StatelessWidget {
           ),
           verticalSpace(16),
           CustomTextFormField(
-            needsValidation:false,
+            needsValidation: false,
             onChanged: (value) {
-              
               context
                   .read<OrderEntity>()
                   .shippingAddressEntity

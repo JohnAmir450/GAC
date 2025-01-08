@@ -3,6 +3,7 @@ import 'package:gac/features/home/presentation/views/all_products_view.dart';
 import 'package:gac/features/home/presentation/views/cart_view.dart';
 import 'package:gac/features/home/presentation/views/home_view.dart';
 import 'package:gac/features/home/presentation/views/widgets/custom_button_navigation_bar.dart';
+import 'package:gac/features/user_account/presentation/views/user_account_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -35,6 +36,7 @@ class _MainViewState extends State<MainView> {
         HomeView(onNavigateToAllProducts: navigateToAllProducts,),
         const AllProductsView(),
         const CartView(),
+        const UserAccountView(),
     ],),
     );
   }
@@ -47,7 +49,8 @@ class _MainViewState extends State<MainView> {
         return const AllProductsView(); 
       case 2:
       return const CartView();
-
+      case 3: 
+      return const UserAccountView();
       default:
         return HomeView(onNavigateToAllProducts: navigateToAllProducts,);
     }

@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? isObscured;
   final void Function(String)? onChanged;
   final bool needsValidation;
+  final void Function(String)? onFieldSubmitted;
   const CustomTextFormField({
     super.key,
     required this.hintText,
@@ -22,11 +23,13 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines = 1,
     this.contentPadding,
     this.needsValidation=true,
+    this.onFieldSubmitted
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+    onFieldSubmitted: onFieldSubmitted,
       controller: controller,
       obscureText: isObscured ?? false,
       onChanged: onChanged,

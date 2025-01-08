@@ -12,29 +12,37 @@ class CartProductsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 1000,
-      child: ListView.separated(
-          itemBuilder: ((context, index) {
-            return Slidable(
-              endActionPane: ActionPane(motion: ScrollMotion(), children: [
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          if (index.isOdd) {
+          
+            return const Divider();
+          }
+         
+          final productIndex = index ~/ 2; // Actual product index
+          return Slidable(
+            endActionPane: ActionPane(
+              motion: const ScrollMotion(),
+              children: [
                 SlidableAction(
                   onPressed: (context) {
                     context.read<CartCubit>().removeCartItem(
-                        productCode: products[index].productEntity.code);
+                        productCode: products[productIndex].productEntity.code);
                   },
                   icon: Icons.delete,
                   label: 'حذف المنتج',
                   backgroundColor: Colors.red,
                 ),
-              ]),
-              child: CartItem(
-                cartEntity: products[index],
-              ),
-            );
-          }),
-          separatorBuilder: ((context, index) => Divider()),
-          itemCount: products.length),
+              ],
+            ),
+            child: CartItem(
+              cartEntity: products[productIndex],
+            ),
+          );
+        },
+        childCount: products.length * 2 - 1, 
+      ),
     );
   }
 }

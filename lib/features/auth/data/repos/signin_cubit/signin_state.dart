@@ -13,13 +13,14 @@ final class SignInSuccessState extends SignInState {
   SignInSuccessState({required this.userEntity});
 }
 
+
 final class SignInFailureState extends SignInState {
   final String message;
 
   SignInFailureState({required this.message});
 }
 final class SingInChangePasswordVisibility extends SignInState {}
-
+final class SingInAddPhoneNumberState extends SignInState {}
 
 final class SendEmailToResetPasswordSuccessState extends SignInState {}
 

@@ -9,6 +9,7 @@ class SignInCubit extends Cubit<SignInState> {
   final AuthRepo authRepo;
   SignInCubit(this.authRepo) : super(SignInInitial());
 final TextEditingController emailController = TextEditingController();
+final TextEditingController phoneNumberController = TextEditingController();
 final TextEditingController emailToResetPasswordController = TextEditingController();
 final GlobalKey<FormState> resetPasswordFormKey = GlobalKey<FormState>();
 final TextEditingController passwordController = TextEditingController();
@@ -39,7 +40,10 @@ Icon suffixIcon = const Icon(Icons.visibility);
     result.fold((failure) {
       emit(SignInFailureState(message: failure.message));
     }, (user) {
+     
       emit(SignInSuccessState(userEntity: user));
+      
+      // updateUserPhoneNumber(userId: user.uId, phoneNumber: phoneNumberController.text); 
     });
   }
 
@@ -61,4 +65,7 @@ Icon suffixIcon = const Icon(Icons.visibility);
       emit(SendEmailToResetPasswordSuccessState());
     });
   }
+ 
+
+
 }

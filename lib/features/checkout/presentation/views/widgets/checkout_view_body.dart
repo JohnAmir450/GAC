@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
@@ -77,6 +78,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             onPressed: () async {
               if (_currentStep == 1) {
                 _handleAddressValidation();
+                context.read<OrdersCubit>().updatePhoneNumberIfNeeded(context, context.read<OrderEntity>().shippingAddressEntity.customerPhone?? ' ');
               } else if (_currentStep == 2) {
                 var orderEntity = context.read<OrderEntity>();
                 context.read<OrdersCubit>().addOrder(orderEntity: orderEntity);

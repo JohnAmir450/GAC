@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gac/core/errors/custom_exceptions.dart';
@@ -84,6 +83,7 @@ class AuthRepoImpl implements AuthRepo {
     User? user;
     try {
       user = await firebaseAuthService.signInWithGoogle();
+     
       var userEntity = UserModel.fromFirebase(user).toEntity();
       var isUserExist = await databaseService.checkIfDataExist(
           path: BackendEndpoints.getUserData, uId: user.uid);
@@ -93,6 +93,7 @@ class AuthRepoImpl implements AuthRepo {
         await addUserData(userEntity: userEntity);
       }
       await saveUserData(userEntity: userEntity);
+    
       return Right(userEntity);
     } on CustomException catch (e) {
       if (user != null) {
@@ -167,4 +168,6 @@ class AuthRepoImpl implements AuthRepo {
       return left(ServerFailure(message: e.message));
     }
   }
+  
 }
+

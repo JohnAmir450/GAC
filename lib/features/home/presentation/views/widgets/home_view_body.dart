@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/cubits/products_cubit/products_cubit.dart';
+import 'package:gac/core/helper_functions/get_user_data.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/features/home/presentation/views/domain/entities/featured_items_entity.dart';
 import 'package:gac/features/home/presentation/views/widgets/best_selling_grid_view_bloc_builder.dart';
@@ -28,6 +29,7 @@ void initState() {
   }
   @override
   Widget build(BuildContext context) {
+   
     return CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
       SliverToBoxAdapter(
         child: Padding(

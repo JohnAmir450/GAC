@@ -28,6 +28,7 @@ void main() async{
   runApp(const MyApp());
  
   OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
+  
   OneSignal.Notifications.requestPermission(true);
 }
 

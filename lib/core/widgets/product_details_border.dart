@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/models/product_detailed_model.dart';
 import 'package:gac/core/utils/app_colors.dart';
-import 'package:gac/core/utils/app_images.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 
 class ProductDetailsBorder extends StatelessWidget {

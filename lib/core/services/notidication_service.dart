@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class NotificationService {
   String url='https://api.onesignal.com/notifications';
@@ -10,6 +11,8 @@ class NotificationService {
 
   Future<void> sendNotification() async {
   try {
+    var pushId= OneSignal.User.pushSubscription.id.toString();
+    print(pushId);
   var response=await http.post(Uri.parse(url,),headers: {
     'Content-Type': 'application/json',
     'Authorization': 'Basic $oneSignalRestApiKey'
@@ -18,7 +21,7 @@ class NotificationService {
     "contents": {
       "en": "يمكنك متابعة الطلب من صفحة الطلبات"
     },
-    "included_segments": ["Total Subscriptions"],
+    "include_player_ids": [pushId],
     "headings": {
       "en": "تم اضافة طلب جديد"
     },
@@ -36,4 +39,5 @@ class NotificationService {
 }
   
   }
+
   }

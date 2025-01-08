@@ -1,14 +1,16 @@
 import 'package:gac/features/checkout/data/models/shipping_address_model.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../domain/entities/checkout_product_details.dart';
 
 class OrderModel {
+   var pushId= OneSignal.User.pushSubscription.id.toString();
   final String uID;
   final String orderDate;
   final double totalPrice;
   final bool? payWithCash;
- 
+
   final String orderId;
   final ShippingAddressModel shippingAddressModel;
   final List<CheckoutProductDetails> checkoutProductDetailsList;
@@ -41,6 +43,7 @@ class OrderModel {
           'orderDate': orderDate,
           'totalPrice': totalPrice,
           'payWithCash': payWithCash,
+          'notificationId': pushId,
           'orderStatus': 'جاري التأكيد',
           'orderId': orderId,
          'shippingAddressModel': shippingAddressModel.toJson(),

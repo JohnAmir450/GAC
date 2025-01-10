@@ -8,4 +8,7 @@ class Routes{
   static const productView = '/productView';
   static const checkoutView = '/checkoutView';
   static const orderConfirmedSuccessfullyView = '/orderConfirmedSuccessfullyView';
+  static const userProfileView='/userProfileView';
+  static const userOrdersView='/userOrdersView';
+  static const updateUserShippingInformationView='/updateUserShippingInformationView';
 }

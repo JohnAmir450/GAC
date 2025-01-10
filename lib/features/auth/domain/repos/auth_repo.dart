@@ -26,5 +26,10 @@ abstract class AuthRepo {
   Future saveUserData({required UserEntity userEntity});
 
   Future<Either<Failure, void>> sendPasswordResetEmail({required String email});
- 
+ Future<Either<Failure, void>> updateUserData({required String uId,required String name,required String secondName, required String phoneNumber});
+
+ Future<Either<Failure, void>> signOut();
+ Future<Either<Failure,void>> deleteAccount({required String  uId});
+
+ Future<Either<Failure, void>> emptyCart({required String userId});
 }

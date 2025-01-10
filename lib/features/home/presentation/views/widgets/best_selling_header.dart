@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 
 class BestSellingHeader extends StatelessWidget {
-  const BestSellingHeader({super.key});
+   final VoidCallback onNavigateToAllProducts;
+  const BestSellingHeader({super.key, required this.onNavigateToAllProducts});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class BestSellingHeader extends StatelessWidget {
      
       GestureDetector(
         onTap: () {
-         // context.pushNamed(Routes.bestSellerView);
+        onNavigateToAllProducts();
         },
         child: Text(
           'المزيد',style: TextStyles.regular13.copyWith(color:const  Color(0xff949D9E)),

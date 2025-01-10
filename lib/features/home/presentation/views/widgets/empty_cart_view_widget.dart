@@ -4,11 +4,15 @@ import 'package:gac/core/utils/app_images.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
 
-class EmptyCartViewWidget extends StatelessWidget {
-  const EmptyCartViewWidget({
+class EmptyListViewWidget extends StatelessWidget {
+  const EmptyListViewWidget({
     super.key,
+    required this.title,
+    required this.subTitle,
   });
 
+  final String title;
+  final String subTitle;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,13 +20,13 @@ class EmptyCartViewWidget extends StatelessWidget {
       children: [
         verticalSpace(50),
         Center(child: SvgPicture.asset(Assets.assetsImagesEmptyCart)),
-        const Text(
-          'لا يوجد منتجات في سلة التسوق',
+        Text(
+          title,
           style: TextStyles.bold19,
         ),
         verticalSpace(8),
-        const Text(
-          'يمكنك اضافة منتجات من القائمة',
+         Text(
+          subTitle,
           style: TextStyles.semiBold16,
         ),
       ],

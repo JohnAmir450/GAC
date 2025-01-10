@@ -8,6 +8,8 @@ abstract class DatabaseService {
     required String path,
     String? documentId,
     Map<String, dynamic>? query,
+    String? filterValueEqualTo,
+    String? filterValue,
   });
 
   Future<bool> checkIfDataExist({
@@ -39,10 +41,11 @@ abstract class DatabaseService {
 
   Future<List<Map<String, dynamic>>> searchProducts(String searchText);
 
-   Stream<dynamic> getProductPriceStream({
+  Stream<dynamic> getProductPriceStream({
     required String productCode, // Unique product code to fetch price
   });
 
-Future<void> emptyCart({required String userId});
+  Future<void> emptyCart({required String userId});
   // Stream<double> getProductPrice(String productCode);
+  Future<void> deleteData({required String path, required String uId});
 }

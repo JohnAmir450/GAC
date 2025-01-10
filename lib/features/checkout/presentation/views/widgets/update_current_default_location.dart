@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
@@ -7,9 +5,7 @@ import 'package:gac/core/helper_functions/get_user_data.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_text_field.dart';
-import 'package:gac/features/auth/data/models/user_model.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
-import 'package:gac/features/home/presentation/views/manager/add_order/orders_cubit.dart';
 
 class UpdateCurrentDefaultLocation extends StatelessWidget {
   const UpdateCurrentDefaultLocation({
@@ -37,6 +33,7 @@ class UpdateCurrentDefaultLocation extends StatelessWidget {
       visible: visibleUpdateAddressFields(),
       child: Column(
         children: [
+          verticalSpace(24),
           Visibility(
             visible: getUserData().phoneNumber.isEmpty,
             child: CustomTextFormField(

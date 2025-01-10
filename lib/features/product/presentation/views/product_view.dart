@@ -81,6 +81,7 @@ class ProductViewBody extends StatelessWidget {
                       child: Image.network(
                     productEntity.imageUrl!,
                     height: 350,
+                    fit: BoxFit.contain, // Adjust the image scaling
                   )),
                 ),
                 Padding(
@@ -110,7 +111,11 @@ class ProductViewBody extends StatelessWidget {
                     children: [
                       Text(
                         productEntity.name,
-                        style: TextStyles.bold23,
+                        style: TextStyles.bold23.copyWith(
+                          fontSize: MediaQuery.of(context).size.width > 600
+                              ? 24
+                              : 22, // Adjust font size for larger screens
+                        ),
                       ),
                       verticalSpace(6),
                       GetProductStreamPrice(
@@ -123,12 +128,13 @@ class ProductViewBody extends StatelessWidget {
                       ),
                       verticalSpace(16),
                       SizedBox(
-                        height: MediaQuery.sizeOf(context).height * 0.2,
+                        height: MediaQuery.sizeOf(context).height * 0.15,
+
                         child: GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // 3 columns for larger screens
                                   childAspectRatio: 2.3 / 1,
                                   crossAxisSpacing: 6),
                           itemBuilder: (context, index) => ProductDetailsBorder(

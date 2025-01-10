@@ -76,4 +76,19 @@ Future<void> sendEmailToResetPassword({required String email}) async {
       throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
+   Future<void> signOut() async {
+    try {
+     
+      await FirebaseAuth.instance.signOut();
+
+    
+     await GoogleSignIn().signOut();
+
+      
+     await FacebookAuth.instance.logOut();
+    } catch (e) {
+      log('There was an exception while signing out: ${e.toString()}');
+      throw CustomException(message: 'Failed to log out. Please try again.');
+    }
+  }
 }

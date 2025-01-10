@@ -85,7 +85,10 @@ class CartViewBody extends StatelessWidget {
                 ],
               );
             } else {
-              return const EmptyCartViewWidget();
+              return  const EmptyListViewWidget(
+                title: 'لا يوجد منتجات في سلة التسوق',
+                subTitle: 'يمكنك اضافة منتجات من القائمة',
+              );
             }
           } else if (state is CartCubitGetProductsFailureState) {
             return Center(child: Text(state.errorMessage));

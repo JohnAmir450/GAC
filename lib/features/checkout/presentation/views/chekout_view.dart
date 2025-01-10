@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/entities/cart_entity.dart';
@@ -35,13 +36,12 @@ class _CheckoutViewState extends State<CheckoutView> {
   void initState() {
     Random random = Random();
     int randomOrderIdNumber = random.nextInt(111111) + 11111111;
-    DateTime now = DateTime.now();
-    String formattedDate =
-        '${now.year}/${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')}';
+   final DateTime now = DateTime.now();
+final Timestamp timestamp = Timestamp.fromDate(now);
     super.initState();
     orderEntity = OrderEntity(
       orderId: randomOrderIdNumber.toString(),
-      orderDate: formattedDate,
+      orderDate: timestamp,
       uID: getUserData().uId,
       cartItems: widget.cartItems,
       totalPrice: widget.totalPrice,

@@ -62,7 +62,7 @@ class UserModel {
       email: userEntity.email,
       uId: userEntity.uId,
       cartList:
-          userEntity.cartList.map((e) => CartModel.fromEntity(e)).toList(),
+          userEntity.cartList?.map((e) => CartModel.fromEntity(e)).toList() ??[],
       userLocations: userEntity.userLocations
           ?.map((e) => UserLocationsModel.fromEntity(e))
           .toList(),

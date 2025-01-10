@@ -11,6 +11,9 @@ import 'package:gac/features/checkout/presentation/views/order_confirmed_success
 import 'package:gac/features/home/presentation/views/main_view.dart';
 import 'package:gac/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:gac/features/product/presentation/views/product_view.dart';
+import 'package:gac/features/user_account/presentation/views/update_shipping_information_view.dart';
+import 'package:gac/features/user_account/presentation/views/user_orders_view.dart';
+import 'package:gac/features/user_account/presentation/views/update_user_profile_view.dart';
 import 'package:page_transition/page_transition.dart';
 
 Route onGenerateRoutes(RouteSettings settings) {
@@ -59,14 +62,29 @@ Route onGenerateRoutes(RouteSettings settings) {
             totalPrice: totalPrice,
           ),
           type: PageTransitionType.fade);
-          
+
     case Routes.orderConfirmedSuccessfullyView:
       var orderId = settings.arguments as String;
       return PageTransition(
           duration: const Duration(milliseconds: 50),
           child: OrderConfirmedSuccessfully(
-            orderId:orderId ,
+            orderId: orderId,
           ),
+          type: PageTransitionType.fade);
+    case Routes.userProfileView:
+      return PageTransition(
+          duration: const Duration(milliseconds: 50),
+          child: const UpdateUserProfileView(),
+          type: PageTransitionType.fade);
+    case Routes.updateUserShippingInformationView:
+      return PageTransition(
+          duration: const Duration(milliseconds: 50),
+          child: const UpdateShippingInformationView(),
+          type: PageTransitionType.fade);
+    case Routes.userOrdersView:
+      return PageTransition(
+          duration: const Duration(milliseconds: 50),
+          child: const UserOrdersView(),
           type: PageTransitionType.fade);
     default:
       var isLoggedIn = FirebaseAuthService().isLoggedIn();

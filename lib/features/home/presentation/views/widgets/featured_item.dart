@@ -31,7 +31,7 @@ class FeaturedItem extends StatelessWidget {
             child: Container(
                 width: MediaQuery.sizeOf(context).width * 0.4,
                 
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                   image: Svg(
                     Assets.assetsImagesFeaturedShape,

@@ -33,76 +33,63 @@ class ProductItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
-            child: Stack(
-              children: [
-                Column(children: [
-                  verticalSpace(16.h),
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        productEntity.imageUrl!,
-                        fit: BoxFit.cover,
-                      )),
-                  ListTile(
-                      title: Text(
-                        productEntity.name,
-                        style: TextStyles.bold16,
-                      ),
-                      subtitle: Text.rich(
+            child: Column(children: [
+              verticalSpace(16.h),
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    productEntity.imageUrl!,
+                    fit: BoxFit.cover,
+                  )),
+              ListTile(
+                  title: Text(
+                    productEntity.name,
+                    style: TextStyles.bold16,
+                  ),
+                  subtitle: Text.rich(
+                    TextSpan(
+                      children: [
                         TextSpan(
-                          children: [
-                            TextSpan(
-                                text: '${productEntity.price.toDouble()} جنيه/',
-                                style: TextStyles.bold13
-                                    .copyWith(color: AppColors.secondaryColor)),
-                            TextSpan(
-                              text: ' الكرتونة',
-                              style: TextStyles.semiBold13.copyWith(
-                                  color: AppColors.lightSecondaryColor),
-                            ),
-                          ],
+                            text: '${productEntity.price.toDouble()} جنيه/',
+                            style: TextStyles.bold13
+                                .copyWith(color: AppColors.secondaryColor)),
+                        TextSpan(
+                          text: ' الكرتونة',
+                          style: TextStyles.semiBold13.copyWith(
+                              color: AppColors.lightSecondaryColor),
                         ),
-                      ),
-                      trailing: BlocConsumer<CartCubit, CartState>(
-                        listener: (context, state) {
-                          if (state is AddToCartFailureState) {
-                            showSnackBar(context, text: state.errorMessage);
-                          }
-                          else if(state is AddToCartSuccessState){
-                            showSnackBar(context, text: 'تم اضافة المنتج للسلة بنجاح',color: AppColors.lightPrimaryColor);
-                          }
+                      ],
+                    ),
+                  ),
+                  trailing: BlocConsumer<CartCubit, CartState>(
+                    listener: (context, state) {
+                      if (state is AddToCartFailureState) {
+                        showSnackBar(context, text: state.errorMessage);
+                      }
+                      else if(state is AddToCartSuccessState){
+                        showSnackBar(context, text: 'تم اضافة المنتج للسلة بنجاح',color: AppColors.lightPrimaryColor);
+                      }
+                    },
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: () {
+                          context.read<CartCubit>().addToCart(
+                              cartModel: CartModel(
+                                  productModel: ProductModel.fromEntity(productEntity),
+                                  quantity: 1,
+                                  ));
                         },
-                        builder: (context, state) {
-                          return GestureDetector(
-                            onTap: () {
-                              context.read<CartCubit>().addToCart(
-                                  cartModel: CartModel(
-                                      productModel: ProductModel.fromEntity(productEntity),
-                                      quantity: 1,
-                                      ));
-                            },
-                            child: const CircleAvatar(
-                              backgroundColor: AppColors.primaryColor,
-                              child: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                            ),
-                          );
-                        },
-                      ))
-                ]),
-                IconButton(
-                    onPressed: () {},
-                    icon: const CircleAvatar(
-                      backgroundColor: AppColors.lightPrimaryColor,
-                      child: Icon(
-                        Icons.favorite_outline,
-                        color: Colors.white,
-                      ),
-                    )),
-              ],
-            )),
+                        child:  CircleAvatar(
+                          backgroundColor: AppColors.primaryColor,
+                          child: Icon(
+                          context.read<CartCubit>().productAddedToCart ? Icons.check :  Icons.add,
+                            color: Colors.white,
+                          ),
+                        ),
+                      );
+                    },
+                  ))
+            ])),
       ),
     );
   }

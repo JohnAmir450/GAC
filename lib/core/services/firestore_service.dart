@@ -1,48 +1,70 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gac/core/errors/custom_exceptions.dart';
 import 'package:gac/core/services/database_service.dart';
 
 class FireStoreService implements DatabaseService {
-  FirebaseFirestore firesotre = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   Future<void> addData(
       {required String path,
       String? uId,
       required Map<String, dynamic> data}) async {
     if (uId != null) {
-      await firesotre.collection(path).doc(uId).set(data);
+      await firestore.collection(path).doc(uId).set(data);
     } else {
-      await firesotre.collection(path).add(data);
+      await firestore.collection(path).add(data);
     }
   }
 
   @override
 Future<dynamic> getData({
-    required String path,
-    String? documentId,
-    Map<String, dynamic>? query,
-  }) async {
+  required String path,
+  String? documentId,
+  Map<String, dynamic>? query,
+  String? filterValueEqualTo,
+  String? filterValue, // Add this optional parameter for user-specific queries
+}) async {
+  try {
+    // If documentId is provided, fetch the document by its ID
     if (documentId != null) {
-      var data = await firesotre.collection(path).doc(documentId).get();
+      var data = await firestore.collection(path).doc(documentId).get();
       return data.data();
     } else {
-      Query<Map<String, dynamic>> data =  firesotre.collection(path);
+      // Query the collection
+      Query<Map<String, dynamic>> data = firestore.collection(path);
 
+      // If userId is provided, filter the query by userId (only for orders)
+      if (filterValueEqualTo != null &&filterValue != null) {
+        data = data.where(filterValue, isEqualTo: filterValueEqualTo);
+      }
+
+      // Apply additional query filters if provided
       if (query != null) {
-        if(query['orderBy']!=null){
-          var orderByField=query['orderBy'];
-          var descending=query['descending'];
-          data=data.orderBy(orderByField, descending: descending);
+        if (query['orderBy'] != null) {
+          var orderByField = query['orderBy'];
+          var descending = query['descending']??false;
+           log('Ordering by $orderByField, descending: $descending');
+          data = data.orderBy(orderByField, descending: descending);
         }
         if (query['limit'] != null) {
           var limit = query['limit'];
           data = data.limit(limit);
         }
       }
+
+      // Fetch the data from Firestore
       var result = await data.get();
+
+      // Return the fetched data
       return result.docs.map((e) => e.data()).toList();
     }
+  } catch (e) {
+    throw CustomException(message: 'Failed to fetch data: ${e.toString()}');
   }
+}
+
    @override
    Stream<List<Map<String, dynamic>>> getDataStream({
   required String path,
@@ -50,11 +72,11 @@ Future<dynamic> getData({
   String? field, // Add this parameter to specify a field to extract (e.g., "cartList")
   Map<String, dynamic>? query,
 }) {
-  Query<Map<String, dynamic>> data = firesotre.collection(path);
+  Query<Map<String, dynamic>> data = firestore.collection(path);
 
   if (documentId != null) {
     // Fetch specific document and check if field is specified
-    return firesotre.collection(path).doc(documentId).snapshots().map((snapshot) {
+    return firestore.collection(path).doc(documentId).snapshots().map((snapshot) {
       if (snapshot.exists && snapshot.data() != null) {
         if (field != null && snapshot.data()![field] != null) {
           // Extract the specified field (e.g., "cartList")
@@ -95,17 +117,17 @@ Future<dynamic> getData({
   @override
   Future<bool> checkIfDataExist(
       {required String path, required String uId}) async {
-    var data = await firesotre.collection(path).doc(uId).get();
+    var data = await firestore.collection(path).doc(uId).get();
     return data.exists;
   }
-
+@override
   Future<void> updateData({
     required String path,
     required String documentId,
     required Map<String, dynamic> data,
     })
   async {
-    await firesotre.collection(path).doc(documentId).update(data);
+    await firestore.collection(path).doc(documentId).update(data);
   }
    @override
   Future<List<String>> getDocumentIdsByField({
@@ -114,7 +136,7 @@ Future<dynamic> getData({
   required dynamic value,
 }) async {
   try {
-    final snapshot = await firesotre.collection(path).where(field, isEqualTo: value).get();
+    final snapshot = await firestore.collection(path).where(field, isEqualTo: value).get();
     return snapshot.docs.map((doc) => doc.id).toList();
   } catch (e) {
     throw CustomException(message: 'Failed to retrieve document ID by field: ${e.toString()}');
@@ -155,7 +177,7 @@ Future<void> removeItemFromCart({
 @override
 Future<List<Map<String, dynamic>>> searchProducts(String searchText) async {
   try {
-    final snapshot = await firesotre
+    final snapshot = await firestore
         .collection('products')
         .orderBy('name')
         .startAt([searchText])
@@ -174,7 +196,7 @@ Stream<double> getProductPriceStream({
 }) {
   try {
     // Query the products collection to get the product based on its productCode (UID)
-    final productPriceStream = firesotre
+    final productPriceStream = firestore
         .collection('products')
         .where('code', isEqualTo: productCode)
         .snapshots()
@@ -202,7 +224,7 @@ Stream<double> getProductPriceStream({
 Future<void> emptyCart({required String userId}) async {
   try {
     // Reference to the user document
-    final userRef = firesotre.collection('users').doc(userId);
+    final userRef = firestore.collection('users').doc(userId);
 
     // Update the cartList field to an empty list
     await userRef.update({'cartList': []});
@@ -212,7 +234,21 @@ Future<void> emptyCart({required String userId}) async {
     throw CustomException(message: 'Failed to empty the cart: ${e.toString()}');
   }
 }
+@override
+ Future<void> deleteData({required String path, required String uId}) async {
+    try {
+      // Construct the document reference
+      final documentReference = firestore.collection(path).doc(uId);
 
+      // Delete the document
+      await documentReference.delete();
+
+     
+    } catch (e) {
+     
+      throw CustomException(message: 'Failed to delete data. Please try again.');
+    }
+  }
 
 // @override
 // Stream<double> getProductPrice(String productCode) {

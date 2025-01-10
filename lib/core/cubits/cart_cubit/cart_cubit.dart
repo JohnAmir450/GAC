@@ -10,7 +10,7 @@ part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   final CartRepo cartRepo;
-
+  bool productAddedToCart=false;
   CartCubit(
     this.cartRepo,
   ) : super(CartCubitInitialState());
@@ -56,6 +56,7 @@ class CartCubit extends Cubit<CartState> {
     result.fold((failure) {
       emit(AddToCartFailureState(errorMessage: failure.message));
     }, (value) {
+      productAddedToCart=true;
       emit(AddToCartSuccessState());
     });
   }

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:gac/core/errors/failures.dart';
+import 'package:gac/features/checkout/data/models/order_model.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
 
 abstract class OrdersRepo{
@@ -10,5 +11,7 @@ abstract class OrdersRepo{
     required String phoneNumber,
   });
     Future<void> updateProductStock({required String productCode, required int quantitySold});
+
+    Future<Either<Failure, List<OrderModel>>> fetchUserOrders({required String userId, Map<String, dynamic>? query});
    
 } 

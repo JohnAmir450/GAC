@@ -7,7 +7,7 @@ class UserEntity {
   final String phoneNumber;
   final String email;
   final String uId;
-  List<CartEntity> cartList;
+  List<CartEntity>? cartList;
   List<UserLocationsEntity>? userLocations;
 
   UserEntity(
@@ -16,7 +16,7 @@ class UserEntity {
       required this.phoneNumber,
       required this.email,
       required this.uId,
-     required  this.cartList,
+       this.cartList,
      this.userLocations
      });
 

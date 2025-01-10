@@ -42,7 +42,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   void updatePhoneNumberIfNeeded(BuildContext context, String phoneNumber) {
     UserModel userData = getUserData();
 
-    if (userData.phoneNumber == null || userData.phoneNumber.isEmpty) {
+    if (userData.phoneNumber.isEmpty ) {
       context.read<OrdersCubit>().updateUserPhoneNumber(
             uId: userData.uId,
             phoneNumber: phoneNumber,

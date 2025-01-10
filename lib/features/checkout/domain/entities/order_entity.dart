@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gac/core/entities/cart_entity.dart';
 import 'package:gac/features/checkout/domain/entities/shiping_address_entity.dart';
 
 class OrderEntity {
   final String uID;
-  final String orderDate;
+  final Timestamp orderDate;
   final List<CartEntity> cartItems;
   final double totalPrice;
   final bool? payWithCash;

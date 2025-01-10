@@ -11,7 +11,8 @@ class OrdersRepoImpl implements OrdersRepo {
 
   OrdersRepoImpl({required this.databaseService});
   @override
-  Future<Either<Failure, void>> addOrder({required OrderEntity orderEntity}) async{
+  Future<Either<Failure, void>> addOrder(
+      {required OrderEntity orderEntity}) async {
     try {
       await databaseService.addData(
           path: BackendEndpoints.addOrders,
@@ -21,20 +22,19 @@ class OrdersRepoImpl implements OrdersRepo {
       return Left(ServerFailure(message: e.toString()));
     }
   }
-  
+
   @override
-  Future<Either<Failure, void>> emptyCart({required String userId}) async{
-    try{
-          await databaseService.emptyCart(userId: userId);
-    return const Right(null);
-    }
-    catch(e){
+  Future<Either<Failure, void>> emptyCart({required String userId}) async {
+    try {
+      await databaseService.emptyCart(userId: userId);
+      return const Right(null);
+    } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
-
   }
-@override
-   Future<Either<Failure, void>> updatePhoneNumber({
+
+  @override
+  Future<Either<Failure, void>> updatePhoneNumber({
     required String uId,
     required String phoneNumber,
   }) async {
@@ -45,32 +45,56 @@ class OrdersRepoImpl implements OrdersRepo {
         documentId: uId,
         data: {'phoneNumber': phoneNumber},
       );
-  
+
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure(message: 'Failed to update phone number.'));
     }
   }
- 
-  Future<void> updateProductStock({required String productCode, required int quantitySold}) async {
-  // Fetch the current stock of the product
-  var productData = await databaseService.getData(path: BackendEndpoints.getProducts, documentId: productCode);
 
-  if (productData != null) {
-    int currentStock = productData['productQuantity'] ?? 0;
+  @override
+  Future<void> updateProductStock(
+      {required String productCode, required int quantitySold}) async {
+    // Fetch the current stock of the product
+    var productData = await databaseService.getData(
+        path: BackendEndpoints.getProducts, documentId: productCode);
 
-    // Calculate the new stock
-    int updatedStock = currentStock - quantitySold;
+    if (productData != null) {
+      int currentStock = productData['productQuantity'] ?? 0;
 
-    // Update the stock in the database
-    await databaseService.updateData(
-      path: BackendEndpoints.getProducts,
-      documentId: productCode,
-      data: {'productQuantity': updatedStock},
-    );
-  } else {
-    throw Exception('Product not found');
+      // Calculate the new stock
+      int updatedStock = currentStock - quantitySold;
+
+      // Update the stock in the database
+      await databaseService.updateData(
+        path: BackendEndpoints.getProducts,
+        documentId: productCode,
+        data: {'productQuantity': updatedStock},
+      );
+    } else {
+      throw Exception('Product not found');
+    }
   }
-}
 
+  @override
+  Future<Either<Failure, List<OrderModel>>> fetchUserOrders(
+      {required String userId, Map<String, dynamic>? query}) async {
+    try {
+      // Fetch data from Firestore
+      List<Map<String, dynamic>> ordersData = await databaseService.getData(
+          path: BackendEndpoints.getOrders,
+          filterValue: 'uID',
+          filterValueEqualTo: userId,
+          query: query);
+
+      // Map the fetched data into OrderEntity list
+      List<OrderModel> orders =
+          ordersData.map((order) => OrderModel.fromJson(order)).toList();
+
+      return Right(orders);
+    } catch (e) {
+      // Return the failure if an error occurs
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
 }

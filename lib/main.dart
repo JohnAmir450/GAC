@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,10 +42,7 @@ class MyApp extends StatelessWidget {
      String getRoute(){
       bool isOnboardingViewed=CacheHelper.getData( key: kIsOnboardingViewKey,) ??false;
     var isLoggedIn = FirebaseAuthService().isLoggedIn();
-    var isLoggedInn=CacheHelper.getData( key: kSaveUserDataKey,) !=null ? true : false;
-    log('isLoggedIn: $isLoggedIn');
-    log('isOnboardingViewed: $isOnboardingViewed');
-    log('isLoggedInn: $isLoggedInn');
+    //var isLoggedInn=CacheHelper.getData( key: kSaveUserDataKey,) !=null ? true : false;
     if(isLoggedIn && isOnboardingViewed){
       return Routes.mainView;
     }else if(!isLoggedIn && isOnboardingViewed){
@@ -75,7 +72,7 @@ class MyApp extends StatelessWidget {
               locale: const Locale('ar'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoutes,
-        initialRoute:Routes.onBoardingView,
+        initialRoute:getRoute(),
       ),
     );
   }

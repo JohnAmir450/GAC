@@ -24,8 +24,7 @@ class AuthRepoImpl implements AuthRepo {
       required String password,
       required String name,
       required String secondName,
-      required String phoneNumber
-      }) async {
+      required String phoneNumber}) async {
     User? user;
     try {
       user = await firebaseAuthService.createUserWithEmailAndPassword(
@@ -68,7 +67,7 @@ class AuthRepoImpl implements AuthRepo {
       var user = await firebaseAuthService.signInWithEmailAndPassword(
           email: email, password: password);
       var userEntity = await getUserData(uId: user.uid);
-      userEntity.cartList=[];
+      userEntity.cartList = [];
       await saveUserData(userEntity: userEntity);
       return Right(userEntity);
     } on CustomException catch (e) {
@@ -78,7 +77,7 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-  @override
+   @override
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
     User? user;
     try {
@@ -88,13 +87,18 @@ class AuthRepoImpl implements AuthRepo {
       var isUserExist = await databaseService.checkIfDataExist(
           path: BackendEndpoints.getUserData, uId: user.uid);
       if (isUserExist) {
-        await getUserData(uId: user.uid);
+      var updateData=  await getUserData(uId: user.uid);
+
+        await saveUserData(userEntity: updateData);
+         return Right(updateData);
       } else {
         await addUserData(userEntity: userEntity);
+          await saveUserData(userEntity: userEntity);
+        return Right(userEntity);
       }
-      await saveUserData(userEntity: userEntity);
     
-      return Right(userEntity);
+    
+      
     } on CustomException catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
@@ -117,11 +121,18 @@ class AuthRepoImpl implements AuthRepo {
       var isUserExist = await databaseService.checkIfDataExist(
           path: BackendEndpoints.getUserData, uId: user.uid);
       if (isUserExist) {
-        await getUserData(uId: user.uid);
+        var updatedUserEntity = await getUserData(uId: user.uid);
+
+        // Save the fetched user data locally
+        await saveUserData(userEntity: updatedUserEntity);
       } else {
         await addUserData(userEntity: userEntity);
+
+        // Save the new user data locally
+        await saveUserData(userEntity: userEntity);
+
+        return Right(userEntity);
       }
-      await saveUserData(userEntity: userEntity);
       return Right(userEntity);
     } on CustomException catch (e) {
       if (user != null) {
@@ -148,7 +159,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<UserEntity> getUserData({required String uId}) async {
     var userData = await databaseService.getData(
         path: BackendEndpoints.getUserData, documentId: uId);
-        UserEntity userEntity = UserModel.fromJson(userData).toEntity();
+    UserEntity userEntity = UserModel.fromJson(userData).toEntity();
     return userEntity;
   }
 
@@ -168,6 +179,74 @@ class AuthRepoImpl implements AuthRepo {
       return left(ServerFailure(message: e.message));
     }
   }
-  
-}
 
+  @override
+  Future<Either<Failure, void>> updateUserData(
+      {required String uId,required String name,required String secondName, required String phoneNumber}) async {
+    try {
+      // Update user data in the database
+      await databaseService.updateData(
+        path: BackendEndpoints.addUserData,
+        documentId: uId,
+        data: {
+          'name': name,
+          'secondName': secondName,
+          'phoneNumber': phoneNumber
+        },
+      );
+
+      // Save updated user data to cache
+     
+
+      return const Right(null);
+    } on CustomException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(
+          message: 'An unexpected error occurred while updating user data.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> signOut() async {
+    try {
+      // Sign out the user
+      await firebaseAuthService.signOut();
+
+      // Remove cached user data
+      
+      // await CacheHelper.removeData(key: kSaveUserLocationKey);
+
+      return Right(null);
+    } on CustomException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    } catch (e) {
+      return Left(ServerFailure(
+          message: 'An unexpected error occurred while logging out.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteAccount({required String uId}) async {
+    try {
+      await firebaseAuthService.deleteUser();
+      await databaseService.deleteData(path: BackendEndpoints.getUserData, uId: uId);
+      await CacheHelper.removeData(key: kSaveUserDataKey);
+      await CacheHelper.removeData(key: kSaveUserLocationKey);
+      return const Right(null);
+    } on CustomException catch (e) {
+      return Left(ServerFailure(message: e.message));
+    }
+  }
+  @override
+  Future<Either<Failure, void>> emptyCart({required String userId}) async{
+    try{
+          await databaseService.emptyCart(userId: userId);
+    return const Right(null);
+    }
+    catch(e){
+      return Left(ServerFailure(message: e.toString()));
+    }
+
+  }
+}

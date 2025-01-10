@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gac/core/helper_functions/get_user_data.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
-import 'package:gac/features/checkout/data/models/shipping_address_model.dart';
-import 'package:gac/features/checkout/domain/entities/shiping_address_entity.dart';
 import 'package:gac/features/checkout/presentation/views/widgets/default_user_location.dart';
 import 'package:gac/features/checkout/presentation/views/widgets/update_current_default_location.dart';
 

@@ -20,13 +20,11 @@ class AddressInputSection extends StatefulWidget {
 
 class _AddressInputSectionState extends State<AddressInputSection> {
   late bool isDefaultLocation;
-  
+
   @override
   void initState() {
     isDefaultLocation = widget.defaultLocation;
-    
-    
-        
+
     super.initState();
   }
 

@@ -66,6 +66,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
               ),
               verticalSpace(16),
               CustomTextFormField(
+                textInputType: TextInputType.phone,
                 controller: cubit.phoneNumberController,
                 hintText: 'رقم الهاتف',
                 onChanged: (value) {
@@ -82,17 +83,22 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
                 },
               ),
               verticalSpace(MediaQuery.sizeOf(context).height * 0.1),
-              CustomButton(
-                  text: 'حفظ التغيرات',
-                  backgroundColor:
-                      cubit.hasChanges ? AppColors.primaryColor : Colors.grey,
-                  onPressed: () {
-                    if (cubit.formKey.currentState!.validate()) {
-                      if (cubit.hasChanges) {
-                        cubit.updateUserData();
-                      }
-                    }
-                  }),
+              BlocBuilder<AccountManagerCubit, AccountManagerState>(
+                builder: (context, state) {
+                  return CustomButton(
+                      text: 'حفظ التغيرات',
+                      backgroundColor: cubit.hasChanges
+                          ? AppColors.primaryColor
+                          : Colors.grey,
+                      onPressed: () {
+                        if (cubit.formKey.currentState!.validate()) {
+                          if (cubit.hasChanges) {
+                            cubit.updateUserData();
+                          }
+                        }
+                      });
+                },
+              ),
             ],
           ),
         ),

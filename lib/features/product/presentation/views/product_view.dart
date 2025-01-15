@@ -73,17 +73,17 @@ class ProductViewBody extends StatelessWidget {
               children: [
                 Image.asset(
                   Assets.assetsImagesProductPageBackground,
-                  fit: BoxFit.cover,
+                 // fit: BoxFit.cover,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 24.0),
-                  child: Center(
+                Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
                       child: Image.network(
-                    productEntity.imageUrl!,
-                    height: 350,
-                    fit: BoxFit.contain, // Adjust the image scaling
-                  )),
-                ),
+                                          productEntity.imageUrl!,
+                                         
+                                          fit: BoxFit.cover, // Adjust the image scaling
+                                        ),
+                    )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(

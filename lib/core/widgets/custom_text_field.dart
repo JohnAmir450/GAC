@@ -16,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? labelText;
   final String? initialValue;
   final bool  readOnly;
+  final void Function(String?)? onSaved;
   const CustomTextFormField({
     super.key,
     required this.hintText,
@@ -31,24 +32,26 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines = 1,
     this.contentPadding,
     this.needsValidation=true,
-    this.onFieldSubmitted
+    this.onFieldSubmitted, this.onSaved
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
     onFieldSubmitted: onFieldSubmitted,
       controller: controller,
       initialValue: initialValue,
+      onSaved:onSaved ,
       readOnly: readOnly,
       obscureText: isObscured ?? false,
       onChanged: onChanged,
-      validator:validator ?? (value) {
+      validator:needsValidation? validator ?? (value) {
         if (value == null || value.isEmpty) {
           return 'هذا الحقل مطلوب';
         }
         return null;
-      },
+      }:null,
       keyboardType: textInputType ?? TextInputType.emailAddress,
       decoration: InputDecoration(
         hintMaxLines: maxLines,

@@ -22,16 +22,17 @@ class UpdateUserProfileView extends StatelessWidget {
         onTap: () => context.pop(),
       ),
       body: BlocProvider(
-        create: (context) => AccountManagerCubit(getIt.get<AuthRepo>(),getIt.get<OrdersRepo>() ),
-        child: BlocConsumer<AccountManagerCubit,AccountManagerState>(
+        create: (context) =>
+            AccountManagerCubit(getIt.get<AuthRepo>(), getIt.get<OrdersRepo>()),
+        child: BlocListener<AccountManagerCubit, AccountManagerState>(
           listener: (context, state) {
-              if(state is AccountManagerUpdateUserDataSuccessState){
-                showSnackBar(context, text: 'تم التعديل البيانات بنجاح',color: AppColors.primaryColor);
-              }
+            if (state is AccountManagerUpdateUserDataSuccessState) {
+              showSnackBar(context,
+                  text: 'تم التعديل البيانات بنجاح',
+                  color: AppColors.primaryColor);
+            }
           },
-          builder: (context, state) {
-            return const UpdateUserProfileViewBody();
-          },
+          child: const UpdateUserProfileViewBody(),
         ),
       ),
     );

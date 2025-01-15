@@ -72,8 +72,8 @@ class ProductItem extends StatelessWidget {
                     },
                     builder: (context, state) {
                       return GestureDetector(
-                        onTap: () {
-                          context.read<CartCubit>().addToCart(
+                        onTap: () async{
+                        await  context.read<CartCubit>().addToCart(
                               cartModel: CartModel(
                                   productModel: ProductModel.fromEntity(productEntity),
                                   quantity: 1,

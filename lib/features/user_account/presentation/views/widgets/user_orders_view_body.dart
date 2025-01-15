@@ -15,7 +15,7 @@ class UserOrdersViewBody extends StatelessWidget {
         if (state is FetchUserOrdersLFailureState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-                content: Text('Failed to fetch orders: ${state.errorMessage}')),
+                content: Text('حدث خطا ما: ${state.errorMessage}')),
           );
         }
       },

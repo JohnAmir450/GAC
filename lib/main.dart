@@ -1,6 +1,6 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,19 +16,21 @@ import 'package:gac/firebase_options.dart';
 import 'package:gac/generated/l10n.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
+  
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
   setupGetIt();
-  
-  runApp(const MyApp());
- 
+
+  runApp(DevicePreview(
+    enabled: false,
+    builder: (context) => MyApp(),
+  ));
+
   OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
-  
+
   OneSignal.Notifications.requestPermission(true);
 }
 
@@ -37,28 +39,33 @@ class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.
   @override
-
   Widget build(BuildContext context) {
-     String getRoute(){
-      bool isOnboardingViewed=CacheHelper.getData( key: kIsOnboardingViewKey,) ??false;
-    var isLoggedIn = FirebaseAuthService().isLoggedIn();
-    //var isLoggedInn=CacheHelper.getData( key: kSaveUserDataKey,) !=null ? true : false;
-    if(isLoggedIn && isOnboardingViewed){
-      return Routes.mainView;
-    }else if(!isLoggedIn && isOnboardingViewed){
-      return Routes.loginView;
-    }else{
-      return Routes.onBoardingView;
-    }}
+    String getRoute() {
+      bool isOnboardingViewed = CacheHelper.getData(
+            key: kIsOnboardingViewKey,
+          ) ??
+          false;
+      var isLoggedIn = FirebaseAuthService().isLoggedIn();
+      //var isLoggedInn=CacheHelper.getData( key: kSaveUserDataKey,) !=null ? true : false;
+      if (isLoggedIn && isOnboardingViewed) {
+        return Routes.mainView;
+      } else if (!isLoggedIn && isOnboardingViewed) {
+        return Routes.loginView;
+      } else {
+        return Routes.onBoardingView;
+      }
+    }
+
     return ScreenUtilInit(
-      designSize:const Size(360, 800),
-       minTextAdapt: true,
+      designSize: const Size(360, 800),
+      minTextAdapt: true,
       child: MaterialApp(
+       // useInheritedMediaQuery: true,
+       // locale: DevicePreview.locale(context),
         title: 'الشركة العربية الخليجية',
         theme: ThemeData(
-          fontFamily:'Cairo',
-        scaffoldBackgroundColor: Colors.white,
-        
+          fontFamily: 'Cairo',
+          scaffoldBackgroundColor: Colors.white,
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
           useMaterial3: true,
         ),
@@ -69,10 +76,10 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-              locale: const Locale('ar'),
+        locale: const Locale('ar'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoutes,
-        initialRoute:getRoute(),
+        initialRoute: getRoute(),
       ),
     );
   }

@@ -96,6 +96,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
   void _handleAddressValidation() {
     if (_formKey.currentState!.validate()) {
+      
       _goToNextStep();
     } else {
       autoValidateMode.value = AutovalidateMode.always;

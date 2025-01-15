@@ -40,16 +40,19 @@ class _UserOrdersItemState extends State<UserOrdersItem> {
                 horizontalSpace(16),
                 MainOrderDetailsWidget(widget: widget, isWideScreen: isWideScreen),
                 const Spacer(),
-                IconButton(
-                  icon: isExpanded
-                      ? const Icon(Icons.arrow_drop_up)
-                      : const Icon(Icons.arrow_drop_down),
+                 IconButton(
+                  icon: Transform.rotate(
+                    angle: isExpanded
+                        ? 3.14*3/2
+                        :3.14/2 , 
+                    child: const Icon(Icons.arrow_back_ios,),
+                  ),
                   onPressed: () {
                     setState(() {
                       isExpanded = !isExpanded;
                     });
                   },
-                ),
+                )
               ],
             ),
             ExpandedProductDetailsWidget(

@@ -43,6 +43,20 @@ class CartRepoImpl implements CartRepo {
     required CartModel cartModel,
   }) async {
     try {
+      final productDoc = await databaseService.getData(
+        path: 'products',
+        documentId: cartModel.productModel.code,
+      );
+
+      // Check if the requested quantity exceeds the available stock
+      if (productDoc['productQuantity'] <= 0) {
+        return left(
+          ServerFailure(
+            message:
+                'الكمية المطلوبة غير متوفرة الآن، الكمية المتاحة هي: (${productDoc['productQuantity']}).',
+          ),
+        );
+      }
       // Create the new cart item
       final cartItem = CartModel(
         productModel: cartModel.productModel,
@@ -108,7 +122,7 @@ class CartRepoImpl implements CartRepo {
           );
 
           // Check if the requested quantity exceeds the available stock
-          if (productDoc['productQuantity'] < cartQuantity) {
+          if (productDoc['productQuantity'] < cartQuantity && cartQuantity > 0) {
             return left(
               ServerFailure(
                 message:

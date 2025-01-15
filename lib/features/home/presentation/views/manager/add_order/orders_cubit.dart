@@ -14,6 +14,11 @@ part 'orders_state.dart';
 class OrdersCubit extends Cubit<OrdersState> {
   OrdersCubit(this.ordersRepo) : super(AddOrderInitialState());
   final OrdersRepo ordersRepo;
+  bool governamentChanged=false;
+  void changed(){
+    governamentChanged=true;
+    emit(GovernmentChanged());
+  }
 
   void addOrder({required OrderEntity orderEntity}) async {
     emit(AddOrderLoadingState());

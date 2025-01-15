@@ -49,7 +49,7 @@ class ProductsRepoImpl extends ProductsRepo {
       {Map<String, dynamic>? query}) {
     try {
       final stream = databaseService
-          .getDataStream(path: BackendEndpoints.getProducts, query: query)
+          .getDataStream(path: BackendEndpoints.getProducts, query: query,)
           .map((data) {
         return data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
       });
@@ -60,34 +60,49 @@ class ProductsRepoImpl extends ProductsRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, void>> addToCart(
-      {required String userId, required CartModel cartModel}) async {
-    try {
-      final cartItem = CartModel(
-        productModel: ProductModel.fromEntity(cartModel.productModel.toEntity()),
-        quantity: 1,
-        
-      );
-      final path = '${BackendEndpoints.getUserData}/$userId';
-      final userRef = FirebaseFirestore.instance.doc(path);
+  // @override
+  // Future<Either<Failure, void>> addToCart(
+  //     {required String userId, required CartModel cartModel}) async {
+  //   try {
+  //     final productDoc = await databaseService.getData(
+  //       path: 'products',
+  //       documentId: cartModel.productModel.code,
+  //     );
 
-      // Update the cartList array in Firestore with FieldValue.arrayUnion
-      await userRef.update({
-        'cartList': FieldValue.arrayUnion([cartItem.toJson()])
-      });
-           return const Right(null);
+  //     // Check if the requested quantity exceeds the available stock
+  //     if (productDoc['productQuantity'] <= 0) {
+  //       return left(
+  //         ServerFailure(
+  //           message:
+  //               'الكمية المطلوبة غير متوفرة الآن، الكمية المتاحة هي: (${productDoc['productQuantity']}).',
+  //         ),
+  //       );
+  //     }
+  //     final cartItem = CartModel(
+  //       productModel:
+  //           ProductModel.fromEntity(cartModel.productModel.toEntity()),
+  //       quantity: 1,
+  //     );
+  //     final path = '${BackendEndpoints.getUserData}/$userId';
+  //     final userRef = FirebaseFirestore.instance.doc(path);
+
+  //     // Update the cartList array in Firestore with FieldValue.arrayUnion
+  //     await userRef.update({
+  //       'cartList': FieldValue.arrayUnion([cartItem.toJson()])
+  //     });
+  //     return const Right(null);
+  //   } catch (e) {
+  //     return Left(ServerFailure(message: e.toString()));
+  //   }
+  // }
+
+  @override
+  Future<List<ProductEntity>> searchProducts(String searchText) async {
+    try {
+      var data = await databaseService.searchProducts(searchText);
+      return data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      throw Exception('Failed to search products: ${e.toString()}');
     }
   }
-@override
-    Future<List<ProductEntity>> searchProducts(String searchText) async{
-      try {
-        var data = await databaseService.searchProducts(searchText);
-        return data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
-      } catch (e) {
-        throw Exception('Failed to search products: ${e.toString()}');
-      }
-    }
 }

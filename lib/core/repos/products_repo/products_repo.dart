@@ -10,6 +10,6 @@ abstract class ProductsRepo {
 
    Either<Failure, Stream<List<ProductEntity>>> getProductsStream({Map<String, dynamic>? query}) ;
 
-   Future<Either<Failure, void>> addToCart({required String userId, required CartModel cartModel});
+ //  Future<Either<Failure, void>> addToCart({required String userId, required CartModel cartModel});
  Future<List<ProductEntity>> searchProducts(String searchText);
 }

@@ -27,7 +27,7 @@ class ExpandedProductDetailsWidget extends StatelessWidget {
           children: [
             Text('تفاصيل الطلب :',
                 style: TextStyles.bold16
-                    .copyWith(fontSize: isWideScreen ? 18 : 16)),
+                    ),
             verticalSpace(8),
             ...widget.productDetails.map((product) {
               return Padding(

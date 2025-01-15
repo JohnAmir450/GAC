@@ -15,21 +15,23 @@ class EmptyListViewWidget extends StatelessWidget {
   final String subTitle;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        verticalSpace(50),
-        Center(child: SvgPicture.asset(Assets.assetsImagesEmptyCart)),
-        Text(
-          title,
-          style: TextStyles.bold19,
-        ),
-        verticalSpace(8),
-         Text(
-          subTitle,
-          style: TextStyles.semiBold16,
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          verticalSpace(50),
+          Center(child: SvgPicture.asset(Assets.assetsImagesEmptyCart)),
+          Text(
+            title,
+            style: TextStyles.bold19,
+          ),
+          verticalSpace(8),
+           Text(
+            subTitle,
+            style: TextStyles.semiBold16,
+          ),
+        ],
+      ),
     );
   }
 }

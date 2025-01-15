@@ -13,7 +13,6 @@ import 'package:gac/core/widgets/custom_text_field.dart';
 import 'package:gac/features/auth/data/repos/signin_cubit/signin_cubit.dart';
 import 'package:gac/features/auth/presentation/views/widgets/dont_have_an_account.dart';
 import 'package:gac/features/auth/presentation/views/widgets/or_divider.dart';
-
 import 'login_method_item.dart';
 
 class LoginViewBody extends StatelessWidget {

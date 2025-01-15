@@ -20,7 +20,7 @@ final String text;
           onNavigateToAllProducts();
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0,vertical: 2),
           child: Text(text,style: TextStyles.bold13.copyWith(color: AppColors.primaryColor),),
         ),
       ),

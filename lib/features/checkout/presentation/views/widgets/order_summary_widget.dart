@@ -16,7 +16,7 @@ class OrderSummaryWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+         Text(
           'ملخص الطلب : ',
           style: TextStyles.bold16,
         ),
@@ -33,7 +33,7 @@ class OrderSummaryWidget extends StatelessWidget {
           contentPadding: EdgeInsets.zero,
         ),
          ListTile(
-          title: const Text(
+          title:  Text(
             'التوصيل ',
             style: TextStyles.semiBold13,
           ),

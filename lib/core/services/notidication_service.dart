@@ -12,7 +12,7 @@ class NotificationService {
   Future<void> sendNotification() async {
   try {
     var pushId= OneSignal.User.pushSubscription.id.toString();
-    print(pushId);
+    
   var response=await http.post(Uri.parse(url,),headers: {
     'Content-Type': 'application/json',
     'Authorization': 'Basic $oneSignalRestApiKey'

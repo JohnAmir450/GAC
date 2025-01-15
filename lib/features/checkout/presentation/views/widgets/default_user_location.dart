@@ -15,7 +15,7 @@ class DefaultUserLocationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible:
-          CacheHelper.getData(key: kSaveUserLocationKey) == null ? false : true,
+          CacheHelper.getData(key: kSaveUserLocationKey) == null || getUserData().phoneNumber.isEmpty ? false : true,
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),

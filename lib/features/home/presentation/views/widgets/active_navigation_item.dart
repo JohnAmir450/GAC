@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
@@ -19,8 +20,8 @@ final String image,title;
         child: Row(
           children: [
             Container(
-              height: 30,
-              width: 30,
+              height: 30.h,
+              width: 30.w,
               padding: const EdgeInsets.all(5),
               decoration: ShapeDecoration(
                 color: const Color(0xff1B5E37),

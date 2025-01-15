@@ -9,6 +9,7 @@ import 'package:gac/features/auth/presentation/views/signup_view.dart';
 import 'package:gac/features/checkout/presentation/views/chekout_view.dart';
 import 'package:gac/features/checkout/presentation/views/order_confirmed_successfully.dart';
 import 'package:gac/features/home/presentation/views/main_view.dart';
+import 'package:gac/features/home/presentation/views/widgets/category_view.dart';
 import 'package:gac/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:gac/features/product/presentation/views/product_view.dart';
 import 'package:gac/features/user_account/presentation/views/update_shipping_information_view.dart';
@@ -50,7 +51,12 @@ Route onGenerateRoutes(RouteSettings settings) {
             productEntity: productEntity,
           ),
           type: PageTransitionType.fade);
-
+case Routes.categoryView:
+ var categoryName = settings.arguments as String;
+      return PageTransition(
+          duration: const Duration(milliseconds: 50),
+          child:  CategoryView(categoryName: categoryName,),
+          type: PageTransitionType.fade);
     case Routes.checkoutView:
       final args = settings.arguments as Map<String, dynamic>;
       final cartItems = args['cartItems'] as List<CartEntity>;

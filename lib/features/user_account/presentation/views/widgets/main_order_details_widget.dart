@@ -29,8 +29,8 @@ class MainOrderDetailsWidget extends StatelessWidget {
         verticalSpace(8),
         Text(
           'قيمة الطلب : ${widget.order.totalPrice} جنيه',
-          style: TextStyles.bold16
-              .copyWith(fontSize: isWideScreen ? 18 : 16),
+          style: TextStyles.bold13
+              .copyWith(fontSize: isWideScreen ? 15 : 13),
         ),
         verticalSpace(8),
         Text(

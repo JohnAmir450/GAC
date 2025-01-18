@@ -54,14 +54,18 @@ class ProductViewBody extends StatelessWidget {
           title: '100%',
           subtitle: 'اورجانيك',
           trailing: SvgPicture.asset(Assets.assetsImagesOrganicPicture)),
-    
     ];
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
-        if(state is AddToCartSuccessState){
-          showSnackBar(context, text: 'تم اضافة المنتج للسلة بنجاح',color: AppColors.lightPrimaryColor);
-        }else if (state is AddToCartFailureState){
-          showSnackBar(context, text: state.errorMessage, );
+        if (state is AddToCartSuccessState) {
+          showSnackBar(context,
+              text: 'تم اضافة المنتج للسلة بنجاح',
+              color: AppColors.lightPrimaryColor);
+        } else if (state is AddToCartFailureState) {
+          showSnackBar(
+            context,
+            text: state.errorMessage,
+          );
         }
       },
       child: SingleChildScrollView(
@@ -71,19 +75,16 @@ class ProductViewBody extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.asset(
-                  Assets.assetsImagesProductPageBackground,
-                 // fit: BoxFit.cover,
-                ),
+                //
                 Center(
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                                          productEntity.imageUrl!,
-                                         
-                                          fit: BoxFit.cover, // Adjust the image scaling
-                                        ),
-                    )),
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    productEntity.imageUrl!,
+                    height: MediaQuery.of(context).size.height * 0.47,
+                    fit: BoxFit.cover, // Adjust the image scaling
+                  ),
+                )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
@@ -129,12 +130,14 @@ class ProductViewBody extends StatelessWidget {
                       verticalSpace(16),
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.15,
-
                         child: GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // 3 columns for larger screens
+                                  crossAxisCount:
+                                      MediaQuery.of(context).size.width > 600
+                                          ? 3
+                                          : 2, // 3 columns for larger screens
                                   childAspectRatio: 2.3 / 1,
                                   crossAxisSpacing: 6),
                           itemBuilder: (context, index) => ProductDetailsBorder(
@@ -143,7 +146,7 @@ class ProductViewBody extends StatelessWidget {
                           itemCount: details.length,
                         ),
                       ),
-                      verticalSpace(16),
+                      verticalSpace(MediaQuery.of(context).size.height * 0.04),
                       CustomButton(
                           text: 'اضف الى السلة',
                           onPressed: () {

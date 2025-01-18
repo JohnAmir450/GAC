@@ -14,4 +14,5 @@ abstract class OrdersRepo{
 
     Future<Either<Failure, List<OrderModel>>> fetchUserOrders({required String userId, Map<String, dynamic>? query});
    
+Future<Either<Failure, void>> cancelOrder({required String orderNumber});
 } 

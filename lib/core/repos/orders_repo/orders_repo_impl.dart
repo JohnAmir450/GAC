@@ -15,8 +15,10 @@ class OrdersRepoImpl implements OrdersRepo {
       {required OrderEntity orderEntity}) async {
     try {
       await databaseService.addData(
+        uId: orderEntity.orderId,
           path: BackendEndpoints.addOrders,
           data: OrderModel.fromEntity(orderEntity).toJson());
+
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
@@ -97,4 +99,42 @@ class OrdersRepoImpl implements OrdersRepo {
       return Left(ServerFailure(message: e.toString()));
     }
   }
+ @override
+Future<Either<Failure, void>> cancelOrder({required String orderNumber}) async {
+  try {
+    // Query the database to find the order with the specified orderNumber
+    final List<Map<String, dynamic>> queryResult = await databaseService.getData(
+      path: BackendEndpoints.getOrders,
+      filterValue: 'orderId', // Adjust the filter key to match your data model
+      filterValueEqualTo: orderNumber,
+    );
+
+    // Check if an order with the given orderNumber exists
+    if (queryResult.isEmpty) {
+      return Left(ServerFailure(message: 'Order not found.'));
+    }
+
+    // Assuming orderNumber is unique, get the first matching document
+    final orderData = queryResult.first;
+    final documentId = orderData['orderId']; // Ensure your Firestore query includes the document ID
+
+    if (documentId == null) {
+      return Left(ServerFailure(message: 'Order document ID not found.'));
+    }
+
+    // Delete the order document using its documentId
+    await databaseService.deleteData(
+      path: BackendEndpoints.getOrders,
+      uId: documentId,
+    );
+
+    return const Right(null);
+    
+  } catch (e) {
+   
+    return Left(ServerFailure(message: e.toString()));
+  }
+}
+
+
 }

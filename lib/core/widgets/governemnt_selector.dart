@@ -7,10 +7,11 @@ void showGovernmentModal({
 }) {
   showModalBottomSheet(
     context: context,
-    shape: RoundedRectangleBorder(
+    shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
-    builder: (context) => ListView.builder(
+    builder: (context) => ListView.separated(
+      separatorBuilder: (context, index) => const Divider(indent: 20,endIndent: 20,),
       itemCount: options.length,
       itemBuilder: (context, index) {
         return ListTile(
@@ -25,12 +26,22 @@ void showGovernmentModal({
   );
 }
   final List<String> governorates = [
-    "القاهرة",
+    "غرب القاهرة",
+    "وسط وشرق القاهرة",
     "الجيزة",
+    "جنوب وغرب الجيزة",
     "الإسكندرية",
     "الدقهلية",
     "الشرقية",
     "الغربية",
+    "الفيوم",
+    "كفر الشيخ",
+    "بني سويف",
+    "المنوفية",
+    "البحيرة",
+    "القليوبية",
+    " دمياط",
+    "بورسعيد",
     "سوهاج",
     "أسيوط",
     "المنيا",

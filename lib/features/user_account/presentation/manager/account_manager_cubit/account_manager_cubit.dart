@@ -107,4 +107,13 @@ void changeProductDetailsVisibility() {
       showSnackBar(context, text: 'حدث خطأ في حفظ البيانات');
     }
   }
+    Future <void> cancelOrder(BuildContext context,{required String orderNumber})async{
+      try {
+  await ordersRepo.cancelOrder(orderNumber: orderNumber);
+        showSnackBar(context, text: 'تم الغاء الطلب بنجاح', color: AppColors.primaryColor);
+  await fetchUserOrders();
+}  catch (e) {
+      showSnackBar(context, text: 'حدث خطأ في الغاء الطلب');
+}
+    }
 }

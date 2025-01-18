@@ -7,7 +7,7 @@ import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/core/widgets/custom_text_field.dart';
 import 'package:gac/features/auth/data/sign_up_cubit/sign_up_cubit.dart';
 import 'package:gac/features/auth/presentation/views/widgets/already_have_an_account.dart';
-import 'package:gac/features/auth/presentation/views/widgets/terms_and_conditions_widget.dart';
+import 'package:gac/features/auth/presentation/views/widgets/show_terms_and_conditions_dialog.dart';
 
 class SignUpViewBody extends StatelessWidget {
   const SignUpViewBody({super.key});

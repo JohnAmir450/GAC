@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/core/helper_functions/get_user_data.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
+import 'package:gac/core/helper_functions/show_about_us_dialog.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
@@ -55,8 +56,14 @@ class UserAccountViewBody extends StatelessWidget {
                 }),
             verticalSpace(16),
             const Text('مساعدة'),
-            const UserAccountListTileItem(
-                text: 'من نحن', icon: Icons.error_outline),
+            GestureDetector(
+            onTap: (){
+              showAboutUsDialog( context);
+            },  
+            
+              child: const UserAccountListTileItem(
+                  text: 'من نحن', icon: Icons.error_outline),
+            ),
             verticalSpace(MediaQuery.sizeOf(context).height * 0.1),
             CustomButton(
               text: 'تسجيل الخروج',

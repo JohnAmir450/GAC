@@ -20,13 +20,14 @@ class UserOrdersView extends StatelessWidget {
         onTap: () => context.pop(),
       ),
       body: BlocProvider(
-        create: (context) => AccountManagerCubit(getIt.get<AuthRepo>(),getIt.get<OrdersRepo>())..fetchUserOrders(query: {
-           'orderBy': 'orderDate',
-           'descending': true,
-          'limit': 15,
-         
-          
-        }),
+        create: (context) =>
+            AccountManagerCubit(getIt.get<AuthRepo>(), getIt.get<OrdersRepo>())
+              ..fetchUserOrders(query: {
+                
+                'orderBy': 'orderDate',
+                'descending': true,
+               
+              }),
         child: const UserOrdersViewBody(),
       ),
     );

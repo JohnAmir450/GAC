@@ -11,64 +11,79 @@ class FirebaseAuthService {
     try {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-     await credential.user?.sendEmailVerification();
+      await credential.user?.sendEmailVerification();
       return credential.user!;
     } on FirebaseAuthException catch (e) {
       throw CustomException(message: mapException(e));
-    }catch (e){
-    log('there was an Exception from Firebase Auth Service: ${e.toString()}');
-    throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
+    } catch (e) {
+      log('there was an Exception from Firebase Auth Service: ${e.toString()}');
+      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
+    }
   }
-}
-Future<User> signInWithEmailAndPassword({required String email, required String password}) async {
-  try {
-    final credential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
-    return credential.user!;
-  } on FirebaseAuthException catch (e) {
-    throw CustomException(message: mapException(e));
-  }catch (e){
-    log('there was an Exception from Firebase Auth Service: ${e.toString()}');
-    throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
+
+  Future<User> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      return credential.user!;
+    } on FirebaseAuthException catch (e) {
+      throw CustomException(message: mapException(e));
+    } catch (e) {
+      log('there was an Exception from Firebase Auth Service: ${e.toString()}');
+      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
+    }
   }
-  }
+
   Future<User> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      return (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
+      return (await FirebaseAuth.instance.signInWithCredential(credential))
+          .user!;
     } on FirebaseAuthException catch (e) {
-      throw CustomException(message: mapException(e));
-    }catch (e){
+      throw CustomException(message: e.toString());
+    } catch (e) {
       log('there was an Exception from Firebase Auth google Service: ${e.toString()}');
-      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
+      print(
+          'there was an Exception from Firebase Auth google Service: ${e.toString()}');
+      throw CustomException(message: e.toString());
     }
   }
 
   Future<User> signInWithFacebook() async {
     try {
       final LoginResult result = await FacebookAuth.instance.login();
-      final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken!.tokenString);
-      return (await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential)).user!;
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(result.accessToken!.tokenString);
+      return (await FirebaseAuth.instance
+              .signInWithCredential(facebookAuthCredential))
+          .user!;
     } on FirebaseAuthException catch (e) {
       throw CustomException(message: mapException(e));
-    }catch (e){
+    } catch (e) {
+      print(
+          'there was an Exception from Firebase Auth google Service: ${e.toString()}');
+
       log('there was an Exception from Firebase Auth facebook Service: ${e.toString()}');
-      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
+      throw CustomException(message: e.toString());
     }
   }
 
-  Future deleteUser() async { 
-      await FirebaseAuth.instance.currentUser!.delete();
+  Future deleteUser() async {
+    await FirebaseAuth.instance.currentUser!.delete();
   }
-  bool isLoggedIn(){
-  return FirebaseAuth.instance.currentUser!=null;
-}
-Future<void> sendEmailToResetPassword({required String email}) async {
+
+  bool isLoggedIn() {
+    return FirebaseAuth.instance.currentUser != null;
+  }
+
+  Future<void> sendEmailToResetPassword({required String email}) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } catch (e) {
@@ -76,16 +91,14 @@ Future<void> sendEmailToResetPassword({required String email}) async {
       throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
-   Future<void> signOut() async {
+
+  Future<void> signOut() async {
     try {
-     
       await FirebaseAuth.instance.signOut();
 
-    
-     await GoogleSignIn().signOut();
+      await GoogleSignIn().signOut();
 
-      
-     await FacebookAuth.instance.logOut();
+      await FacebookAuth.instance.logOut();
     } catch (e) {
       log('There was an exception while signing out: ${e.toString()}');
       throw CustomException(message: 'Failed to log out. Please try again.');

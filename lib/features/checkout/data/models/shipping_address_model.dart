@@ -58,4 +58,15 @@ class ShippingAddressModel {
       'customerLocationDescription': customerLocationDescription
     };
   }
+   ShippingAddressEntity toEntity(){
+    return ShippingAddressEntity(
+      customerName: customerName,
+      customerPhone: customerPhone,
+      customerEmail: customerEmail,
+      customerGovernment: customerGovernment,
+      customerCity: customerCity,
+      customerStreetName: customerStreetName,
+      customerLocationDescription: customerLocationDescription
+    );
+  }
 }

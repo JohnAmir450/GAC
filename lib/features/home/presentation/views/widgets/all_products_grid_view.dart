@@ -11,7 +11,7 @@ final List<ProductEntity>products;
      
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.52
+        childAspectRatio: 0.5
         
       ),
       itemCount: products.length,

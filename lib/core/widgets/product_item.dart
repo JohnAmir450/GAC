@@ -13,6 +13,7 @@ import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/utils/spacing.dart';
+import 'package:gac/core/widgets/custom_cached_network_image.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductEntity productEntity;
@@ -35,12 +36,8 @@ class ProductItem extends StatelessWidget {
             ),
             child: Column(children: [
               verticalSpace(16.h),
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.network(
-                    productEntity.imageUrl!,
-                    fit: BoxFit.cover,
-                  )),
+              CustomCachedNetworkImageWidget(
+                  imageUrl: productEntity.imageUrl!, borderRadius: 16),
               ListTile(
                   title: Text(
                     productEntity.name,
@@ -55,8 +52,8 @@ class ProductItem extends StatelessWidget {
                                 .copyWith(color: AppColors.secondaryColor)),
                         TextSpan(
                           text: ' الكرتونة',
-                          style: TextStyles.semiBold13.copyWith(
-                              color: AppColors.lightSecondaryColor),
+                          style: TextStyles.semiBold13
+                              .copyWith(color: AppColors.lightSecondaryColor),
                         ),
                       ],
                     ),
@@ -65,24 +62,28 @@ class ProductItem extends StatelessWidget {
                     listener: (context, state) {
                       if (state is AddToCartFailureState) {
                         showSnackBar(context, text: state.errorMessage);
-                      }
-                      else if(state is AddToCartSuccessState){
-                        showSnackBar(context, text: 'تم اضافة المنتج للسلة بنجاح',color: AppColors.lightPrimaryColor);
+                      } else if (state is AddToCartSuccessState) {
+                        showSnackBar(context,
+                            text: 'تم اضافة المنتج للسلة بنجاح',
+                            color: AppColors.lightPrimaryColor);
                       }
                     },
                     builder: (context, state) {
                       return GestureDetector(
-                        onTap: () async{
-                        await  context.read<CartCubit>().addToCart(
-                              cartModel: CartModel(
-                                  productModel: ProductModel.fromEntity(productEntity),
-                                  quantity: 1,
-                                  ));
+                        onTap: () async {
+                          await context.read<CartCubit>().addToCart(
+                                  cartModel: CartModel(
+                                productModel:
+                                    ProductModel.fromEntity(productEntity),
+                                quantity: 1,
+                              ));
                         },
-                        child:  CircleAvatar(
+                        child: CircleAvatar(
                           backgroundColor: AppColors.primaryColor,
                           child: Icon(
-                          context.read<CartCubit>().productAddedToCart ? Icons.check :  Icons.add,
+                            context.read<CartCubit>().productAddedToCart
+                                ? Icons.check
+                                : Icons.add,
                             color: Colors.white,
                           ),
                         ),

@@ -14,27 +14,29 @@ class CustomUserAccountViewHeader extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          radius: MediaQuery.sizeOf(context).width * 0.07, 
+          radius: MediaQuery.sizeOf(context).width * 0.08, 
           backgroundImage: const AssetImage(Assets.assetsImagesProfilePicture),
         ),
         horizontalSpace(12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              getUserData().name,
-              style: TextStyles.bold16.copyWith(),
-            ),
-            verticalSpace(2),
-            Text(
-              
-              getUserData().email,
-              style: TextStyles.regular16.copyWith(
-                color: const Color(0xff949D9E),
-              ),maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                getUserData().name,
+                style: TextStyles.bold16.copyWith(),
+              ),
+              verticalSpace(2),
+              Text(
+                
+                getUserData().email,
+                style: TextStyles.regular16.copyWith(
+                  color: const Color(0xff949D9E),
+                ),maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ],
     );

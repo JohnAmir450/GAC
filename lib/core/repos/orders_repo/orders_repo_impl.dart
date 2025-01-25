@@ -4,6 +4,7 @@ import 'package:gac/core/repos/orders_repo/orders_repo.dart';
 import 'package:gac/core/services/database_service.dart';
 import 'package:gac/core/utils/backend_endpoints.dart';
 import 'package:gac/features/checkout/data/models/order_model.dart';
+import 'package:gac/features/checkout/domain/entities/checkout_product_details.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
 
 class OrdersRepoImpl implements OrdersRepo {
@@ -136,5 +137,56 @@ Future<Either<Failure, void>> cancelOrder({required String orderNumber}) async {
   }
 }
 
+  @override
+  Future<Either<Failure, void>> updateProductQuantityIfCancelled({
+    required String orderId,
+    required List<CheckoutProductDetails> products,
+  }) async {
+    try {
+      // Fetch the order document
+      final orderData = await databaseService.getData(
+        path: BackendEndpoints.getOrders,
+        documentId: orderId,
+      );
 
+      if (orderData != null) {
+        // Extract the product details list from the order
+        final List<dynamic> productList =
+            orderData['checkoutProductDetailsList'] ?? [];
+
+        for (final product in productList) {
+          final String productCode = product['code'];
+          final int cancelledQuantity = product['quantity'] ?? 0;
+
+          // Skip if cancelledQuantity is zero or invalid
+          if (cancelledQuantity <= 0) continue;
+
+          // Fetch the product document from the 'products' collection
+          final productData = await databaseService.getData(
+            path: BackendEndpoints.getProducts,
+            documentId: productCode,
+          );
+
+          if (productData != null) {
+            // Get the current quantity of the product
+            final int currentQuantity = productData['productQuantity'] ?? 0;
+
+            // Update the product's quantity by adding the cancelled quantity
+            await databaseService.updateData(
+              path: BackendEndpoints.getProducts,
+              documentId: productCode,
+              data: {
+                'productQuantity': currentQuantity + cancelledQuantity,
+              },
+            );
+          }
+        }
+      }
+
+      return const Right(null);
+    } catch (e) {
+      print('Error updating product quantity: $e');
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
 }

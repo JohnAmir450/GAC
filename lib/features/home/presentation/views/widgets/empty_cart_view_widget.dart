@@ -23,11 +23,13 @@ class EmptyListViewWidget extends StatelessWidget {
           Center(child: SvgPicture.asset(Assets.assetsImagesEmptyCart)),
           Text(
             title,
+            textAlign: TextAlign.center,
             style: TextStyles.bold19,
           ),
           verticalSpace(8),
            Text(
             subTitle,
+            textAlign: TextAlign.center,
             style: TextStyles.semiBold16,
           ),
         ],

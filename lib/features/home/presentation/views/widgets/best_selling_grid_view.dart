@@ -10,7 +10,7 @@ final List<ProductEntity>products;
     return SliverGrid.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-         childAspectRatio:  0.50,
+         childAspectRatio:  0.49,
       ),
       itemCount: products.length,
       itemBuilder: (context, index) =>   Padding(

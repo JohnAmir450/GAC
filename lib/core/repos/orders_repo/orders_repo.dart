@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:gac/core/errors/failures.dart';
 import 'package:gac/features/checkout/data/models/order_model.dart';
+import 'package:gac/features/checkout/domain/entities/checkout_product_details.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
 
 abstract class OrdersRepo{
@@ -15,4 +16,8 @@ abstract class OrdersRepo{
     Future<Either<Failure, List<OrderModel>>> fetchUserOrders({required String userId, Map<String, dynamic>? query});
    
 Future<Either<Failure, void>> cancelOrder({required String orderNumber});
+ Future<Either<Failure, void>> updateProductQuantityIfCancelled({
+    required String orderId,
+    required List<CheckoutProductDetails> products,
+  });
 } 

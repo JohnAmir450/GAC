@@ -15,7 +15,7 @@ void showGovernmentModal({
       itemCount: options.length,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(options[index]),
+          title: Center(child: Text(options[index])),
           onTap: () {
             onSelected(options[index]);
             Navigator.pop(context); // Close the modal sheet

@@ -45,7 +45,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       if (failure.message=='الرجاء تفعيل الحساب من خلال البريد الالكتروني') {
         emit(SignUpVerificationSentState());
           
-          verificationTimer = Timer.periodic(const Duration(seconds: 2), (timer) async {
+          verificationTimer = Timer.periodic(const Duration(seconds: 5), (timer) async {
             final currentUser =  FirebaseAuth.instance.currentUser;
             await currentUser?.reload();
             if (currentUser?.emailVerified ?? false) {
@@ -64,7 +64,7 @@ class SignUpCubit extends Cubit<SignUpState> {
               emit(SignUpSuccessState(userEntity: userEntity));
               
               await close();
-            } if (timer.tick > 15) { // Example: 2 minutes
+            } if (timer.tick > 48) { // Example: 2 minutes
               await currentUser?.delete();
               verificationTimer?.cancel();
               emit(SignUpFailureState(message: 'انتهت صلاحيةالتحقق من البريد الالكتروني، حاول مرة اخرى!'));

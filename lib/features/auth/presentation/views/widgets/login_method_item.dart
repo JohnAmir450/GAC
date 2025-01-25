@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,7 +36,7 @@ final void Function()? onTap;
             Text(
               text,
               textAlign: TextAlign.center,
-              style: TextStyles.bold16,
+              style: TextStyles.bold13,
             ),
             Spacer() //Text('تسجيل الدخول بواسطة جوجل',textAlign: TextAlign.center,)
           ],

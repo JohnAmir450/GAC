@@ -91,7 +91,7 @@ Stream<double> getProductPriceStream(String productCode) {
   for (var product in products) {
     totalPrice += product.productEntity.price * product.quantity;
   }
-  return totalPrice;
+  return totalPrice.roundToDouble();
 }
 
 

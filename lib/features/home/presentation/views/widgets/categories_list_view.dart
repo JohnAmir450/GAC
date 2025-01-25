@@ -24,6 +24,6 @@ class CategoriesListView extends StatelessWidget {
       ),
     );
   }
-  final List<String> categories=const['روابي','ماليزي','الدوار','شيف','تبارك','تيشيرت','تيشيرت','النتاج'];
+  final List<String> categories=const['روابي','ماليزي','الدوار','شيف','تبارك',];
 
 }

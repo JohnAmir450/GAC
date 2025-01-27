@@ -8,6 +8,14 @@ part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   final ProductsRepo productsRepo;
+    List<String> categories =const[
+    'شيف',
+    'تبارك',
+    'ماليزي',
+    'شروق',
+    'سماسم',
+    'الدوار',
+  ];
   ProductsCubit(this.productsRepo) : super(ProductsInitialState());
   int productQuantity = 1;
   int productLength = 0;

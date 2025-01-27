@@ -6,7 +6,6 @@ import 'package:gac/core/services/firebase_auth_service.dart';
 import 'package:gac/features/auth/presentation/views/login_view.dart';
 import 'package:gac/features/auth/presentation/views/reset_password_view.dart';
 import 'package:gac/features/auth/presentation/views/signup_view.dart';
-import 'package:gac/features/checkout/domain/entities/checkout_product_details.dart';
 import 'package:gac/features/checkout/presentation/views/chekout_view.dart';
 import 'package:gac/features/checkout/presentation/views/order_confirmed_successfully.dart';
 import 'package:gac/features/home/presentation/views/main_view.dart';

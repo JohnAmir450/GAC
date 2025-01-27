@@ -9,6 +9,7 @@ import 'package:gac/core/models/product_model.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
+import 'package:gac/core/widgets/custom_cached_network_image.dart';
 import 'package:gac/core/widgets/get_products_stream_price.dart';
 import 'package:gac/core/widgets/product_details_border.dart';
 
@@ -33,13 +34,11 @@ class ProductViewItemDetails extends StatelessWidget {
           children: [
             //
             Center(
-                child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.network(
-                productEntity.imageUrl!,
-                height: MediaQuery.of(context).size.height * 0.47,
-                fit: BoxFit.cover, // Adjust the image scaling
-              ),
+                child: CustomCachedNetworkImageWidget(
+              imageUrl: productEntity.imageUrl!,
+              borderRadius: 16,
+              height: MediaQuery.of(context).size.height * 0.47,
+              fit: BoxFit.cover,
             )),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -88,14 +87,13 @@ class ProductViewItemDetails extends StatelessWidget {
                     height: MediaQuery.sizeOf(context).height * 0.15,
                     child: GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount:
-                                  MediaQuery.of(context).size.width > 600
-                                      ? 3
-                                      : 2, // 3 columns for larger screens
-                              childAspectRatio: 2.3 / 1,
-                              crossAxisSpacing: 6),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount:
+                              MediaQuery.of(context).size.width > 600
+                                  ? 3
+                                  : 2, // 3 columns for larger screens
+                          childAspectRatio: 2.3 / 1,
+                          crossAxisSpacing: 6),
                       itemBuilder: (context, index) => ProductDetailsBorder(
                         productDetailedModel: details[index],
                       ),

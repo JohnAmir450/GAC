@@ -8,19 +8,23 @@ class CustomCachedNetworkImageWidget extends StatelessWidget {
     super.key,
     required this.imageUrl,
     required this.borderRadius,
-    this.width
+    this.width,
+    this.fit,
+    this.height
   });
 
   final String imageUrl;
   final double borderRadius;
   final double? width;
-
+  final double? height;
+final BoxFit? fit;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius),
-      child: CachedNetworkImage(
+      child: CachedNetworkImage(fit: fit,
         width: width ,
+        height: height,
         imageUrl: imageUrl,
         placeholder: (context, url) =>
             LoadingAnimationWidget.threeRotatingDots(

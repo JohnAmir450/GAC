@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gac/core/cubits/products_cubit/products_cubit.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/features/home/presentation/views/widgets/custom_category_item.dart';
@@ -10,6 +12,7 @@ class CategoriesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit=context.read<ProductsCubit>();
     return AspectRatio(
       aspectRatio: 4.3,
       child: ListView.builder(
@@ -17,13 +20,13 @@ class CategoriesListView extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => GestureDetector(
            onTap: () {
-          context.pushNamed(Routes.categoryView, arguments: categories[index]);
+          context.pushNamed(Routes.categoryView, arguments: cubit.categories[index]);
         },
-          child: CustomProductCategoryItem(categoryName: categories[index],)),
-        itemCount: categories.length,
+          child: CustomProductCategoryItem(categoryName: cubit.categories[index],)),
+        itemCount: cubit.categories.length,
       ),
     );
   }
-  final List<String> categories=const['روابي','ماليزي','الدوار','شيف','تبارك',];
+  
 
 }

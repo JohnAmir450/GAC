@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/widgets/product_item.dart';
 
@@ -9,9 +10,11 @@ final List<ProductEntity>products;
   Widget build(BuildContext context) {
     return SliverGrid.builder(
      
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.5
+        childAspectRatio:  0.6,
+         crossAxisSpacing: 8.0.w, // Adjust horizontal spacing
+        mainAxisSpacing: 8.0.h,
         
       ),
       itemCount: products.length,

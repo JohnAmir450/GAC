@@ -8,14 +8,14 @@ class OrderEntity {
   final List<CartEntity> cartItems;
   final double totalPrice;
   final bool? payWithCash;
-  //final String orderStatus ;
+  final String orderStatus ;
   ShippingAddressEntity shippingAddressEntity ;
   final String orderId ;
 
   OrderEntity({
     required this.orderId,
     required this.uID,
-    //required this.orderStatus,
+    required this.orderStatus,
     required this.orderDate,
     required this.cartItems,
     required this.totalPrice,

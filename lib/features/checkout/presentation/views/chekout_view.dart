@@ -40,6 +40,8 @@ class _CheckoutViewState extends State<CheckoutView> {
 final Timestamp timestamp = Timestamp.fromDate(now);
     super.initState();
     orderEntity = OrderEntity(
+      payWithCash: true,
+      orderStatus: 'جاري التأكيد',
       orderId: randomOrderIdNumber.toString(),
       orderDate: timestamp,
       uID: getUserData().uId,

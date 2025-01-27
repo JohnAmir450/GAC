@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/entities/products_entity.dart';
-import 'package:gac/core/helper_functions/get_user_data.dart';
-import 'package:gac/core/models/cart_model.dart';
 import 'package:gac/core/repos/products_repo/products_repo.dart';
 import 'package:meta/meta.dart';
 
@@ -10,6 +8,14 @@ part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   final ProductsRepo productsRepo;
+    List<String> categories =const[
+    'شيف',
+    'تبارك',
+    'ماليزي',
+    'شروق',
+    'سماسم',
+    'الدوار',
+  ];
   ProductsCubit(this.productsRepo) : super(ProductsInitialState());
   int productQuantity = 1;
   int productLength = 0;

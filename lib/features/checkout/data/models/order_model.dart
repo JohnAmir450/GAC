@@ -59,7 +59,7 @@ class OrderModel {
     return {
       'uID': uID,
       'orderDate': orderDate,
-      'totalPrice': totalPrice,
+      'totalPrice': totalPrice.toDouble(),
       'payWithCash': payWithCash,
       'notificationId': pushId,
       'orderStatus': 'جاري التأكيد',
@@ -69,4 +69,17 @@ class OrderModel {
           checkoutProductDetailsList.map((e) => e.toJson()).toList()
     };
   }
+//    OrderEntity toEntity(){
+//    return OrderEntity(
+//      uID: uID,
+     
+//      orderDate: orderDate,
+//      totalPrice: totalPrice,
+//      payWithCash: payWithCash,
+//      orderStatus: orderStatus,
+//      orderId: orderId,
+//      shippingAddressEntity: shippingAddressModel.toEntity(),
+//      cartItems: checkoutProductDetailsList.map((e) => e).toList(),
+//    );
+//  }
 }

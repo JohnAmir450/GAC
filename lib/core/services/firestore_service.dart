@@ -52,6 +52,10 @@ Future<dynamic> getData({
           var limit = query['limit'];
           data = data.limit(limit);
         }
+        if (query['where'] != null && query['isEqualTo'] != null) {
+          data = data.where(query['where'], isEqualTo: query['isEqualTo']);
+        }
+      
       }
 
       // Fetch the data from Firestore

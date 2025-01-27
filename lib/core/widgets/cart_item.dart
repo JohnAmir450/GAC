@@ -29,7 +29,7 @@ class CartItem extends StatelessWidget {
           ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.network(
-                height: MediaQuery.sizeOf(context).height * 0.15,
+                height: MediaQuery.sizeOf(context).height * 0.13,
                 cartEntity.productEntity.imageUrl!,
                 fit: BoxFit.cover,
               )),

@@ -5,8 +5,10 @@ class CheckoutProductDetails {
   final String productName;
   final String productImageUrl;
   final int productQuantity;
+  final double productPrice;
 
   CheckoutProductDetails({
+    required this.productPrice,
     required this.productCode,
     required this.productQuantity,
     required this.productName,
@@ -15,6 +17,7 @@ class CheckoutProductDetails {
 
   factory CheckoutProductDetails.fromEntity(CartEntity cartEntity) {
     return CheckoutProductDetails(
+      productPrice: cartEntity.productEntity.price.toDouble(),
       productCode: cartEntity.productEntity.code,
       productName: cartEntity.productEntity.name,
       productImageUrl: cartEntity.productEntity.imageUrl!,
@@ -23,6 +26,7 @@ class CheckoutProductDetails {
   }
   factory CheckoutProductDetails.fromJson(Map<String, dynamic> json) {
     return CheckoutProductDetails(
+      productPrice: json['productPrice'],
       productCode: json['code'],
       productName: json['name'],
       productImageUrl: json['imageUrl'],
@@ -31,6 +35,7 @@ class CheckoutProductDetails {
   }
   toJson() {
     return {
+      'productPrice': productPrice.toDouble(),
       'code': productCode,
       'quantity': productQuantity,
       'name': productName,

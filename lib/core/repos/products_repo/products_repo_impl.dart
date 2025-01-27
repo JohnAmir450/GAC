@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/errors/failures.dart';
-import 'package:gac/core/models/cart_model.dart';
 import 'package:gac/core/models/product_model.dart';
 import 'package:gac/core/repos/products_repo/products_repo.dart';
 import 'package:gac/core/services/database_service.dart';

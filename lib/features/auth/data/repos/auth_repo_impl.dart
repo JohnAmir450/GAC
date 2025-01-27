@@ -108,6 +108,7 @@ class AuthRepoImpl implements AuthRepo {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
+      print('there was an Exception from Firebase Auth google Service: ${e.toString()}');
       return Left(ServerFailure(message: 'حدث خطأ ما، حاول مرة اخرى'));
     }
   }
@@ -143,6 +144,7 @@ class AuthRepoImpl implements AuthRepo {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
+        print('there was an Exception from Firebase Auth facebook Service: ${e.toString()}');
       return Left(ServerFailure(message: 'حدث خطأ ما، حاول مرة اخرى'));
     }
   }

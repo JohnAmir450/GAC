@@ -14,9 +14,9 @@ class CustomApplicationAppBar extends StatelessWidget {
     return Row(
       children: [
         Expanded(child: Text(title,style: TextStyles.bold19,textAlign: TextAlign.center,)),
-        Visibility(
-          visible: showNotificationIcon??false,
-          child: const CustomNotificationIcon())
+        const Visibility(
+          visible: false,
+          child:  CustomNotificationIcon())
       ],
     );
   }

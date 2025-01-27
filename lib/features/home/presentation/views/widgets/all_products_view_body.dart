@@ -57,6 +57,7 @@ class _AllProductsViewBodyState extends State<AllProductsViewBody> {
         const SliverToBoxAdapter(
           child:  CategoriesListView(),
         ),
+        
         SliverToBoxAdapter(
           child: Column(
             children: [
@@ -80,4 +81,3 @@ class _AllProductsViewBodyState extends State<AllProductsViewBody> {
 
 
 
-List<String> categories=['روابي','ماليزي','الدوار','شيف','تبارك','تيشيرت'];

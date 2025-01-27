@@ -14,9 +14,9 @@ part 'orders_state.dart';
 class OrdersCubit extends Cubit<OrdersState> {
   OrdersCubit(this.ordersRepo) : super(AddOrderInitialState());
   final OrdersRepo ordersRepo;
-  bool governamentChanged=false;
-  void changed(){
-    governamentChanged=true;
+  bool governamentChanged = false;
+  void changed() {
+    governamentChanged = true;
     emit(GovernmentChanged());
   }
 
@@ -47,7 +47,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   void updatePhoneNumberIfNeeded(BuildContext context, String phoneNumber) {
     UserModel userData = getUserData();
 
-    if (userData.phoneNumber.isEmpty ) {
+    if (userData.phoneNumber.isEmpty) {
       context.read<OrdersCubit>().updateUserPhoneNumber(
             uId: userData.uId,
             phoneNumber: phoneNumber,
@@ -60,6 +60,4 @@ class OrdersCubit extends Cubit<OrdersState> {
       );
     }
   }
-
-  
 }

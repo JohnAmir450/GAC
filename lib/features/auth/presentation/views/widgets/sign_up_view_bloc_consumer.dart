@@ -24,7 +24,7 @@ class SignUpViewBlocConsumer extends StatelessWidget {
         }
         if (state is SignUpFailureState) {
          
-          showSnackBar(context, text: state.message, color: Colors.red);
+          showSnackBar(context, text: state.message,);
         }
         
         if (state is SignUpVerificationSentState) {

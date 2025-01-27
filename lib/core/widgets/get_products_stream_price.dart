@@ -29,7 +29,7 @@ class GetProductStreamPrice extends StatelessWidget {
           final updatedPrice = snapshot.data!;
           return FittedBox(
             child: Text(priceFunction != null ?
-              '${updatedPrice * priceFunction} جنية':'$updatedPrice  جنية',
+              '${updatedPrice.roundToDouble() * priceFunction} جنية':'${updatedPrice.roundToDouble()}  جنية',
               style:
                   TextStyles.bold16.copyWith(color: AppColors.secondaryColor),
             ),

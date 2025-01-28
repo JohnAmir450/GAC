@@ -18,7 +18,7 @@ class AddOrderCubitBlocBuilder extends StatelessWidget {
        if(state is AddOrderSuccessState){
          var orderID=context.read<OrderEntity>().orderId;
         showSnackBar(context, text: 'تم اضافة الطلب بنجاح');
-        context.pushNamed(Routes.orderConfirmedSuccessfullyView,arguments: orderID);
+        context.pushReplacementNamed(Routes.orderConfirmedSuccessfullyView,arguments: orderID);
        }else if (state is AddOrderFailureState){
         showSnackBar(context, text: state.errorMessage);
        }

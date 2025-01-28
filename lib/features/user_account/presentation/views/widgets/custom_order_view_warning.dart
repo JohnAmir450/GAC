@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
@@ -23,7 +24,8 @@ class CustomOrderViewWarning extends StatelessWidget {
             size: 25, 
           ),
           horizontalSpace(8),
-          const Expanded(
+           const Flexible(
+            fit : FlexFit.loose,
               child: Text(
             "المنتجات التي تم توصيلها او الغائها سيتهم حذفها تلقائيا من صفحة الطلبات خلال 48 ساعة",
             style: TextStyles.regular13,

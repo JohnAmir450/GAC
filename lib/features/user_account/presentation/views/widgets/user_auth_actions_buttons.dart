@@ -30,7 +30,11 @@ class UserAuthActionsButtons extends StatelessWidget {
               confirmBtnText: 'خروج',
               onConfirmBtnTap: () {
                 context.read<AccountManagerCubit>().signOut();
-                context.pushNamed(Routes.loginView);
+
+                context.pushNamedAndRemoveUntil(
+                  Routes.loginView,
+                  predicate: (Route<dynamic> route) => false,
+                );
               },
             );
           },
@@ -48,8 +52,14 @@ class UserAuthActionsButtons extends StatelessWidget {
               type: QuickAlertType.warning,
               confirmBtnText: 'حذف',
               onConfirmBtnTap: () {
-                context.read<AccountManagerCubit>().deleteAccount(uId: getUserData().uId);
-                context.pushNamed(Routes.onBoardingView);
+                context
+                    .read<AccountManagerCubit>()
+                    .deleteAccount(uId: getUserData().uId);
+
+                context.pushNamedAndRemoveUntil(
+                  Routes.onBoardingView,
+                  predicate: (Route<dynamic> route) => false,
+                );
               },
             );
           },
@@ -60,4 +70,3 @@ class UserAuthActionsButtons extends StatelessWidget {
     );
   }
 }
-

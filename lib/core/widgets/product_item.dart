@@ -34,21 +34,27 @@ class ProductItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
-            child: Column(children: [
+            child: Column(
+              
+              children: [
               verticalSpace(16.h),
               CustomCachedNetworkImageWidget(
+      
+                width: MediaQuery.sizeOf(context).width * 0.44,
                   imageUrl: productEntity.imageUrl!, borderRadius: 16),
               ListTile(
-                  title: Text(
-                    productEntity.name,
-                    style: TextStyles.bold16,
+                  title: FittedBox(
+                    child: Text(
+                      productEntity.name,
+                      style: TextStyles.bold16,maxLines: 1,
+                    ),
                   ),
                   subtitle: Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
                             text: '${productEntity.price.toDouble()} جنيه/',
-                            style: TextStyles.bold13
+                            style: TextStyles.bold16
                                 .copyWith(color: AppColors.secondaryColor)),
                         TextSpan(
                           text: ' الكرتونة',
@@ -79,8 +85,10 @@ class ProductItem extends StatelessWidget {
                               ));
                         },
                         child: CircleAvatar(
+                         
                           backgroundColor: AppColors.primaryColor,
                           child: Icon(
+                           
                             context.read<CartCubit>().productAddedToCart
                                 ? Icons.check
                                 : Icons.add,

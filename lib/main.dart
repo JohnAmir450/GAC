@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,10 +23,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   setupGetIt();
 
-  runApp(DevicePreview(
-    enabled: false,
-    builder: (context) => MyApp(),
-  ));
+  runApp(MyApp());
 
   OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
 
@@ -58,7 +54,7 @@ class MyApp extends StatelessWidget {
 
     return ScreenUtilInit(
       designSize: const Size(360, 800),
-      minTextAdapt: true,
+      minTextAdapt: false,
       child: MaterialApp(
        // useInheritedMediaQuery: true,
        // locale: DevicePreview.locale(context),
@@ -76,6 +72,8 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
+    //   locale: DevicePreview.locale(context),
+
         locale: const Locale('ar'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoutes,

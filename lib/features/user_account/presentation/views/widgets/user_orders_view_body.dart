@@ -30,7 +30,7 @@ class UserOrdersViewBody extends StatelessWidget {
               return const SliverToBoxAdapter(
                 child:  EmptyListViewWidget(
                     title: 'لا يوجد طلبات',
-                    subTitle: 'عند الطلب يمكنك متابعة طلباتك من هنا'),
+                    subTitle: 'عند الطلب يمكنك متابعة حالة طلباتك من هنا'),
               );
             }
             return OrdersItemsListView(

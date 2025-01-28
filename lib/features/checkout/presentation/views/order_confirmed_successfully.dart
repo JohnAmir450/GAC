@@ -29,10 +29,12 @@ class OrderConfirmedSuccessfully extends StatelessWidget {
             verticalSpace(8),
             Text(' رقم الطلب : $orderId# ',style: TextStyles.semiBold16.copyWith(color: Color(0xff4E5556)),),
               Spacer(),
+              
             CustomButton(text: 'رجوع للصفحة الرئيسية',onPressed: ()async{
+              context.pushReplacementNamed(Routes.mainView);
             await   NotificationService().sendNotification(
                     );
-              context.pushNamed(Routes.mainView);
+              
             },),
           ],),
         ),

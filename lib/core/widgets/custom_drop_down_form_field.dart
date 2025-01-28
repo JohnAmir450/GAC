@@ -14,8 +14,12 @@ class CustomDropDownButtonFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final String? selectedValue = (items != null && items!.any((item) => item.value == value))
+        ? value
+        : null;
     return DropdownButtonFormField<String>(
-      value: value, // Default selected value
+      
+      value: selectedValue, // Default selected value
       decoration: InputDecoration(
         labelText: 'المحافظة',
         

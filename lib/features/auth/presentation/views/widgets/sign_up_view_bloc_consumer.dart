@@ -20,7 +20,7 @@ class SignUpViewBlocConsumer extends StatelessWidget {
     return BlocConsumer<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccessState) {
-          context.pushNamed(Routes.mainView);
+          context.pushReplacementNamed(Routes.mainView);
         }
         if (state is SignUpFailureState) {
          

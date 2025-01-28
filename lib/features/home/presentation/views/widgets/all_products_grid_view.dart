@@ -8,13 +8,15 @@ class AllProductsGridView extends StatelessWidget {
 final List<ProductEntity>products;
   @override
   Widget build(BuildContext context) {
+        double aspectRatio=MediaQuery.sizeOf(context).width>600 ? 0.68.h:0.55.h;
+
     return SliverGrid.builder(
      
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio:  0.6,
-         crossAxisSpacing: 8.0.w, // Adjust horizontal spacing
-        mainAxisSpacing: 8.0.h,
+        childAspectRatio:  aspectRatio,
+        // crossAxisSpacing: 8.0.w, // Adjust horizontal spacing
+        
         
       ),
       itemCount: products.length,

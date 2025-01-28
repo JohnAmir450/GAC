@@ -38,13 +38,16 @@ child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
   children: buttonNavigationBarEntityList.asMap().entries.map((entry) {
     final index = entry.key;
     final item = entry.value;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          widget.onItemTapped(index);
-        });
-      },
-      child: ButtonNavigationBarItem(isSelected: widget.selectedIndex==index,barEntity: item,)); 
+    return Expanded(
+       flex: index == widget.selectedIndex ? 3 : 2,
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            widget.onItemTapped(index);
+          });
+        },
+        child: ButtonNavigationBarItem(isSelected: widget.selectedIndex==index,barEntity: item,)),
+    ); 
         
   
   }).toList(),

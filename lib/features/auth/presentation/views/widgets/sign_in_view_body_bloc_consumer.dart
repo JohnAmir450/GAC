@@ -22,7 +22,7 @@ class SignInViewBodyBlocConsumer extends StatelessWidget {
         
         if (state is SignInSuccessState) {
          
-            context.pushNamed(Routes.mainView);
+            context.pushReplacementNamed(Routes.mainView);
           }
         if (state is SignInFailureState) {
           showSnackBar(context, text: state.message, color: Colors.red);

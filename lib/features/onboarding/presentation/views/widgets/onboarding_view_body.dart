@@ -40,7 +40,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 ),
                 CustomButton(text: 'ابدأ الان', onPressed: () {
                   CacheHelper.saveData(key: kIsOnboardingViewKey, value: true);
-                  context.pushNamed(Routes.loginView);
+                  context.pushNamedAndRemoveUntil(Routes.loginView, predicate: (Route<dynamic> route) => false);
                 }),
                 const Spacer(
                   flex: 1,

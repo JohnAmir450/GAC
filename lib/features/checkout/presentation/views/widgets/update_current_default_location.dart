@@ -96,7 +96,7 @@ class _UpdateCurrentDefaultLocationState
                   .shippingAddressEntity
                   .customerLocationDescription = value;
             },
-            hintText: 'وصف المكان  \"اختياري\"',
+            hintText: 'وصف المكان  "اختياري"',
             maxLines: 5,
           ),
         ],

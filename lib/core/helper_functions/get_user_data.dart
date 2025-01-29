@@ -19,8 +19,7 @@ ShippingAddressModel? getShippingAddress() {
     }
     return null; // Return null if no data is found
   } catch (e) {
-    // Handle any errors during decoding or parsing
-    print('Error getting shipping address: $e');
+    
     return null;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,13 +18,14 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
   setupGetIt();
 
-  runApp(MyApp());
+  runApp(DevicePreview(
+      enabled: true, builder: (context) =>  const MyApp()));
 
   OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
 
@@ -56,8 +58,8 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 800),
       minTextAdapt: false,
       child: MaterialApp(
-       // useInheritedMediaQuery: true,
-       // locale: DevicePreview.locale(context),
+        // useInheritedMediaQuery: true,
+         locale: DevicePreview.locale(context),
         title: 'الشركة العربية الخليجية',
         theme: ThemeData(
           fontFamily: 'Cairo',
@@ -72,9 +74,9 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-    //   locale: DevicePreview.locale(context),
+        //   locale: DevicePreview.locale(context),
 
-        locale: const Locale('ar'),
+        //locale: const Locale('ar'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoutes,
         initialRoute: getRoute(),

@@ -16,27 +16,35 @@ class OrderConfirmedSuccessfully extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, title: 'الدفع',visibleLeading: false),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 120.0, horizontal: 16),
-          child: Column(
-            children: [
-          
-            SvgPicture.asset(Assets.assetsImagesOrderConfirmedSuccessfully),
-            verticalSpace(16),
-            Text('تم تاكيد الطلب بنجاح',style: TextStyles.bold16,),
-            verticalSpace(8),
-            Text(' رقم الطلب : $orderId# ',style: TextStyles.semiBold16.copyWith(color: Color(0xff4E5556)),),
-              Spacer(),
-              
-            CustomButton(text: 'رجوع للصفحة الرئيسية',onPressed: ()async{
-              context.pushReplacementNamed(Routes.mainView);
-            await   NotificationService().sendNotification(
-                    );
-              
-            },),
-          ],),
+      appBar: buildAppBar(context, title: 'الدفع', visibleLeading: false),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 120.0, horizontal: 16),
+            child: Column(
+              children: [
+                SvgPicture.asset(Assets.assetsImagesOrderConfirmedSuccessfully),
+                verticalSpace(16),
+                const Text(
+                  'تم تاكيد الطلب بنجاح',
+                  style: TextStyles.bold16,
+                ),
+                verticalSpace(8),
+                Text(
+                  ' رقم الطلب : $orderId# ',
+                  style: TextStyles.semiBold16.copyWith(color: const Color(0xff4E5556)),
+                ),
+                verticalSpace(MediaQuery.sizeOf(context).height * 0.15),
+                CustomButton(
+                  text: 'رجوع للصفحة الرئيسية',
+                  onPressed: () async {
+                    context.pushReplacementNamed(Routes.mainView);
+                    await NotificationService().sendNotification();
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

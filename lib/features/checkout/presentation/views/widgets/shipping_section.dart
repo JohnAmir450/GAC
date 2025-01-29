@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
@@ -12,17 +13,17 @@ class ShippingSection extends StatelessWidget {
     return  Column(
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(vertical: 30),
+          margin:  EdgeInsets.symmetric(vertical: 28.h),
           clipBehavior: Clip.antiAlias,
           decoration: ShapeDecoration(shape: RoundedRectangleBorder(
             side: const BorderSide(color: AppColors.primaryColor,),borderRadius: BorderRadius.circular(16),
           )),
           child: ListTile(
-            title:  Text(
+            title:  const Text(
               'الدفع عند الاستلام',
               style: TextStyles.bold16,
             ),
-            subtitle:  Text(
+            subtitle:  const Text(
               'التسليم في المكان المحدد',
               style: TextStyles.regular16,
             ),

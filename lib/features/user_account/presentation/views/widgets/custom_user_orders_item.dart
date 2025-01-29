@@ -36,12 +36,12 @@ class UserOrdersItem extends StatelessWidget {
                 children: [
                   const Text(
                     'حالة الطلبية:  ',
-                    style: TextStyles.bold16,
+                    style: TextStyles.semiBold13,
                   ),
                   horizontalSpace(8),
                   Text(
                     orderEntity.orderStatus,
-                    style: TextStyles.bold16
+                    style: TextStyles.bold13
                         .copyWith(color: AppColors.primaryColor),
                   ),
                   const Spacer(),

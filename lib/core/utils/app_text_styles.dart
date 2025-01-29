@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class TextStyles {
-  static TextStyle bold13 = TextStyle(
+  static TextStyle bold13 = const TextStyle(
     fontWeight: FontWeight.bold,
-    fontSize: 13.spMax,
+    fontSize: 13,
   );
   static const TextStyle bold23 = TextStyle(
     fontWeight: FontWeight.bold,

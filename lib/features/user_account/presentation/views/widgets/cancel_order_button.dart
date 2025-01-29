@@ -29,7 +29,7 @@ class CancelOrderButton extends StatelessWidget {
             ),
             onPressed: () async {
               customQuickAlertView(context,
-                  text: 'هل انت متأكد من رغبتك في الغاء الطلب ؟',
+                  text: 'هل انت متاكد من الغاء الطلب؟ يمكنك الالغاء طالما لم يتم تأكيده',
                   title: 'الغاء الطلب',
                   confirmBtnText: 'تاكيد',
                   type: QuickAlertType.confirm, onConfirmBtnTap: () {
@@ -44,7 +44,7 @@ class CancelOrderButton extends StatelessWidget {
                 context.pop();
               });
             },
-            child: FittedBox(
+            child: const FittedBox(
                 child: Text(
               'الغاء الطلب',
               style: TextStyles.semiBold11,

@@ -22,7 +22,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       
       decoration: ShapeDecoration(
         color:cubit.isTermsChecked? AppColors.primaryColor:Colors.transparent,
-          shape: RoundedRectangleBorder(side: BorderSide(color: Color(0xffDDDFDF)),
+          shape: RoundedRectangleBorder(side: const BorderSide(color: Color(0xffDDDFDF)),
               borderRadius: BorderRadius.circular(8))),
     child: GestureDetector(
       onTap: () {

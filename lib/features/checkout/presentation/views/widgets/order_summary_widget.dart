@@ -16,7 +16,7 @@ class OrderSummaryWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(
+         const Text(
           'ملخص الطلب : ',
           style: TextStyles.bold16,
         ),
@@ -33,7 +33,7 @@ class OrderSummaryWidget extends StatelessWidget {
           contentPadding: EdgeInsets.zero,
         ),
          ListTile(
-          title:  Text(
+          title:  const Text(
             'التوصيل ',
             style: TextStyles.semiBold13,
           ),
@@ -44,15 +44,15 @@ class OrderSummaryWidget extends StatelessWidget {
           contentPadding: EdgeInsets.zero,
         ),
         
-        Divider(
+        const Divider(
           height: 40,
           thickness: 0.5,color: Color(0xffCACECE),),
         Row(children: [
-          Text(
+          const Text(
             'المجموع الكلي',
             style: TextStyles.bold16,
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             '${orderEntity.totalPrice} جنيه',
             style: TextStyles.bold16.copyWith(color: AppColors.primaryColor),

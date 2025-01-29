@@ -16,7 +16,7 @@ class ActiveStepItem extends StatelessWidget {
         CircleAvatar(
           radius: 13.r, // Adjust dynamically for screen size
           backgroundColor: AppColors.primaryColor,
-          child: Icon(
+          child: const Icon(
             Icons.check,
             color: Colors.white,
           

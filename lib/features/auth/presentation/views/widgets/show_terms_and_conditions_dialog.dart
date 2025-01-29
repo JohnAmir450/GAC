@@ -15,7 +15,7 @@ class TermsAndConditionsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CustomCheckBox(),
+        const CustomCheckBox(),
         horizontalSpace(16.w),
         Expanded(
           child: GestureDetector(

@@ -16,7 +16,7 @@ class ProductsRepoImpl extends ProductsRepo {
       final stream = databaseService.getDataStream(
           path: BackendEndpoints.getProducts,
           query: {
-            'limit': 10,
+          
             'where': 'isFeatured',
             'isEqualTo': true
           }).map((data) =>

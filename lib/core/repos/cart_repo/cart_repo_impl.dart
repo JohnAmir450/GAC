@@ -29,7 +29,7 @@ class CartRepoImpl implements CartRepo {
           .map((data) {
         return data.map((e) => CartModel.fromJson(e).toEntity()).toList();
       });
-      print(stream.first);
+   
       return Right(stream);
     } catch (e) {
       return Left(
@@ -208,7 +208,7 @@ class CartRepoImpl implements CartRepo {
           data: {'cartList': updatedCartList},
         );
       } catch (e) {
-        print('Error updating product price: $e');
+        
       }
     });
 

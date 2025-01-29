@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/cubits/cart_cubit/cart_cubit.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
@@ -30,16 +31,20 @@ class ProductViewItemDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        
         Stack(
           children: [
             //
             Center(
-                child: CustomCachedNetworkImageWidget(
-              imageUrl: productEntity.imageUrl!,
-              borderRadius: 16,
-              height: MediaQuery.of(context).size.height * 0.47,
-              fit: BoxFit.cover,
-            )),
+                child: Padding(
+                  padding:  EdgeInsets.only(top: 24.0.h),
+                  child: CustomCachedNetworkImageWidget(
+                                imageUrl: productEntity.imageUrl!,
+                                borderRadius: 16,
+                                height: MediaQuery.of(context).size.height * 0.47,
+                                fit: BoxFit.cover,
+                              ),
+                )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(

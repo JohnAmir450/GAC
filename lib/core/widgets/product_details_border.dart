@@ -18,8 +18,10 @@ class ProductDetailsBorder extends StatelessWidget {
         shape: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(color: Color(0xff979899))),
-        subtitle: Text(productDetailedModel.subtitle),
-        title: Text(productDetailedModel.title,style: TextStyles.bold16.copyWith(color: AppColors.primaryColor)),
+        subtitle: Text(productDetailedModel.subtitle,maxLines: 1,),
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(maxLines: 1,overflow: TextOverflow.ellipsis,productDetailedModel.title,style: TextStyles.bold16.copyWith(color: AppColors.primaryColor))),
         trailing: productDetailedModel.trailing,
       ),
     );

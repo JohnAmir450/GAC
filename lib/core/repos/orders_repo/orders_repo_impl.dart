@@ -185,7 +185,7 @@ Future<Either<Failure, void>> cancelOrder({required String orderNumber}) async {
 
       return const Right(null);
     } catch (e) {
-      print('Error updating product quantity: $e');
+    
       return Left(ServerFailure(message: e.toString()));
     }
   }

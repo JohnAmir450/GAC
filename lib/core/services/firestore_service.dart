@@ -112,7 +112,7 @@ Future<dynamic> getData({
     }
 
     return data.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+      return snapshot.docs.map((doc) => doc.data()).toList();
     });
   }
 }
@@ -233,7 +233,7 @@ Future<void> emptyCart({required String userId}) async {
     // Update the cartList field to an empty list
     await userRef.update({'cartList': []});
 
-    print('Cart has been emptied successfully for user: $userId');
+   
   } catch (e) {
     throw CustomException(message: 'Failed to empty the cart: ${e.toString()}');
   }

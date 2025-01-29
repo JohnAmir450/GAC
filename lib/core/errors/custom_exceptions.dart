@@ -56,10 +56,6 @@ String mapException(FirebaseAuthException e) {
       return 'تم رفض الوصول إلى حسابك على فيسبوك. تأكد من الصلاحيات الممنوحة';
     case 'invalid-access-token':
       return 'رمز الوصول إلى فيسبوك غير صالح أو منتهي الصلاحية';
-    case 'account-exists-with-different-credential':
-      return 'هذا الحساب مرتبط بمزود مختلف. حاول تسجيل الدخول باستخدام مزود آخر';
-    case 'operation-not-allowed':
-      return 'تم تعطيل تسجيل الدخول باستخدام فيسبوك';
     case 'facebook-login-failed':
       return 'فشل تسجيل الدخول إلى فيسبوك. حاول مرة أخرى';
     case 'cancelled':

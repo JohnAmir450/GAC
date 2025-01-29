@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:gac/core/errors/custom_exceptions.dart';
@@ -16,7 +14,7 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       throw CustomException(message: mapException(e));
     } catch (e) {
-      log('there was an Exception from Firebase Auth Service: ${e.toString()}');
+     
       throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
@@ -30,7 +28,7 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       throw CustomException(message: mapException(e));
     } catch (e) {
-      log('there was an Exception from Firebase Auth Service: ${e.toString()}');
+     
       throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
@@ -49,10 +47,8 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       throw CustomException(message: e.toString());
     } catch (e) {
-      log('there was an Exception from Firebase Auth google Service: ${e.toString()}');
-      print(
-          'there was an Exception from Firebase Auth google Service: ${e.toString()}');
-      throw CustomException(message: e.toString());
+      
+      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
 
@@ -67,11 +63,8 @@ class FirebaseAuthService {
     } on FirebaseAuthException catch (e) {
       throw CustomException(message: mapException(e));
     } catch (e) {
-      print(
-          'there was an Exception from Firebase Auth google Service: ${e.toString()}');
-
-      log('there was an Exception from Firebase Auth facebook Service: ${e.toString()}');
-      throw CustomException(message: e.toString());
+      
+      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
 
@@ -87,7 +80,7 @@ class FirebaseAuthService {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     } catch (e) {
-      log('there was an Exception from sendEmailToResetPassword: ${e.toString()}');
+      
       throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
@@ -100,8 +93,8 @@ class FirebaseAuthService {
 
       await FacebookAuth.instance.logOut();
     } catch (e) {
-      log('There was an exception while signing out: ${e.toString()}');
-      throw CustomException(message: 'Failed to log out. Please try again.');
+     
+      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
 }

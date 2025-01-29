@@ -20,7 +20,7 @@ final void Function()? onTap;
         width: double.infinity,
         decoration: ShapeDecoration(
             shape: RoundedRectangleBorder(
-          side: BorderSide(
+          side: const BorderSide(
             color: Color(
               0xffDDDFDF,
             ),
@@ -32,13 +32,13 @@ final void Function()? onTap;
         child: Row(
           children: [
             SvgPicture.asset(image),
-            Spacer(),
+            const Spacer(),
             Text(
               text,
               textAlign: TextAlign.center,
               style: TextStyles.bold13,
             ),
-            Spacer() //Text('تسجيل الدخول بواسطة جوجل',textAlign: TextAlign.center,)
+            const Spacer() //Text('تسجيل الدخول بواسطة جوجل',textAlign: TextAlign.center,)
           ],
         ),
       ),

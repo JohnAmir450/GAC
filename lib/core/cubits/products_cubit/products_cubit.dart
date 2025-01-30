@@ -12,7 +12,6 @@ class ProductsCubit extends Cubit<ProductsState> {
     'شيف',
     'تبارك',
     'ماليزي',
-    'شروق',
     'سماسم',
     'الدوار',
   ];

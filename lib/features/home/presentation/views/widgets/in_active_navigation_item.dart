@@ -12,6 +12,6 @@ class InActiveNavigationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(image,height: 18.h,width: 20.w,);
+    return SvgPicture.asset(image,height: 20.h,width: 20.w,);
   }
 }

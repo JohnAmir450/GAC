@@ -8,7 +8,6 @@ class BestSellingGridView extends StatelessWidget {
   final List<ProductEntity> products;
   @override
   Widget build(BuildContext context) {
-    print('width is : ${MediaQuery.sizeOf(context).width}');
     double aspectRatio = MediaQuery.sizeOf(context).width > 600 ? 0.65 : 0.56;
     return SliverGrid.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

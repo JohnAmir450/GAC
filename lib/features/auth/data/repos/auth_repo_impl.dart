@@ -25,8 +25,7 @@ class AuthRepoImpl implements AuthRepo {
       required String name,
       required String secondName,
       required String phoneNumber,
-      required int points
-      }) async {
+      required int points}) async {
     User? user;
     try {
       user = await firebaseAuthService.createUserWithEmailAndPassword(
@@ -37,29 +36,32 @@ class AuthRepoImpl implements AuthRepo {
             message: 'الرجاء تفعيل الحساب من خلال البريد الالكتروني'));
       }
       var userEntity = UserEntity(
-        name: name,
-        secondName: secondName,
-        phoneNumber: phoneNumber,
-        email: email,
-        uId: user.uid,
-        cartList: [],
-        userLocations: [],
-        points: points
-      );
+          name: name,
+          secondName: secondName,
+          phoneNumber: phoneNumber,
+          email: email,
+          uId: user.uid,
+          cartList: [],
+          userLocations: [],
+          points: points);
       await addUserData(userEntity: userEntity);
       await getUserData(uId: user.uid);
       await saveUserData(userEntity: userEntity);
       return Right(userEntity);
+    } on CustomException catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     } on FirebaseAuthException catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
+
       return Left(ServerFailure(message: mapException(e)));
     } catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
-      return Left(ServerFailure(message: 'حدث خطأ ما، حاول مرة اخرى'));
+
+      return Left(ServerFailure(message: 'حدث خطاء ما، حاول مرة اخرى'));
     }
   }
 
@@ -75,43 +77,44 @@ class AuthRepoImpl implements AuthRepo {
       return Right(userEntity);
     } on FirebaseAuthException catch (e) {
       return Left(ServerFailure(message: mapException(e)));
+    } on CustomException catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     } catch (e) {
       return Left(ServerFailure(message: 'حدث خطأ ما، حاول مرة اخرى'));
     }
   }
 
-   @override
+  @override
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
     User? user;
     try {
       user = await firebaseAuthService.signInWithGoogle();
-     
+
       var userEntity = UserModel.fromFirebase(user).toEntity();
       var isUserExist = await databaseService.checkIfDataExist(
           path: BackendEndpoints.getUserData, uId: user.uid);
       if (isUserExist) {
-      var updateData=  await getUserData(uId: user.uid);
+        var updateData = await getUserData(uId: user.uid);
 
         await saveUserData(userEntity: updateData);
-         return Right(updateData);
+        return Right(updateData);
       } else {
         await addUserData(userEntity: userEntity);
-          await saveUserData(userEntity: userEntity);
+        await saveUserData(userEntity: userEntity);
         return Right(userEntity);
       }
-    
-    
-      
-    } on FirebaseAuthException  catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
       return Left(ServerFailure(message: mapException(e)));
+    } on CustomException catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     } catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
-      
+
       return Left(ServerFailure(message: 'حدث خطأ ما، حاول مرة اخرى'));
     }
   }
@@ -138,16 +141,18 @@ class AuthRepoImpl implements AuthRepo {
         return Right(userEntity);
       }
       return Right(userEntity);
-    } on FirebaseAuthException  catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
       return Left(ServerFailure(message: mapException(e)));
+    } on CustomException catch (e) {
+      return Left(ServerFailure(message: e.toString()));
     } catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
-       
+
       return Left(ServerFailure(message: 'حدث خطأ ما، حاول مرة اخرى'));
     }
   }
@@ -187,7 +192,10 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, void>> updateUserData(
-      {required String uId,required String name,required String secondName, required String phoneNumber}) async {
+      {required String uId,
+      required String name,
+      required String secondName,
+      required String phoneNumber}) async {
     try {
       // Update user data in the database
       await databaseService.updateData(
@@ -201,7 +209,6 @@ class AuthRepoImpl implements AuthRepo {
       );
 
       // Save updated user data to cache
-     
 
       return const Right(null);
     } on CustomException catch (e) {
@@ -219,7 +226,7 @@ class AuthRepoImpl implements AuthRepo {
       await firebaseAuthService.signOut();
 
       // Remove cached user data
-      
+
       // await CacheHelper.removeData(key: kSaveUserLocationKey);
 
       return const Right(null);
@@ -235,7 +242,8 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, void>> deleteAccount({required String uId}) async {
     try {
       await firebaseAuthService.deleteUser();
-      await databaseService.deleteData(path: BackendEndpoints.getUserData, uId: uId);
+      await databaseService.deleteData(
+          path: BackendEndpoints.getUserData, uId: uId);
       await CacheHelper.removeData(key: kSaveUserDataKey);
       await CacheHelper.removeData(key: kSaveUserLocationKey);
       return const Right(null);
@@ -243,15 +251,14 @@ class AuthRepoImpl implements AuthRepo {
       return Left(ServerFailure(message: e.message));
     }
   }
+
   @override
-  Future<Either<Failure, void>> emptyCart({required String userId}) async{
-    try{
-          await databaseService.emptyCart(userId: userId);
-    return const Right(null);
-    }
-    catch(e){
+  Future<Either<Failure, void>> emptyCart({required String userId}) async {
+    try {
+      await databaseService.emptyCart(userId: userId);
+      return const Right(null);
+    } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
-
   }
 }

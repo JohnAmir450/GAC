@@ -31,20 +31,19 @@ class ProductViewItemDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        
         Stack(
           children: [
             //
             Center(
                 child: Padding(
-                  padding:  EdgeInsets.only(top: 24.0.h),
-                  child: CustomCachedNetworkImageWidget(
-                                imageUrl: productEntity.imageUrl!,
-                                borderRadius: 16,
-                                height: MediaQuery.of(context).size.height * 0.47,
-                                fit: BoxFit.cover,
-                              ),
-                )),
+              padding: EdgeInsets.only(top: 24.0.h),
+              child: CustomCachedNetworkImageWidget(
+                imageUrl: productEntity.imageUrl!,
+                borderRadius: 16,
+                height: MediaQuery.of(context).size.height * 0.47,
+                fit: BoxFit.cover,
+              ),
+            )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
@@ -80,7 +79,12 @@ class ProductViewItemDetails extends StatelessWidget {
                   ),
                   verticalSpace(6),
                   GetProductStreamPrice(
-                      cartCubit: cartCubit, productEntity: productEntity),
+                    cartCubit: cartCubit,
+                    productEntity: productEntity,
+                    addedText: '/ كرتونة',
+                  ),
+                  verticalSpace(16),
+                  const Text('وصف المنتج', style: TextStyles.bold16),
                   verticalSpace(16),
                   Text(
                     productEntity.description,

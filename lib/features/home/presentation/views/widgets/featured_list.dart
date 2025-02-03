@@ -17,7 +17,6 @@ class FeaturedList extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        print(constraints.maxWidth);
         double aspectRatio = constraints.maxWidth > 600 ? 3 / 1 : 9 / 5;
         return CarouselSlider.builder(
           itemBuilder: (context, index, realIndex) => FeaturedItem(

@@ -18,7 +18,7 @@ class TitleAndSubTitleSection extends StatelessWidget {
           child: Text.rich(
               textAlign: TextAlign.center,
               TextSpan(children: [
-                 TextSpan(
+                 const TextSpan(
                   text: 'مرحباً بك في \n',
                   style: TextStyles.bold23,
                 ),

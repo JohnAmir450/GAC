@@ -10,9 +10,11 @@ class GetProductStreamPrice extends StatelessWidget {
     required this.cartCubit,
     required this.productEntity,
     this.priceFunction,
+     this.addedText,
   });
 
   final CartCubit cartCubit;
+  final String? addedText;
   final ProductEntity productEntity;
   final dynamic priceFunction;
 
@@ -27,11 +29,16 @@ class GetProductStreamPrice extends StatelessWidget {
           return const Text('Error fetching price');
         } else if (snapshot.hasData) {
           final updatedPrice = snapshot.data!;
+          final text=addedText ?? '';
           return FittedBox(
-            child: Text(priceFunction != null ?
-              '${updatedPrice.roundToDouble() * priceFunction} جنية':'${updatedPrice.roundToDouble()}  جنية',
+            child: Text(
+              priceFunction != null
+                  ? '${updatedPrice.roundToDouble() * priceFunction} جنيه'
+                  : '${updatedPrice.roundToDouble()}  جنيه$text',
               style:
                   TextStyles.bold16.copyWith(color: AppColors.secondaryColor),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           );
         } else {

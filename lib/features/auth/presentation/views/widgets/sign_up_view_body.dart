@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gac/core/helper_functions/app_regex.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
@@ -50,12 +51,20 @@ class SignUpViewBody extends StatelessWidget {
                 controller: cubit.phoneNumberController,
                 textInputType: TextInputType.phone,
                 hintText: 'رقم الهاتف',
+                validator: (value) {
+                  if (value == null ||
+                      value.isEmpty ||
+                      !AppRegex.isPhoneNumberValid(value)) {
+                    return 'برجاء ادخال رقم هاتف صالح';
+                  }
+                  return null;
+                },
                 onChanged: (value) {
                   cubit.phoneNumberController.text = value;
                 },
               ),
               verticalSpace(16.h),
-              BlocBuilder<SignUpCubit,SignUpState>(
+              BlocBuilder<SignUpCubit, SignUpState>(
                 builder: (context, state) {
                   return CustomTextFormField(
                     isObscured: cubit.isObscured,
@@ -90,7 +99,6 @@ class SignUpViewBody extends StatelessWidget {
                 },
               ),
               verticalSpace(25.h),
-              
               const AlreadyHaveAnAccount()
             ],
           ),

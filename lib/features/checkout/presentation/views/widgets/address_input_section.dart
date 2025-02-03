@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gac/core/helper_functions/cache_helper.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
+import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/features/checkout/presentation/views/widgets/default_user_location.dart';
 import 'package:gac/features/checkout/presentation/views/widgets/update_current_default_location.dart';
@@ -46,7 +48,7 @@ class _AddressInputSectionState extends State<AddressInputSection> {
                     isDefaultLocation = !isDefaultLocation;
                     setState(() {});
                   },
-                  child: Text(
+                  child:CacheHelper.getData(key: kSaveUserLocationKey)==null? const Text('اضف عنوان جديد',style: TextStyles.bold16,):Text(
                     isDefaultLocation
                         ? 'اضف عنوان جديد'
                         : 'استخدم العنوان الافتراضي',

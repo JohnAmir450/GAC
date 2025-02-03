@@ -35,7 +35,7 @@ class ReviewOrderSection extends StatelessWidget {
             verticalSpace(16),
             const Divider(),
             verticalSpace(8),
-             Text(
+             const Text(
               'عنوان التوصيل',
               style: TextStyles.bold16,
             ),
@@ -51,7 +51,7 @@ class ReviewOrderSection extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 )),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     pageController.animateToPage(

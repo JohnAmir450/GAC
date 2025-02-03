@@ -33,7 +33,7 @@ class SignUpViewBlocConsumer extends StatelessWidget {
             type: QuickAlertType.loading,
             title: 'تم ارسال رابط التفعيل',
             text: 'الرجاء مراجعة البريد الالكتروني لتفعيل حسابك',
-            
+             barrierDismissible: false,
           );
         }
       },

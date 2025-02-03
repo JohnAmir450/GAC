@@ -12,7 +12,7 @@ class CustomHomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
           
-          title:  Text('مرحبًا بك !',style: TextStyles.regular16.copyWith(color: Color(0xff949D9E),),
+          title:  Text('مرحبًا بك !',style: TextStyles.regular16.copyWith(color: const Color(0xff949D9E),),
           ),
           subtitle:  Text(getUserData().name,style: TextStyles.bold16),
           

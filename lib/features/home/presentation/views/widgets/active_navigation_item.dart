@@ -12,7 +12,7 @@ final String image,title;
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsetsDirectional.only(end: 16),
-        height: 40,
+        height: 40.h,
         decoration: ShapeDecoration(
             color: const Color(0xffEEEEEE),
             shape: RoundedRectangleBorder(

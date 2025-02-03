@@ -90,8 +90,8 @@ void showTermsAndConditionsDialog(BuildContext context) {
               buildSectionTitle('14. بيانات التواصل'),
               buildSectionContent(
                 'لأي استفسارات أو شكاوى، يرجى التواصل معنا عبر:\n'
-                '- الهاتف: 01140550072 / 01028607331 / 0196817723\n'
-                '- البريد الإلكتروني: gulfarabiancompany650@gmail.com \n'
+                 '- الهاتف:\n 01140550072 \n 01028607331\n  0196817723\n'
+                '- البريد الإلكتروني:\n  Gulf-arabian2015@outlook.com \n gulfarabiancompany650@gmail.com\n'
                 '- العنوان: قطعة رقم 5 - المنطقة الصناعية - مدينة بدر',
               ),
             ],

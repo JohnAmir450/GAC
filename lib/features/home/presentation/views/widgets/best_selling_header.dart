@@ -10,7 +10,7 @@ class BestSellingHeader extends StatelessWidget {
     return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-       Text(
+       const Text(
         'الاكثر مبيعًا',style: TextStyles.bold16,
       ),
      

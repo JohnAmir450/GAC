@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/features/auth/domain/entities/user_entity.dart';
@@ -8,6 +10,15 @@ part 'signin_state.dart';
 class SignInCubit extends Cubit<SignInState> {
   final AuthRepo authRepo;
   SignInCubit(this.authRepo) : super(SignInInitial());
+
+   bool _isEmailButtonDisabled = false;
+  int _resendEmailTimerSeconds = 0;
+  Timer? _timer;
+
+  bool get isEmailButtonDisabled => _isEmailButtonDisabled;
+  int get resendEmailTimerSeconds => _resendEmailTimerSeconds;
+
+  
 final TextEditingController emailController = TextEditingController();
 final TextEditingController phoneNumberController = TextEditingController();
 final TextEditingController emailToResetPasswordController = TextEditingController();
@@ -57,13 +68,51 @@ Icon suffixIcon = const Icon(Icons.visibility);
     });
   }
 
-   Future<void> sendEmailToResetPassword()async{
-    var result = await authRepo.sendPasswordResetEmail(email: emailToResetPasswordController.text);
+  Future<void> sendEmailToResetPassword() async {
+    if (_isEmailButtonDisabled) return; // Prevent multiple presses
+
+    //emit(SendEmailToResetPasswordLoadingState()); // Add loading state
+
+    _isEmailButtonDisabled = true;
+    _resendEmailTimerSeconds = 60; // Set timer duration
+    emit(SendEmailToResetPasswordTimerState(_resendEmailTimerSeconds)); //Emit timer state
+
+    _startTimer();
+
+    var result = await authRepo.sendPasswordResetEmail(
+        email: emailToResetPasswordController.text);
+
     result.fold((failure) {
       emit(SendEmailToResetPasswordFailureState(errMessage: failure.message));
+      _resetButtonState(); // Enable button and reset timer on failure.
     }, (success) {
       emit(SendEmailToResetPasswordSuccessState());
     });
+  }
+
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_resendEmailTimerSeconds > 0) {
+        _resendEmailTimerSeconds--;
+        emit(SendEmailToResetPasswordTimerState(_resendEmailTimerSeconds));
+      } else {
+        _timer?.cancel();
+        _resetButtonState();
+      }
+    });
+  }
+
+  void _resetButtonState() {
+    _isEmailButtonDisabled = false;
+    _resendEmailTimerSeconds = 0;
+    emit(SendEmailToResetPasswordTimerState(_resendEmailTimerSeconds)); // Emit 0 to update the UI
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel(); // Cancel the timer to prevent memory leaks
+    return super.close();
   }
  
 

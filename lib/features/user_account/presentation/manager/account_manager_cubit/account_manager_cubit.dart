@@ -29,6 +29,7 @@ class AccountManagerCubit extends Cubit<AccountManagerState> {
   bool hasChanges = false;
   Icon arrowIcon = const Icon(Icons.arrow_forward_ios);
   bool orderVisibleOrderDetails = false;
+  int userPoints = 0;
   final formKey = GlobalKey<FormState>();
 
   void changeProductDetailsVisibility() {
@@ -115,6 +116,11 @@ class AccountManagerCubit extends Cubit<AccountManagerState> {
     }
   }
 
+  Future<void> getUserPoints({required String userId}) async {
+    userPoints = await ordersRepo.getUserPoints(userId: userId);
+    emit(GetUserPointsState());
+  }
+
   Future<void> cancelOrder(BuildContext context,
       {required String orderNumber}) async {
     try {
@@ -127,13 +133,34 @@ class AccountManagerCubit extends Cubit<AccountManagerState> {
     }
   }
 
-  Future<void> updateProductQuantityIfCancelled({
+  Future<void> updateDataIfOrderCancelled({
     required String orderId,
     required List<CheckoutProductDetails> products,
   }) async {
+    await updateProductSellingCountIfCancelled(orderId: orderId);
     await ordersRepo.updateProductQuantityIfCancelled(
       orderId: orderId,
       products: products,
     );
+    await updateUserPointsIfCancelled(
+        userId: getUserData().uId, products: products);
+  }
+
+  Future<void> updateUserPointsIfCancelled({
+    required String userId,
+    required List<CheckoutProductDetails> products,
+  }) async {
+    int totalQuantity =
+        products.fold(0, (sum, product) => sum + product.productQuantity);
+    await ordersRepo.updateUserPoints(
+      operator: '-',
+      userId: userId,
+      quantitySold: totalQuantity,
+    );
+  }
+
+  Future<void> updateProductSellingCountIfCancelled(
+      {required String orderId}) async {
+    await ordersRepo.updateProductSellingCountIfCancelled(orderId: orderId);
   }
 }

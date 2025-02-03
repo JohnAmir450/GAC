@@ -11,6 +11,7 @@ class UserModel {
   final String uId;
   List<CartModel> cartList;
   List<UserLocationsModel>? userLocations;
+  final int points;
 
   UserModel(
      {
@@ -21,7 +22,7 @@ class UserModel {
     required this.phoneNumber, 
     required this.secondName,
     this.userLocations,
-   
+   required this.points,
   });
 
   factory UserModel.fromFirebase(User user) {
@@ -32,6 +33,7 @@ class UserModel {
       email: user.email ?? '',
       uId: user.uid,
       cartList: [],
+      points: 0
     );
   }
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -39,6 +41,7 @@ class UserModel {
         name: json['name'],
         secondName: json['secondName'],
         phoneNumber: json['phoneNumber'],
+        points: json['points'],
         email: json['email'],
         uId: json['uId'],
         cartList: (json['cartList'] as List<dynamic>?)
@@ -59,6 +62,7 @@ class UserModel {
       name: userEntity.name,
       secondName: userEntity.secondName,
       phoneNumber: userEntity.phoneNumber,
+      points: userEntity.points??0,
       email: userEntity.email,
       uId: userEntity.uId,
       cartList:
@@ -76,6 +80,7 @@ class UserModel {
       'phoneNumber': phoneNumber,
       'email': email,
       'uId': uId,
+      'points': points,
       'cartList': cartList.map((e) => e.toJson()).toList(),
       'userLocations': userLocations?.map((e) => e.toJson()).toList()
     };
@@ -88,6 +93,7 @@ class UserModel {
         phoneNumber: phoneNumber,
         email: email,
         uId: uId,
+        points: points,
         cartList: cartList.map((e) => e.toEntity()).toList(),
         userLocations: userLocations?.map((e) => e.toEntity()).toList());
   } 
@@ -100,12 +106,14 @@ class UserModel {
     String? uId,
     List<CartModel>? cartList,
     List<UserLocationsModel>? userLocations,
+    int? points,
   }) {
     return UserModel(
       name: name ?? this.name,
       secondName: secondName ?? this.secondName,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       email: email ?? this.email,
+      points: points ?? this.points,
       uId: uId ?? this.uId,
       cartList: cartList ?? this.cartList,
       userLocations: userLocations ?? this.userLocations,

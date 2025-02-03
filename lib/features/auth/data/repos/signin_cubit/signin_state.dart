@@ -30,3 +30,7 @@ final class SendEmailToResetPasswordFailureState extends SignInState {
 
   SendEmailToResetPasswordFailureState({required this.errMessage});
 }
+class SendEmailToResetPasswordTimerState extends SignInState {
+  final int seconds;
+  SendEmailToResetPasswordTimerState(this.seconds);
+}

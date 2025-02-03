@@ -47,7 +47,7 @@ class ProductItem extends StatelessWidget {
             children: [
               Center(
                 child: SizedBox(
-                 // width: itemWidth*0.9 , // Make the image responsive
+                   // Make the image responsive
                   height: itemWidth , // Maintain aspect ratio
                   child: CustomCachedNetworkImageWidget(fit: BoxFit.fill,
                     imageUrl: productEntity.imageUrl!,
@@ -56,7 +56,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ),
               verticalSpace(8.h),
-              // Product Name and Price
+           
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

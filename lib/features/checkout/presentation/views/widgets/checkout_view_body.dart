@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
+import 'package:gac/core/helper_functions/get_user_data.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/features/checkout/data/models/shipping_address_model.dart';
@@ -27,6 +28,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       ValueNotifier(AutovalidateMode.disabled);
   @override
   void initState() {
+    context.read<OrdersCubit>().getUserPoints(userId: getUserData() .uId);
     _pageController = PageController(initialPage: _currentStep);
     _pageController.addListener(() {
       setState(() {
@@ -80,7 +82,10 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 _handleAddressValidation();
                 context.read<OrdersCubit>().updatePhoneNumberIfNeeded(context, context.read<OrderEntity>().shippingAddressEntity.customerPhone?? ' ');
               } else if (_currentStep == 2) {
-                var orderEntity = context.read<OrderEntity>();
+                var finalPrice = (context.read<OrderEntity>().totalPrice - context.read<OrdersCubit>().discount).roundToDouble();
+               
+                var orderEntity = context.read<OrderEntity>().copyWith(totalPrice: finalPrice);
+                
                 context.read<OrdersCubit>().addOrder(orderEntity: orderEntity);
                 saveUserLocationData(
                     shippingAddressModel: ShippingAddressModel.fromEntity(

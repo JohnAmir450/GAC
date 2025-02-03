@@ -37,3 +37,5 @@ final class FetchUserOrdersLFailureState extends AccountManagerState {
   FetchUserOrdersLFailureState({required this.errorMessage});
 }
 final class ChangeProductDetailsVisibilityState extends AccountManagerState {}
+
+final class GetUserPointsState extends AccountManagerState {}

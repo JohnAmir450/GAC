@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +23,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   setupGetIt();
 
-  runApp(DevicePreview(
-      enabled: true, builder: (context) =>  const MyApp()));
+  runApp(const MyApp()); // Wrap your ap;
 
   OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
 
@@ -35,7 +33,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     String getRoute() {
@@ -44,7 +41,7 @@ class MyApp extends StatelessWidget {
           ) ??
           false;
       var isLoggedIn = FirebaseAuthService().isLoggedIn();
-      //var isLoggedInn=CacheHelper.getData( key: kSaveUserDataKey,) !=null ? true : false;
+
       if (isLoggedIn && isOnboardingViewed) {
         return Routes.mainView;
       } else if (!isLoggedIn && isOnboardingViewed) {
@@ -59,7 +56,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: false,
       child: MaterialApp(
         // useInheritedMediaQuery: true,
-         locale: DevicePreview.locale(context),
+
         title: 'الشركة العربية الخليجية',
         theme: ThemeData(
           fontFamily: 'Cairo',
@@ -74,9 +71,7 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        //   locale: DevicePreview.locale(context),
-
-        //locale: const Locale('ar'),
+        locale: const Locale('ar'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoutes,
         initialRoute: getRoute(),

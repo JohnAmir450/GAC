@@ -15,6 +15,9 @@ class OrdersCubit extends Cubit<OrdersState> {
   OrdersCubit(this.ordersRepo) : super(AddOrderInitialState());
   final OrdersRepo ordersRepo;
   bool governamentChanged = false;
+  bool isDiscountApplied = false;
+   int userPoints=0;
+  double discount = 0.0;
   void changed() {
     governamentChanged = true;
     emit(GovernmentChanged());
@@ -23,16 +26,24 @@ class OrdersCubit extends Cubit<OrdersState> {
   void addOrder({required OrderEntity orderEntity}) async {
     emit(AddOrderLoadingState());
     final result = await ordersRepo.addOrder(orderEntity: orderEntity);
+    var totalQuantity = 0;
     result.fold(
         (failure) => emit(AddOrderFailureState(errorMessage: failure.message)),
         (success) async {
       for (var cartItem in orderEntity.cartItems) {
+        totalQuantity = totalQuantity + cartItem.quantity;
         await ordersRepo.updateProductStock(
+          productCode: cartItem.productEntity.code,
+          quantitySold: cartItem.quantity,
+        );
+        await ordersRepo.updateProductSellingCount(
           productCode: cartItem.productEntity.code,
           quantitySold: cartItem.quantity,
         );
       }
       await ordersRepo.emptyCart(userId: getUserData().uId);
+      await ordersRepo.updateUserPoints( operator: '+',
+          userId: getUserData().uId, quantitySold: totalQuantity);
       emit(AddOrderSuccessState());
     });
   }
@@ -42,6 +53,10 @@ class OrdersCubit extends Cubit<OrdersState> {
     var result =
         await ordersRepo.updatePhoneNumber(uId: uId, phoneNumber: phoneNumber);
     result.fold((failure) {}, (user) {});
+  }
+
+  Future<void> getUserPoints({required String userId}) async {
+    userPoints = await ordersRepo.getUserPoints(userId: userId);
   }
 
   void updatePhoneNumberIfNeeded(BuildContext context, String phoneNumber) {
@@ -60,4 +75,15 @@ class OrdersCubit extends Cubit<OrdersState> {
       );
     }
   }
+
+  Future<double> redeemPointsForDiscount({required String userId}) async {
+    emit(PointsLoadingRedeemState());
+    discount = await ordersRepo.redeemPointsForDiscount(userId: userId);
+    getUserPoints(userId: userId);
+    isDiscountApplied = true;
+    emit(PointsRedeemedState());
+    return discount;
+  }
+
+ 
 }

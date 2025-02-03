@@ -35,7 +35,7 @@ class CancelOrderButton extends StatelessWidget {
                   type: QuickAlertType.confirm, onConfirmBtnTap: () {
                 context
                     .read<AccountManagerCubit>()
-                    .updateProductQuantityIfCancelled(
+                    .updateDataIfOrderCancelled(
                         orderId: orderEntity.orderId,
                         products: orderEntity.checkoutProductDetailsList);
                 context

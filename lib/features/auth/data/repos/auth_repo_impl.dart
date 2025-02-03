@@ -24,7 +24,9 @@ class AuthRepoImpl implements AuthRepo {
       required String password,
       required String name,
       required String secondName,
-      required String phoneNumber}) async {
+      required String phoneNumber,
+      required int points
+      }) async {
     User? user;
     try {
       user = await firebaseAuthService.createUserWithEmailAndPassword(
@@ -42,16 +44,17 @@ class AuthRepoImpl implements AuthRepo {
         uId: user.uid,
         cartList: [],
         userLocations: [],
+        points: points
       );
       await addUserData(userEntity: userEntity);
       await getUserData(uId: user.uid);
       await saveUserData(userEntity: userEntity);
       return Right(userEntity);
-    } on CustomException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: mapException(e)));
     } catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
@@ -70,8 +73,8 @@ class AuthRepoImpl implements AuthRepo {
       userEntity.cartList = [];
       await saveUserData(userEntity: userEntity);
       return Right(userEntity);
-    } on CustomException catch (e) {
-      return Left(ServerFailure(message: e.message));
+    } on FirebaseAuthException catch (e) {
+      return Left(ServerFailure(message: mapException(e)));
     } catch (e) {
       return Left(ServerFailure(message: 'حدث خطأ ما، حاول مرة اخرى'));
     }
@@ -99,11 +102,11 @@ class AuthRepoImpl implements AuthRepo {
     
     
       
-    } on CustomException catch (e) {
+    } on FirebaseAuthException  catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: mapException(e)));
     } catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
@@ -135,11 +138,11 @@ class AuthRepoImpl implements AuthRepo {
         return Right(userEntity);
       }
       return Right(userEntity);
-    } on CustomException catch (e) {
+    } on FirebaseAuthException  catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();
       }
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: mapException(e)));
     } catch (e) {
       if (user != null) {
         await firebaseAuthService.deleteUser();

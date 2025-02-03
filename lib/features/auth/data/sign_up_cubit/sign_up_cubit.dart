@@ -39,7 +39,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: passwordController.text,
         name: nameController.text,
         secondName: secondNameController.text,
-        phoneNumber: phoneNumberController.text
+        phoneNumber: phoneNumberController.text,
+        points: 0
         );
     result.fold((failure) {
       if (failure.message=='الرجاء تفعيل الحساب من خلال البريد الالكتروني') {
@@ -56,7 +57,8 @@ class SignUpCubit extends Cubit<SignUpState> {
                 secondName: secondNameController.text,
                 phoneNumber: phoneNumberController.text,
                 uId: currentUser!.uid,
-                cartList: []
+                cartList: [],
+                points: 0
               );
               await authRepo.addUserData(userEntity: userEntity);
               await authRepo.getUserData(uId: currentUser.uid);

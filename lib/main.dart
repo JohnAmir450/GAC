@@ -23,7 +23,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   setupGetIt();
 
-  runApp(const MyApp());
+  runApp(const MyApp()); // Wrap your ap;
 
   OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
 
@@ -71,8 +71,6 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        //   locale: DevicePreview.locale(context),
-
         locale: const Locale('ar'),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: onGenerateRoutes,

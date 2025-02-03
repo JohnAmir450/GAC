@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gac/core/helper_functions/get_user_data.dart';
 import 'package:gac/core/repos/orders_repo/orders_repo.dart';
 import 'package:gac/core/services/get_it_service.dart';
 import 'package:gac/features/auth/domain/repos/auth_repo.dart';
@@ -12,7 +13,7 @@ class UserAccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AccountManagerCubit(getIt.get<AuthRepo>(),getIt.get<OrdersRepo>()),
+      create: (context) => AccountManagerCubit(getIt.get<AuthRepo>(),getIt.get<OrdersRepo>())..getUserPoints(userId: getUserData().uId),
       child: const SafeArea(child: UserAccountViewBody()),
     );
   }

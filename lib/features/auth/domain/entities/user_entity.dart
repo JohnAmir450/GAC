@@ -9,6 +9,7 @@ class UserEntity {
   final String uId;
   List<CartEntity>? cartList;
   List<UserLocationsEntity>? userLocations;
+   int? points;
 
   UserEntity(
       {required this.name,
@@ -17,7 +18,8 @@ class UserEntity {
       required this.email,
       required this.uId,
        this.cartList,
-     this.userLocations
+     this.userLocations,
+      this.points
      });
 
        UserEntity copyWith({
@@ -28,6 +30,7 @@ class UserEntity {
     String? uId,
     List<CartEntity>? cartList,
     List<UserLocationsEntity>? userLocations,
+     int? points,
   }) {
     return UserEntity(
       name: name ?? this.name,
@@ -37,6 +40,7 @@ class UserEntity {
       uId: uId ?? this.uId,
       cartList: cartList ?? this.cartList,
       userLocations: userLocations ?? this.userLocations,
+      points: points ?? this.points
     );
   }
 }

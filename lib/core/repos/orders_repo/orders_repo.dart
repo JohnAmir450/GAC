@@ -20,4 +20,15 @@ Future<Either<Failure, void>> cancelOrder({required String orderNumber});
     required String orderId,
     required List<CheckoutProductDetails> products,
   });
+
+ Future<int> getUserPoints({required String userId});
+  Future<void> updateUserPoints({required String userId,required int quantitySold, required String operator,});
+
+  Future<double> redeemPointsForDiscount({required String userId});
+    Future<Either<Failure, void>> updateProductSellingCountIfCancelled({
+    required String orderId,
+    // Add the operator parameter
+   // Add the operator parameter
+  });
+  Future<void> updateProductSellingCount({required String productCode, required int quantitySold});
 } 

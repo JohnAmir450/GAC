@@ -6,6 +6,7 @@ import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/cart_item_actions_column.dart';
 import 'package:gac/core/widgets/cart_item_details_column.dart';
+import 'package:gac/core/widgets/custom_cached_network_image.dart';
 
 class CartItem extends StatelessWidget {
   final CartEntity cartEntity;
@@ -22,17 +23,14 @@ class CartItem extends StatelessWidget {
             arguments: cartEntity.productEntity);
       },
       child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-         children: [
+        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           verticalSpace(16.h),
-          ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.network(
-                height: MediaQuery.sizeOf(context).height * 0.13,
-                cartEntity.productEntity.imageUrl!,
-                fit: BoxFit.cover,
-              )),
+          CustomCachedNetworkImageWidget(
+            imageUrl: cartEntity.productEntity.imageUrl!,
+            borderRadius: 16,
+            height: MediaQuery.of(context).size.height * 0.13,
+            fit: BoxFit.cover,
+          ),
           horizontalSpace(18),
           CartItemDetailsColumn(
             cartEntity: cartEntity,

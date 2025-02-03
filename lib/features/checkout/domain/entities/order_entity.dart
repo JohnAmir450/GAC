@@ -12,6 +12,28 @@ class OrderEntity {
   ShippingAddressEntity shippingAddressEntity ;
   final String orderId ;
 
+
+OrderEntity copyWith({
+  String? orderId,
+  String? uID,
+  String? orderStatus,
+  Timestamp? orderDate,
+  List<CartEntity>? cartItems,
+  double? totalPrice,
+  bool? payWithCash,
+  ShippingAddressEntity? shippingAddressEntity  
+})  {
+    return OrderEntity(
+      orderId: orderId ?? this.orderId,
+      uID: uID ?? this.uID,
+      orderStatus: orderStatus ?? this.orderStatus,
+      orderDate: orderDate ?? this.orderDate,
+      cartItems: cartItems ?? this.cartItems,
+      totalPrice: totalPrice ?? this.totalPrice,
+      payWithCash: payWithCash ?? this.payWithCash,
+      shippingAddressEntity: shippingAddressEntity ?? this.shippingAddressEntity
+    );
+}
   OrderEntity({
     required this.orderId,
     required this.uID,

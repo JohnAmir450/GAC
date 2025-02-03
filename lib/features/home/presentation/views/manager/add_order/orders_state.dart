@@ -15,3 +15,6 @@ final class AddOrderFailureState extends OrdersState {
   AddOrderFailureState({required this.errorMessage});
 }
 final class GovernmentChanged extends OrdersState {}
+
+final class PointsRedeemedState extends OrdersState {}
+final class PointsLoadingRedeemState extends OrdersState {}

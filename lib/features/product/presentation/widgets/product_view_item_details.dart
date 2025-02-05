@@ -84,7 +84,7 @@ class ProductViewItemDetails extends StatelessWidget {
                     addedText: '/ كرتونة',
                   ),
                   verticalSpace(16),
-                  const Text('وصف المنتج', style: TextStyles.bold16),
+                    Text('وصف المنتج', style: TextStyles.bold16),
                   verticalSpace(16),
                   Text(
                     productEntity.description,

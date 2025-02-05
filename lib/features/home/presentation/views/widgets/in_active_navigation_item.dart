@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 
 class InActiveNavigationItem extends StatelessWidget {
   const InActiveNavigationItem({
@@ -12,6 +13,10 @@ class InActiveNavigationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(image,height: 20.h,width: 20.w,);
+    return SvgPicture.asset(
+      image,
+      height: isDeviceInPortrait(context)? 25.h :65.h,
+      width: 25.w,
+    );
   }
 }

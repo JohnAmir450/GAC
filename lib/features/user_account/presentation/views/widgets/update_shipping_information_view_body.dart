@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
@@ -33,6 +34,7 @@ class UpdateShippingInformationViewBody extends StatelessWidget {
               ),
               verticalSpace(16),
               CustomTextFormField(
+                textInputType: TextInputType.text,
                 needsValidation:  shippingAddress.customerCity==' ',
                 onChanged: (value) {
                   shippingAddress.customerCity = value;
@@ -44,6 +46,7 @@ class UpdateShippingInformationViewBody extends StatelessWidget {
               ),
               verticalSpace(16),
               CustomTextFormField(
+                 textInputType: TextInputType.text,
                 needsValidation: shippingAddress.customerStreetName==' ',
                 onChanged: (value) {
                   shippingAddress.customerStreetName = value;
@@ -55,6 +58,7 @@ class UpdateShippingInformationViewBody extends StatelessWidget {
               ),
               verticalSpace(16),
               CustomTextFormField(
+                 textInputType: TextInputType.text,
                 needsValidation: false,
                 onChanged: (value) {
                   shippingAddress.customerLocationDescription = value;
@@ -69,6 +73,7 @@ class UpdateShippingInformationViewBody extends StatelessWidget {
               BlocBuilder<AccountManagerCubit, AccountManagerState>(
                 builder: (context, state) {
                   return CustomButton(
+                    height: isDeviceInPortrait(context) ? 54.h : 100.h,
                     backgroundColor: cubit.hasChanges
                         ? AppColors.primaryColor
                         : Colors.grey.shade400,

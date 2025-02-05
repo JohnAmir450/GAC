@@ -50,7 +50,7 @@ class UserOrdersItem extends StatelessWidget {
               OrderDetails(orderEntity: orderEntity),
 
               // Order Products
-              const Text(
+                Text(
                 'الطلبية:',
                 style: TextStyles.bold16,
               ),

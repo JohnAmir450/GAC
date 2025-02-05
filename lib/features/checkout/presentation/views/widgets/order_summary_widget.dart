@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
@@ -21,7 +22,7 @@ class OrderSummaryWidget extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'ملخص الطلب : ',
               style: TextStyles.bold16,
             ),
@@ -55,24 +56,62 @@ class OrderSummaryWidget extends StatelessWidget {
               thickness: 0.5,
               color: Color(0xffCACECE),
             ),
-            Row(
-              children: [
-                const Text(
-                  'المجموع الكلي',
-                  style: TextStyles.bold16,
-                ),
-                const Spacer(),
-                Text(
-                  '${(orderEntity.totalPrice - ordersCubit.discount).toStringAsFixed(2)} جنيه',
-                  style:
-                      TextStyles.bold16.copyWith(color: AppColors.primaryColor),
-                ),
-              ],
+            CustomOrderSummaryRow(
+                title:ordersCubit.discount > 0 ? 'اجمالي الطلب' : 'المبلغ الكلي',
+                leading: '${orderEntity.totalPrice.toStringAsFixed(2)} جنيه'),
+            Visibility(
+              visible: ordersCubit.discount > 0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  verticalSpace(6),
+                  CustomOrderSummaryRow(
+                      title: 'الخصم',
+                      leading: '${ordersCubit.discount.toStringAsFixed(2)}- جنيه'),
+                 Divider(
+                   height: 40,endIndent: 50,indent: 50,
+                   thickness: 0.5,
+                   color: Color(0xffCACECE),
+                 ),
+                  CustomOrderSummaryRow(
+                      title:'المبلغ بعد الخصم',
+                      leading:
+                          '${(orderEntity.totalPrice - ordersCubit.discount).toStringAsFixed(2)} جنيه'),
+                ],
+              ),
             ),
             verticalSpace(24),
           ],
         );
       },
+    );
+  }
+}
+
+class CustomOrderSummaryRow extends StatelessWidget {
+  const CustomOrderSummaryRow({
+    super.key,
+    required this.title,
+    required this.leading,
+  });
+
+  final String title;
+  final String leading;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          title,
+          style: TextStyles.bold16,
+        ),
+        const Spacer(),
+        Text(
+          leading,
+          style: TextStyles.bold16.copyWith(color: AppColors.primaryColor),
+        ),
+      ],
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/cubits/cart_cubit/cart_cubit.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
@@ -67,6 +69,7 @@ class CartViewBody extends StatelessWidget {
                   ),
                   SliverToBoxAdapter(
                     child: CustomButton(
+                      height: isDeviceInPortrait(context) ? 54.h : 100.h,
                       text:
                           (' تأكيد الطلب : ${context.read<CartCubit>().getTotalPrice(state.products).toString()} جنيه'),
                       onPressed: () {
@@ -82,10 +85,13 @@ class CartViewBody extends StatelessWidget {
                       },
                     ),
                   ),
+                  SliverToBoxAdapter(
+                    child: verticalSpace(30),
+                  ),
                 ],
               );
             } else {
-              return  const EmptyListViewWidget(
+              return const EmptyListViewWidget(
                 title: 'لا يوجد منتجات في سلة التسوق',
                 subTitle: 'يمكنك اضافة منتجات من القائمة',
               );
@@ -105,4 +111,3 @@ class CartViewBody extends StatelessWidget {
     );
   }
 }
-

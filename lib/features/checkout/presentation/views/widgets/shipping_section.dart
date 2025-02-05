@@ -19,7 +19,7 @@ class ShippingSection extends StatelessWidget {
             side: const BorderSide(color: AppColors.primaryColor,),borderRadius: BorderRadius.circular(16),
           )),
           child: ListTile(
-            title:  const Text(
+            title:   Text(
               'الدفع عند الاستلام',
               style: TextStyles.bold16,
             ),

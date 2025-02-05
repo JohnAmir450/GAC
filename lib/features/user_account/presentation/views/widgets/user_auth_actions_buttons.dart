@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/helper_functions/custom_quick_alret_view.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/core/helper_functions/get_user_data.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/spacing.dart';
@@ -20,6 +22,7 @@ class UserAuthActionsButtons extends StatelessWidget {
     return Column(
       children: [
         CustomButton(
+          height: isDeviceInPortrait(context) ? 54.h : 100.h,
           text: 'تسجيل الخروج',
           onPressed: () {
             customQuickAlertView(
@@ -43,6 +46,7 @@ class UserAuthActionsButtons extends StatelessWidget {
         ),
         verticalSpace(30),
         CustomButton(
+          height: isDeviceInPortrait(context) ? 54.h : 100.h,
           text: 'حذف الحساب ',
           onPressed: () {
             customQuickAlertView(

@@ -25,7 +25,7 @@ class OrderConfirmedSuccessfully extends StatelessWidget {
               children: [
                 SvgPicture.asset(Assets.assetsImagesOrderConfirmedSuccessfully),
                 verticalSpace(16),
-                const Text(
+                  Text(
                   'تم تاكيد الطلب بنجاح',
                   style: TextStyles.bold16,
                 ),

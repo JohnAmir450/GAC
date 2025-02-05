@@ -61,15 +61,15 @@ final Timestamp timestamp = Timestamp.fromDate(now);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
-      child: BlocProvider(
-        create: (context) => OrdersCubit(getIt.get<OrdersRepo>()),
-        child: Scaffold(
-          appBar: buildAppBar(context, title: 'تأكيد الطلب', onTap: () {
-            context.pop();
-          }),
-          body: Provider.value(
+    return BlocProvider(
+      create: (context) => OrdersCubit(getIt.get<OrdersRepo>()),
+      child: Scaffold(
+        appBar: buildAppBar(context, title: 'تأكيد الطلب', onTap: () {
+          context.pop();
+        }),
+        body: Padding(
+           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+          child: Provider.value(
               value: orderEntity,
               child: const AddOrderCubitBlocBuilder(child: CheckoutViewBody())),
         ),

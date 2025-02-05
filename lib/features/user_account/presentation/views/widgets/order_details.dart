@@ -41,7 +41,7 @@ class OrderDetails extends StatelessWidget {
         ),
         verticalSpace(8),
         // Shipping Address
-        const Text(
+          Text(
           'عنوان التوصيل:',
           style: TextStyles.bold16,
         ),

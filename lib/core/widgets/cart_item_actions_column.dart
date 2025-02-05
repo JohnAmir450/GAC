@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/cubits/cart_cubit/cart_cubit.dart';
 import 'package:gac/core/entities/cart_entity.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/widgets/get_products_stream_price.dart';
 
 class CartItemActionsColumn extends StatelessWidget {
@@ -29,11 +30,15 @@ class CartItemActionsColumn extends StatelessWidget {
             },
           ),
           const Spacer(),
-         
-          GetProductStreamPrice(
-            cartCubit: cartCubit,
-            productEntity: cartEntity.productEntity,
-            priceFunction: cartEntity.quantity,
+          SizedBox(
+            width: isDeviceInPortrait(context)
+                ? MediaQuery.of(context).size.width * 0.25
+                : MediaQuery.of(context).size.width * 0.15,
+            child: GetProductStreamPrice(
+              cartCubit: cartCubit,
+              productEntity: cartEntity.productEntity,
+              priceFunction: cartEntity.quantity,
+            ),
           )
         ],
       ),

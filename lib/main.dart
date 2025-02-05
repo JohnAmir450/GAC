@@ -23,11 +23,10 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   setupGetIt();
 
-  runApp(const MyApp()); // Wrap your ap;
-
   OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
+  await OneSignal.Notifications.requestPermission(true); // ✅ Ensure it's ready
 
-  OneSignal.Notifications.requestPermission(true);
+  runApp(const MyApp()); // ✅ Runs after all initializations
 }
 
 class MyApp extends StatelessWidget {
@@ -36,45 +35,47 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String getRoute() {
-      bool isOnboardingViewed = CacheHelper.getData(
-            key: kIsOnboardingViewKey,
-          ) ??
-          false;
-      var isLoggedIn = FirebaseAuthService().isLoggedIn();
+      final bool isOnboardingViewed = CacheHelper.getData(key: kIsOnboardingViewKey) ?? false;
+      final bool isLoggedIn = FirebaseAuthService().isLoggedIn();
 
-      if (isLoggedIn && isOnboardingViewed) {
-        return Routes.mainView;
-      } else if (!isLoggedIn && isOnboardingViewed) {
-        return Routes.loginView;
-      } else {
-        return Routes.onBoardingView;
-      }
+      if (!isOnboardingViewed) return Routes.onBoardingView;
+      return isLoggedIn ? Routes.mainView : Routes.loginView;
     }
 
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       minTextAdapt: false,
-      child: MaterialApp(
-        // useInheritedMediaQuery: true,
-
-        title: 'الشركة العربية الخليجية',
-        theme: ThemeData(
-          fontFamily: 'Cairo',
-          scaffoldBackgroundColor: Colors.white,
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
-          useMaterial3: true,
-        ),
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        locale: const Locale('ar'),
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: onGenerateRoutes,
-        initialRoute: getRoute(),
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            builder: (context, child) {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  textScaler: const TextScaler.linear(1), 
+                ),
+                child: child!,
+              );
+            },
+            title: 'الشركة العربية الخليجية',
+            theme: ThemeData(
+              fontFamily: 'Cairo',
+              scaffoldBackgroundColor: Colors.white,
+              colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
+              useMaterial3: true,
+            ),
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            locale: const Locale('ar'),
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: onGenerateRoutes,
+            initialRoute: getRoute(),
+          );
+        },
       ),
     );
   }

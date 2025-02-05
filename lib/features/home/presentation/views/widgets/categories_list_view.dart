@@ -13,8 +13,9 @@ class CategoriesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit=context.read<ProductsCubit>();
+    double width = MediaQuery.sizeOf(context).width>600? 5.3:4.3;
     return AspectRatio(
-      aspectRatio: 4.3,
+      aspectRatio: width,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,

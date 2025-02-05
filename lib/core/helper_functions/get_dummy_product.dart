@@ -10,7 +10,7 @@ ProductEntity getDummyProduct() => ProductEntity(
   expirationMonths: 10,
   isOrganic: true,
   productQuantity: 10,
-  numberOfCalories: 10,
+  discountPrice: 10,
   reviews: [],
 );
 

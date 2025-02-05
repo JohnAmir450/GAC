@@ -212,7 +212,7 @@ Stream<double> getProductPriceStream({
         final data = doc.data();
 
         // Fetch the price field and ensure it's a double, defaulting to 0 if not available
-        final price = (data['price'] != null) ? (data['price'] as num).toDouble() : 0.0;
+        final price = (data['discountPrice'] > 0) ? (data['discountPrice'] as num).toDouble():(data['price'] as num).toDouble() ;
         return price;
       } else {
         return 0.0; // Return 0 if no product was found

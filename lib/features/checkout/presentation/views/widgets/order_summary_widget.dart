@@ -67,8 +67,8 @@ class OrderSummaryWidget extends StatelessWidget {
                   verticalSpace(6),
                   CustomOrderSummaryRow(
                       title: 'الخصم',
-                      leading: '${ordersCubit.discount.toStringAsFixed(2)}- جنيه'),
-                 Divider(
+                      leading: '${ordersCubit.discount.roundToDouble()}- جنيه'),
+                 const Divider(
                    height: 40,endIndent: 50,indent: 50,
                    thickness: 0.5,
                    color: Color(0xffCACECE),
@@ -76,7 +76,7 @@ class OrderSummaryWidget extends StatelessWidget {
                   CustomOrderSummaryRow(
                       title:'المبلغ بعد الخصم',
                       leading:
-                          '${(orderEntity.totalPrice - ordersCubit.discount).toStringAsFixed(2)} جنيه'),
+                          '${(orderEntity.totalPrice - ordersCubit.discount).roundToDouble()} جنيه'),
                 ],
               ),
             ),

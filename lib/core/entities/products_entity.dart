@@ -13,13 +13,13 @@ class ProductEntity {
   final int expirationMonths;
    bool isOrganic=true;
   final int productQuantity;
-  final int numberOfCalories;
+  final num discountPrice;
    num avgRating=0;
    num ratingCount=0;
   final List<ReviewEntity>?reviews;
 
   ProductEntity({
-    required this.numberOfCalories,
+    required this.discountPrice,
     required this.expirationMonths,
     required this.isOrganic,
     required this.productQuantity,

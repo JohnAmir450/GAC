@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/helper_functions/app_regex.dart';
 import 'package:gac/core/helper_functions/get_user_data.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
@@ -40,7 +41,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
           key: cubit.formKey,
           child: Column(
             children: [
-              const Align(
+                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     'المعلومات الشخصية : ',
@@ -48,6 +49,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
                   )),
               verticalSpace(16),
               CustomTextFormField(
+                textInputType: TextInputType.name,
                 controller: cubit.firstNameController,
                 hintText: 'الاسم الاول',
                 onChanged: (value) {
@@ -57,6 +59,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
               ),
               verticalSpace(16),
               CustomTextFormField(
+                 textInputType: TextInputType.name,
                 controller: cubit.secondNameController,
                 hintText: 'الاسم الاخير',
                 onChanged: (value) {
@@ -86,6 +89,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
               BlocBuilder<AccountManagerCubit, AccountManagerState>(
                 builder: (context, state) {
                   return CustomButton(
+                    height: isDeviceInPortrait(context) ? 54.h : 100.h,
                       text: 'حفظ التغيرات',
                       backgroundColor: cubit.hasChanges
                           ? AppColors.primaryColor

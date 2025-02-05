@@ -69,6 +69,7 @@ class _UpdateCurrentDefaultLocationState
           const CustomGovernmentSelector(),
           verticalSpace(16),
           CustomTextFormField(
+             textInputType: TextInputType.text,
             needsValidation: true,
             onChanged: (value) {
               context.read<OrderEntity>().shippingAddressEntity.customerCity =
@@ -78,6 +79,7 @@ class _UpdateCurrentDefaultLocationState
           ),
           verticalSpace(16),
           CustomTextFormField(
+             textInputType: TextInputType.text,
             needsValidation: true,
             onChanged: (value) {
               context
@@ -89,6 +91,7 @@ class _UpdateCurrentDefaultLocationState
           ),
           verticalSpace(16),
           CustomTextFormField(
+             textInputType: TextInputType.text,
             needsValidation: false,
             onChanged: (value) {
               context

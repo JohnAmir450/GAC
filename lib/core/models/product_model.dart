@@ -14,14 +14,14 @@ class ProductModel {
   final int expirationMonths;
    bool isOrganic=true;
   final int productQuantity;
-  final int numberOfCalories;
+  final num discountPrice;
    num avgRating=0;
    num ratingCount=0;
   final List<ReviewModel>?reviews;
   final int? sellingCount;
 
   ProductModel( {
-    required this.numberOfCalories,
+    required this.discountPrice,
     required this.expirationMonths,
     required this.isOrganic,
     required this.productQuantity,
@@ -48,7 +48,7 @@ class ProductModel {
       expirationMonths: addProductEntity.expirationMonths,
       isOrganic: addProductEntity.isOrganic,
       productQuantity: addProductEntity.productQuantity,
-      numberOfCalories: addProductEntity.numberOfCalories,
+      discountPrice: addProductEntity.discountPrice,
       reviews: addProductEntity.reviews?.map((e) => ReviewModel.fromEntity(e)).toList(),
     );
   } 
@@ -66,7 +66,7 @@ class ProductModel {
       expirationMonths: json['expirationMonths'],
       isOrganic: json['isOrganic'],
       productQuantity: json['productQuantity'],
-      numberOfCalories: json['numberOfCalories'],
+      discountPrice: json['discountPrice'],
       reviews: (json['reviews'] as List<dynamic>?)
         ?.map((review) => ReviewModel.fromJson(review as Map<String, dynamic>))
         .toList() ?? [],
@@ -85,7 +85,7 @@ class ProductModel {
       'expirationMonths': expirationMonths,
       'isOrganic': isOrganic,
       'productQuantity': productQuantity,
-      'numberOfCalories': numberOfCalories,
+      'discountPrice': discountPrice,
       'reviews': reviews?.map((e) => e.toJson()).toList() as List<dynamic>,
       'sellingCount': sellingCount,
     };
@@ -104,7 +104,7 @@ class ProductModel {
       expirationMonths: expirationMonths,
       isOrganic: isOrganic,
       productQuantity: productQuantity,
-      numberOfCalories: numberOfCalories,
+      discountPrice: discountPrice,
       reviews: reviews?.map((e) => e.toEntity()).toList()??[],
     );
   }

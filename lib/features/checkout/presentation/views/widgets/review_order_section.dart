@@ -24,7 +24,7 @@ class ReviewOrderSection extends StatelessWidget {
             verticalSpace(24),
             const Divider(),
             verticalSpace(8),
-             const Text(
+               Text(
               'طريقة الدفع',
               style: TextStyles.bold16,
             ),
@@ -35,7 +35,7 @@ class ReviewOrderSection extends StatelessWidget {
             verticalSpace(16),
             const Divider(),
             verticalSpace(8),
-             const Text(
+               Text(
               'عنوان التوصيل',
               style: TextStyles.bold16,
             ),

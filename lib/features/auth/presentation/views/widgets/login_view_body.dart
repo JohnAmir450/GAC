@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_images.dart';
@@ -40,6 +41,7 @@ class LoginViewBody extends StatelessWidget {
               BlocBuilder<SignInCubit, SignInState>(
                 builder: (context, state) {
                   return CustomTextFormField(
+                    textInputType: TextInputType.visiblePassword,
                     controller: cubit.passwordController,
                     onChanged: (value) {
                       cubit.passwordController.text = value;
@@ -56,6 +58,7 @@ class LoginViewBody extends StatelessWidget {
               ),
               verticalSpace(45.h),
               CustomButton(
+                height: isDeviceInPortrait(context) ? 54.h : 100.h,
                 onPressed: () {
                   if (cubit.formKey.currentState!.validate()) {
                     cubit.signIn();

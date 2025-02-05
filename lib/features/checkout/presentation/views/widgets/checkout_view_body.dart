@@ -1,9 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
 import 'package:gac/core/helper_functions/get_user_data.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/features/checkout/data/models/shipping_address_model.dart';
@@ -75,7 +76,9 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             autoValidateMode: autoValidateMode,
           ),
         ),
+        
         CustomButton(
+          height: isDeviceInPortrait(context) ? 54.h : 100.h,
             text: _currentStep == 2 ? "تأكيد الطلب" : "التالي",
             onPressed: () async {
               if (_currentStep == 1) {

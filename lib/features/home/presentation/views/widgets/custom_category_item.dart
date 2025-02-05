@@ -14,7 +14,7 @@ class CustomProductCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-      padding:  EdgeInsets.all(16.w),
+      padding:  EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w),
       decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(

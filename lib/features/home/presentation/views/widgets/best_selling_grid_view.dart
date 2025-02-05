@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/entities/products_entity.dart';
+import 'package:gac/core/helper_functions/get_aspect_ration.dart';
 import 'package:gac/core/widgets/product_item.dart';
 
 class BestSellingGridView extends StatelessWidget {
@@ -8,12 +9,12 @@ class BestSellingGridView extends StatelessWidget {
   final List<ProductEntity> products;
   @override
   Widget build(BuildContext context) {
-    double aspectRatio = MediaQuery.sizeOf(context).width > 600 ? 0.65 : 0.56;
+    double aspectRatio = getAspectRatio(context);
     return SliverGrid.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: aspectRatio,
-        crossAxisSpacing: 8.w,
+        crossAxisSpacing: 8,
         mainAxisSpacing: 8.0.h,
       ),
       itemCount: products.length,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/helper_functions/app_regex.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
@@ -24,6 +25,7 @@ class SignUpViewBody extends StatelessWidget {
           child: Column(
             children: [
               CustomTextFormField(
+                textInputType: TextInputType.name,
                 controller: cubit.nameController,
                 hintText: 'الاسم الاول',
                 onChanged: (value) {
@@ -32,6 +34,7 @@ class SignUpViewBody extends StatelessWidget {
               ),
               verticalSpace(16.h),
               CustomTextFormField(
+                textInputType: TextInputType.name,
                 controller: cubit.secondNameController,
                 hintText: 'الاسم الثاني',
                 onChanged: (value) {
@@ -67,6 +70,7 @@ class SignUpViewBody extends StatelessWidget {
               BlocBuilder<SignUpCubit, SignUpState>(
                 builder: (context, state) {
                   return CustomTextFormField(
+                    textInputType: TextInputType.visiblePassword,
                     isObscured: cubit.isObscured,
                     controller: cubit.passwordController,
                     onChanged: (value) {
@@ -85,6 +89,7 @@ class SignUpViewBody extends StatelessWidget {
               const TermsAndConditionsWidget(),
               verticalSpace(30.h),
               CustomButton(
+                height: isDeviceInPortrait(context) ? 54.h : 100.h,
                 text: 'إنشاء حساب جديد',
                 onPressed: () {
                   if (cubit.formKey.currentState!.validate()) {

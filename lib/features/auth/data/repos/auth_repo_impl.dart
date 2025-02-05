@@ -103,12 +103,7 @@ class AuthRepoImpl implements AuthRepo {
         await saveUserData(userEntity: userEntity);
         return Right(userEntity);
       }
-    } on FirebaseAuthException catch (e) {
-      if (user != null) {
-        await firebaseAuthService.deleteUser();
-      }
-      return Left(ServerFailure(message: mapException(e)));
-    } on CustomException catch (e) {
+    }  on CustomException catch (e) {
       return Left(ServerFailure(message: e.toString()));
     } catch (e) {
       if (user != null) {

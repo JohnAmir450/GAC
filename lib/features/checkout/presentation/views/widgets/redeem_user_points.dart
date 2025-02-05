@@ -37,7 +37,10 @@ class RedeemUserPoints extends StatelessWidget {
                   if (ordersCubit.userPoints >= 1000) {
                     await ordersCubit.redeemPointsForDiscount(
                         userId: getUserData().uId);
-                  } else {
+                  } else if(  ordersCubit.discount > 0) {
+                    showSnackBar(context, text: 'تم استخدام جميع النقاط المتاحة');
+                  }
+                  else {
                     showSnackBar(context, text: 'لا توجد نقاط كافية للاستخدام');
                   }
                 },

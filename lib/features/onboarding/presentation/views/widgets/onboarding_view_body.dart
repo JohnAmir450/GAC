@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
+import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/app_images.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
@@ -38,7 +39,9 @@ class OnBoardingViewBody extends StatelessWidget {
                 const Spacer(
                   flex: 1,
                 ),
-                CustomButton(text: 'ابدأ الان', onPressed: () {
+                CustomButton(
+                  height: isDeviceInPortrait(context) ? 54.h : 100.h,
+                  text: 'ابدأ الان', onPressed: () {
                   CacheHelper.saveData(key: kIsOnboardingViewKey, value: true);
                   context.pushNamedAndRemoveUntil(Routes.loginView, predicate: (Route<dynamic> route) => false);
                 }),

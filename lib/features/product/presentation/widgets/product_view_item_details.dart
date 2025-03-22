@@ -55,9 +55,11 @@ class ProductViewItemDetails extends StatelessWidget {
           ],
         ),
         verticalSpace(24),
-        ProductViewItemDetailsBlocBuilder(productEntity: productEntity, cartCubit: cartCubit, details: details),
+        ProductViewItemDetailsBlocBuilder(
+            productEntity: productEntity,
+            cartCubit: cartCubit,
+            details: details),
       ],
     );
   }
 }
-

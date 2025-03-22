@@ -28,7 +28,8 @@ class ProductItem extends StatelessWidget {
           context.pushNamed(Routes.productView, arguments: productEntity);
         },
         child: Container(
-          width: itemWidth, // Make the container fit its grid cell
+          width: itemWidth, 
+         // Make the container fit its grid cell
           padding: EdgeInsets.all(12.h),
           decoration: ShapeDecoration(
             color: const Color(0xff3F5F7),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
@@ -12,6 +13,7 @@ import 'package:gac/features/checkout/data/models/order_model.dart';
 import 'package:gac/features/checkout/data/models/shipping_address_model.dart';
 import 'package:gac/features/checkout/domain/entities/checkout_product_details.dart';
 import 'package:gac/features/checkout/domain/entities/shiping_address_entity.dart';
+import 'package:gac/generated/l10n.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../core/utils/chache_helper_keys.dart';
@@ -21,8 +23,10 @@ part 'account_manager_state.dart';
 class AccountManagerCubit extends Cubit<AccountManagerState> {
   final AuthRepo authRepo;
   final OrdersRepo ordersRepo;
+  
   AccountManagerCubit(this.authRepo, this.ordersRepo)
       : super(AccountManagerInitialState());
+
   final TextEditingController? firstNameController = TextEditingController();
   final TextEditingController? secondNameController = TextEditingController();
   final TextEditingController? phoneNumberController = TextEditingController();
@@ -39,6 +43,10 @@ class AccountManagerCubit extends Cubit<AccountManagerState> {
         : const Icon(Icons.arrow_forward_ios);
 
     emit(ChangeProductDetailsVisibilityState());
+  }
+
+  Future<User> getCurrentUser() async {
+    return await authRepo.getCurrentUser();
   }
 
   Future<void> updateUserData() async {
@@ -75,12 +83,44 @@ class AccountManagerCubit extends Cubit<AccountManagerState> {
     await authRepo.signOut();
   }
 
-  Future<void> deleteAccount({required String uId}) async {
-    var result = await authRepo.deleteAccount(uId: uId);
-    result.fold(
-        (failure) =>
-            emit(DeleteAccountFailureState(errorMessage: failure.message)),
-        (deleted) => emit(DeleteAccountSuccessState()));
+  Future<bool> reauthenticateUser(String password) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null || user.email == null) return false;
+
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: password,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+
+      return true; // ✅ Authentication successful
+    } catch (e) {
+      return false; // ❌ Authentication failed
+    }
+  }
+
+  Future<void> deleteAccount({required String uId, String? password}) async {
+    try {
+      if (password != null) {
+        bool isAuthenticated = await reauthenticateUser(password);
+        if (!isAuthenticated) {
+          emit(DeleteAccountFailureState(errorMessage: "Reauthentication failed"));
+          return;
+        }
+      }
+
+      var result = await authRepo.deleteAccount(uId: uId,password: password);
+      result.fold(
+        (failure) {
+          emit(DeleteAccountFailureState(errorMessage: failure.message));
+        },
+        (deleted) => emit(DeleteAccountSuccessState()),
+      );
+    } catch (e) {
+      emit(DeleteAccountFailureState(errorMessage: e.toString()));
+    }
   }
 
   Future<void> fetchUserOrders({Map<String, dynamic>? query}) async {
@@ -110,9 +150,9 @@ class AccountManagerCubit extends Cubit<AccountManagerState> {
           key: kSaveUserLocationKey, value: shippingData);
 
       showSnackBar(context,
-          text: 'تم حفظ البيانات بنجاح', color: AppColors.primaryColor);
+          text: S.of(context).data_saved_success, color: AppColors.primaryColor);
     } catch (e) {
-      showSnackBar(context, text: 'حدث خطأ في حفظ البيانات');
+      showSnackBar(context, text: S.of(context).data_save_error);
     }
   }
 
@@ -126,10 +166,10 @@ class AccountManagerCubit extends Cubit<AccountManagerState> {
     try {
       await ordersRepo.cancelOrder(orderNumber: orderNumber);
       showSnackBar(context,
-          text: 'تم الغاء الطلب بنجاح', color: AppColors.primaryColor);
+          text: S.of(context).order_canceled_success, color: AppColors.primaryColor);
       await fetchUserOrders();
     } catch (e) {
-      showSnackBar(context, text: 'حدث خطأ في الغاء الطلب');
+      showSnackBar(context, text: S.of(context).order_cancel_error);
     }
   }
 

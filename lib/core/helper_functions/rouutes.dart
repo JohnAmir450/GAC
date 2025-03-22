@@ -6,6 +6,7 @@ class Routes{
   static const mainView = '/mainView';
   static const homeView = '/homeView';
   static const productView = '/productView';
+  static const productTypes = '/productTypes';
   static const categoryView = '/categoryView';
   static const checkoutView = '/checkoutView';
   static const orderConfirmedSuccessfullyView = '/orderConfirmedSuccessfullyView';

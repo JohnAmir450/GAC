@@ -10,6 +10,7 @@ import 'package:gac/core/widgets/custom_text_field.dart';
 import 'package:gac/features/auth/data/sign_up_cubit/sign_up_cubit.dart';
 import 'package:gac/features/auth/presentation/views/widgets/already_have_an_account.dart';
 import 'package:gac/features/auth/presentation/views/widgets/show_terms_and_conditions_dialog.dart';
+import 'package:gac/generated/l10n.dart';
 
 class SignUpViewBody extends StatelessWidget {
   const SignUpViewBody({super.key});
@@ -27,7 +28,7 @@ class SignUpViewBody extends StatelessWidget {
               CustomTextFormField(
                 textInputType: TextInputType.name,
                 controller: cubit.nameController,
-                hintText: 'الاسم الاول',
+                hintText:  S.of(context).first_name,
                 onChanged: (value) {
                   cubit.nameController.text = value;
                 },
@@ -36,7 +37,7 @@ class SignUpViewBody extends StatelessWidget {
               CustomTextFormField(
                 textInputType: TextInputType.name,
                 controller: cubit.secondNameController,
-                hintText: 'الاسم الثاني',
+                hintText:  S.of(context).last_name,
                 onChanged: (value) {
                   cubit.secondNameController.text = value;
                 },
@@ -44,7 +45,7 @@ class SignUpViewBody extends StatelessWidget {
               verticalSpace(16.h),
               CustomTextFormField(
                 controller: cubit.emailController,
-                hintText: 'البريد الالكتروني',
+                hintText:  S.of(context).email_hint,
                 onChanged: (value) {
                   cubit.emailController.text = value;
                 },
@@ -53,12 +54,12 @@ class SignUpViewBody extends StatelessWidget {
               CustomTextFormField(
                 controller: cubit.phoneNumberController,
                 textInputType: TextInputType.phone,
-                hintText: 'رقم الهاتف',
+                hintText:  S.of(context).phone_number,
                 validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
                       !AppRegex.isPhoneNumberValid(value)) {
-                    return 'برجاء ادخال رقم هاتف صالح';
+                    return  S.of(context).phone_number_validation;
                   }
                   return null;
                 },
@@ -76,7 +77,7 @@ class SignUpViewBody extends StatelessWidget {
                     onChanged: (value) {
                       cubit.passwordController.text = value;
                     },
-                    hintText: 'كلمة المرور',
+                    hintText:  S.of(context).password_hint,
                     suffixIcon: GestureDetector(
                         onTap: () {
                           cubit.changePasswordVisibility();
@@ -90,14 +91,14 @@ class SignUpViewBody extends StatelessWidget {
               verticalSpace(30.h),
               CustomButton(
                 height: isDeviceInPortrait(context) ? 54.h : 100.h,
-                text: 'إنشاء حساب جديد',
+                text:  S.of(context).create_account,
                 onPressed: () {
                   if (cubit.formKey.currentState!.validate()) {
                     if (cubit.isTermsChecked) {
                       cubit.createUserWithEmailAndPassword();
                     } else {
                       showSnackBar(context,
-                          text: 'يجب الموافقة على الشروط والاحكام',
+                          text:  S.of(context).needs_to_accept_terms,
                           color: Colors.red);
                     }
                   }

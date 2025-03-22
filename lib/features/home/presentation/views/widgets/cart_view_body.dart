@@ -13,6 +13,7 @@ import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/features/home/presentation/views/widgets/cart_products_list.dart';
 import 'package:gac/features/home/presentation/views/widgets/custom_all_products_app_bar.dart';
 import 'package:gac/features/home/presentation/views/widgets/empty_cart_view_widget.dart';
+import 'package:gac/generated/l10n.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({super.key});
@@ -25,11 +26,11 @@ class CartViewBody extends StatelessWidget {
         listener: (context, state) {
           if (state is RemoveCartItemSuccessState) {
             showSnackBar(context,
-                text: 'تم ازالة المنتج من السلة بنجاح',
+                text: S.of(context).product_removed_success,
                 color: AppColors.lightPrimaryColor);
           } else if (state is CartCubitChangeProductQuantity) {
             showSnackBar(context,
-                text: 'تم تغير كمية المنتج بنجاح',
+                text: S.of(context).product_quantity_updated_success,
                 color: AppColors.lightPrimaryColor);
           }
         },
@@ -38,9 +39,9 @@ class CartViewBody extends StatelessWidget {
             if (state.products.isNotEmpty) {
               return CustomScrollView(
                 slivers: [
-                  const SliverToBoxAdapter(
+                   SliverToBoxAdapter(
                     child: CustomApplicationAppBar(
-                      title: 'سلة التسوق',
+                      title:S.of(context).cart,
                       showNotificationIcon: false,
                     ),
                   ),
@@ -54,7 +55,7 @@ class CartViewBody extends StatelessWidget {
                       color: const Color(0xffEBF9F1),
                       child: Center(
                         child: Text(
-                          'لديك ${state.products.length} منتجات في سلة التسوق',
+                         S.of(context).cart_products_count(state.products.length),
                           style: TextStyles.bold13,
                         ),
                       ),
@@ -71,7 +72,7 @@ class CartViewBody extends StatelessWidget {
                     child: CustomButton(
                       height: isDeviceInPortrait(context) ? 54.h : 100.h,
                       text:
-                          (' تأكيد الطلب : ${context.read<CartCubit>().getTotalPrice(state.products).toString()} جنيه'),
+                          ('${S.of(context).confirm_order} ${context.read<CartCubit>().getTotalPrice(state.products).toString()} ${S.of(context).pound}'),
                       onPressed: () {
                         context.pushNamed(
                           Routes.checkoutView,
@@ -91,9 +92,9 @@ class CartViewBody extends StatelessWidget {
                 ],
               );
             } else {
-              return const EmptyListViewWidget(
-                title: 'لا يوجد منتجات في سلة التسوق',
-                subTitle: 'يمكنك اضافة منتجات من القائمة',
+              return  EmptyListViewWidget(
+                title:S.of(context).cart_empty_title,
+                subTitle: S.of(context).cart_empty_subtitle,
               );
             }
           } else if (state is CartCubitGetProductsFailureState) {
@@ -104,7 +105,7 @@ class CartViewBody extends StatelessWidget {
               color: Colors.green,
             ));
           } else {
-            return const Center(child: Text('لا يوجد بيانات لعرضها'));
+            return Center(child: Text(S.of(context).no_data_available));
           }
         },
       ),

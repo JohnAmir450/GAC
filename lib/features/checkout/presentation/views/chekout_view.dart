@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +11,9 @@ import 'package:gac/core/widgets/custom_app_bar.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
 import 'package:gac/features/checkout/domain/entities/shiping_address_entity.dart';
 import 'package:gac/features/checkout/presentation/views/widgets/checkout_view_body.dart';
-import 'package:gac/features/home/presentation/views/manager/add_order/orders_cubit.dart';
+import 'package:gac/features/home/manager/add_order/orders_cubit.dart';
 import 'package:gac/features/home/presentation/views/widgets/add_order_cubit_bloc_builder.dart';
+import 'package:gac/generated/l10n.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutView extends StatefulWidget {
@@ -64,7 +64,7 @@ final Timestamp timestamp = Timestamp.fromDate(now);
     return BlocProvider(
       create: (context) => OrdersCubit(getIt.get<OrdersRepo>()),
       child: Scaffold(
-        appBar: buildAppBar(context, title: 'تأكيد الطلب', onTap: () {
+        appBar: buildAppBar(context, title: S.of(context).confirm_order, onTap: () {
           context.pop();
         }),
         body: Padding(

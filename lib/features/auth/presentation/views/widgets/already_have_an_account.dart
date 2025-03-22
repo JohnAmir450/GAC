@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
+import 'package:gac/generated/l10n.dart';
 
 class AlreadyHaveAnAccount extends StatelessWidget {
   const AlreadyHaveAnAccount({
@@ -13,12 +14,12 @@ class AlreadyHaveAnAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(TextSpan(children: [
       TextSpan(
-        text: 'لديك حساب بالفعل؟ ',
+        text:  S.of(context).already_have_account,
         style: TextStyles.semiBold16
             .copyWith(color: const Color(0xff949D9E)),
       ),
       TextSpan(
-        text: ' تسجيل الدخول',
+        text:  S.of(context).sign_in,
         recognizer: TapGestureRecognizer()..onTap = () {
           context.pop();
         },

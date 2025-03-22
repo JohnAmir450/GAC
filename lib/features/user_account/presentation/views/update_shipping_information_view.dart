@@ -9,6 +9,7 @@ import 'package:gac/features/auth/domain/repos/auth_repo.dart';
 import 'package:gac/features/checkout/domain/entities/shiping_address_entity.dart';
 import 'package:gac/features/user_account/presentation/manager/account_manager_cubit/account_manager_cubit.dart';
 import 'package:gac/features/user_account/presentation/views/widgets/update_shipping_information_view_body.dart';
+import 'package:gac/generated/l10n.dart';
 import 'package:provider/provider.dart';
 
 class UpdateShippingInformationView extends StatefulWidget {
@@ -39,10 +40,11 @@ class _UpdateShippingInformationViewState
 
   @override
   Widget build(BuildContext context) {
+    var locale = S.of(context);
     return Scaffold(
       appBar: buildAppBar(
         context,
-        title: 'تحديث معلومات التوصيل',
+        title: locale.shipping_info,
         visibleLeading: true,
         onTap: () => context.pop(),
       ),

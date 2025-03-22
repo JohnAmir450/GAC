@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gac/core/utils/app_colors.dart';
+import 'package:gac/generated/l10n.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
@@ -10,6 +11,7 @@ void customQuickAlertView(
   required String confirmBtnText,
   required QuickAlertType type,
   required void Function()? onConfirmBtnTap,
+  String? cancelBtnText,
 }) {
   QuickAlert.show(
     context: context,
@@ -18,7 +20,7 @@ void customQuickAlertView(
     text: text,
     confirmBtnText: confirmBtnText,
     onConfirmBtnTap: onConfirmBtnTap,
-    cancelBtnText: 'لا',
+    cancelBtnText:  cancelBtnText ?? S.of(context).no,
     confirmBtnColor: AppColors.secondaryColor,
   );
 }

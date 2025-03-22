@@ -5,7 +5,8 @@ import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/widgets/custom_animated_loading_widget.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
-import 'package:gac/features/home/presentation/views/manager/add_order/orders_cubit.dart';
+import 'package:gac/features/home/manager/add_order/orders_cubit.dart';
+import 'package:gac/generated/l10n.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class AddOrderCubitBlocBuilder extends StatelessWidget {
@@ -17,7 +18,7 @@ class AddOrderCubitBlocBuilder extends StatelessWidget {
       listener: (context, state) {
        if(state is AddOrderSuccessState){
          var orderID=context.read<OrderEntity>().orderId;
-        showSnackBar(context, text: 'تم اضافة الطلب بنجاح');
+        showSnackBar(context, text: S.of(context).order_added_success);
         context.pushReplacementNamed(Routes.orderConfirmedSuccessfullyView,arguments: orderID);
        }else if (state is AddOrderFailureState){
         showSnackBar(context, text: state.errorMessage);

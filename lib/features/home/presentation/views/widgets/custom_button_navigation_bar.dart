@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
-import 'package:gac/features/home/presentation/views/domain/entities/button_navigation_bar_entity.dart';
+import 'package:gac/features/home/domain/entities/button_navigation_bar_entity.dart';
 import 'package:gac/features/home/presentation/views/widgets/button_navigation_bar_item.dart';
 
 class CustomButtonNavigationBar extends StatefulWidget {

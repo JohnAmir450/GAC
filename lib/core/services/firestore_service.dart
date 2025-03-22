@@ -24,7 +24,8 @@ Future<dynamic> getData({
   String? documentId,
   Map<String, dynamic>? query,
   String? filterValueEqualTo,
-  String? filterValue, // Add this optional parameter for user-specific queries
+  String? filterValue,
+   List<Map<String, dynamic>>? whereConditions,  // Add this optional parameter for user-specific queries
 }) async {
   try {
     // If documentId is provided, fetch the document by its ID
@@ -34,6 +35,19 @@ Future<dynamic> getData({
     } else {
       // Query the collection
       Query<Map<String, dynamic>> data = firestore.collection(path);
+
+       if (whereConditions != null) {
+        for (var condition in whereConditions) {
+          data = data.where(
+            condition['field'],
+            isEqualTo: condition['isEqualTo'],
+            isLessThan: condition['isLessThan'],
+            isGreaterThan: condition['isGreaterThan'],
+            isLessThanOrEqualTo: condition['isLessThanOrEqualTo'],
+            isGreaterThanOrEqualTo: condition['isGreaterThanOrEqualTo'],
+          );
+        }
+      }
 
       // If userId is provided, filter the query by userId (only for orders)
       if (filterValueEqualTo != null &&filterValue != null) {
@@ -69,45 +83,64 @@ Future<dynamic> getData({
   }
 }
 
-   @override
-   Stream<List<Map<String, dynamic>>> getDataStream({
+  @override
+Stream<List<Map<String, dynamic>>> getDataStream({
   required String path,
   String? documentId,
-  String? field, // Add this parameter to specify a field to extract (e.g., "cartList")
+  String? field, // Extract specific field (e.g., "cartList")
   Map<String, dynamic>? query,
+  List<Map<String, dynamic>>? whereConditions, // New: List of conditions
 }) {
   Query<Map<String, dynamic>> data = firestore.collection(path);
 
+  // Handle fetching specific document and extracting a field
   if (documentId != null) {
-    // Fetch specific document and check if field is specified
     return firestore.collection(path).doc(documentId).snapshots().map((snapshot) {
       if (snapshot.exists && snapshot.data() != null) {
         if (field != null && snapshot.data()![field] != null) {
-          // Extract the specified field (e.g., "cartList")
           List<dynamic> fieldData = snapshot.data()![field];
           return fieldData.map((item) => item as Map<String, dynamic>).toList();
         }
-        // If the field is not specified or doesn't exist, return the entire document
         return [snapshot.data() as Map<String, dynamic>];
       } else {
         return [];
       }
     });
   } else {
+    // 🔹 Apply `whereConditions` dynamically
+    if (whereConditions != null) {
+      for (var condition in whereConditions) {
+        if (condition.containsKey('isEqualTo')) {
+          data = data.where(condition['field'], isEqualTo: condition['isEqualTo']);
+        }
+        if (condition.containsKey('isGreaterThan')) {
+          data = data.where(condition['field'], isGreaterThan: condition['isGreaterThan']);
+        }
+        if (condition.containsKey('isLessThan')) {
+          data = data.where(condition['field'], isLessThan: condition['isLessThan']);
+        }
+        if (condition.containsKey('isGreaterThanOrEqualTo')) {
+          data = data.where(condition['field'], isGreaterThanOrEqualTo: condition['isGreaterThanOrEqualTo']);
+        }
+        if (condition.containsKey('isLessThanOrEqualTo')) {
+          data = data.where(condition['field'], isLessThanOrEqualTo: condition['isLessThanOrEqualTo']);
+        }
+      }
+    }
+
+    // 🔹 Apply `query` parameters (ordering, limits)
     if (query != null) {
       if (query['orderBy'] != null) {
         var orderByField = query['orderBy'];
-        var descending = query['descending'];
+        var descending = query['descending'] ?? false;
         data = data.orderBy(orderByField, descending: descending);
-      }
-      if (query['where'] != null) {
-        var whereField = query['where'];
-        var isEqualTo = query['isEqualTo'];
-        data = data.where(whereField, isEqualTo: isEqualTo);
       }
       if (query['limit'] != null) {
         var limit = query['limit'];
         data = data.limit(limit);
+      }
+      if (query['where'] != null && query['isEqualTo'] != null) {
+        data = data.where(query['where'], isEqualTo: query['isEqualTo']);
       }
     }
 
@@ -116,7 +149,6 @@ Future<dynamic> getData({
     });
   }
 }
-
 
   @override
   Future<bool> checkIfDataExist(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
+import 'package:gac/generated/l10n.dart';
 
 class CustomOrderViewWarning extends StatelessWidget {
   const CustomOrderViewWarning({
@@ -23,10 +24,10 @@ class CustomOrderViewWarning extends StatelessWidget {
             size: 25, 
           ),
           horizontalSpace(8),
-           const Flexible(
+           Flexible(
             fit : FlexFit.loose,
               child: Text(
-            "المنتجات التي تم توصيلها او الغائها سيتم حذفها تلقائيا من صفحة الطلبات خلال 48 ساعة",
+           S.of(context).delivered_or_canceled_orders_auto_delete,
             style: TextStyles.regular13,
             maxLines: 2,
             softWrap: true, 

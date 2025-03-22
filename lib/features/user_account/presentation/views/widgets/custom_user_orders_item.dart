@@ -6,6 +6,7 @@ import 'package:gac/features/checkout/data/models/order_model.dart';
 import 'package:gac/features/user_account/presentation/views/widgets/cancel_order_button.dart';
 import 'package:gac/features/user_account/presentation/views/widgets/order_details.dart';
 import 'package:gac/features/user_account/presentation/views/widgets/order_items_list_view.dart';
+import 'package:gac/generated/l10n.dart';
 
 class UserOrdersItem extends StatelessWidget {
   final OrderModel orderEntity;
@@ -14,6 +15,7 @@ class UserOrdersItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var locale=S.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 12),
       child: Card(
@@ -26,20 +28,20 @@ class UserOrdersItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'رقم الطلب : ${orderEntity.orderId}# ',
+                locale.order_number(orderEntity.orderId),
                 style: TextStyles.bold16,
               ),
               verticalSpace(16),
               // Total Price
               Row(
                 children: [
-                  const Text(
-                    'حالة الطلبية:  ',
+                   Text(
+                    '${locale.current_order_status}:',
                     style: TextStyles.semiBold13,
                   ),
                   horizontalSpace(8),
                   Text(
-                    orderEntity.orderStatus,
+                   _getLocalizedOrderStatus(context, orderEntity.orderStatus),
                     style: TextStyles.bold13
                         .copyWith(color: AppColors.primaryColor),
                   ),
@@ -51,7 +53,7 @@ class UserOrdersItem extends StatelessWidget {
 
               // Order Products
                 Text(
-                'الطلبية:',
+                '${S.of(context).order_items}:',
                 style: TextStyles.bold16,
               ),
               OrderItemsListView(orderEntity: orderEntity),
@@ -62,5 +64,21 @@ class UserOrdersItem extends StatelessWidget {
       ),
     );
   }
+  String _getLocalizedOrderStatus(BuildContext context, String status) {
+    var locale = S.of(context);
+  switch (status) {
+    case 'جاري التأكيد':
+      return locale.in_progress;
+    case 'تم التأكيد':
+      return locale.order_confirmed_successfully;
+    case 'تم الاستلام':
+      return locale.delivered;
+    case 'تم الإلغاء':
+      return locale.cancelled;
+      case 'خرج للتوصيل':
+      return locale.out_for_delivery;
+    default:
+      return status; // Return original if not found
+  }
 }
-
+}

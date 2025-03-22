@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/cubits/products_cubit/products_cubit.dart';
 import 'package:gac/core/utils/spacing.dart';
-import 'package:gac/features/home/presentation/views/domain/entities/featured_items_entity.dart';
+import 'package:gac/features/home/domain/entities/featured_items_entity.dart';
 import 'package:gac/features/home/presentation/views/widgets/best_selling_grid_view_bloc_builder.dart';
 import 'package:gac/features/home/presentation/views/widgets/best_selling_header.dart';
 import 'package:gac/features/home/presentation/views/widgets/custom_home_app_bar.dart';

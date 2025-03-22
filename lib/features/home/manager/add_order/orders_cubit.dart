@@ -16,6 +16,8 @@ class OrdersCubit extends Cubit<OrdersState> {
   final OrdersRepo ordersRepo;
   bool governamentChanged = false;
   bool isDiscountApplied = false;
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
    int userPoints=0;
   double discount = 0.0;
   void changed() {

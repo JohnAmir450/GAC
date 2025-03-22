@@ -8,6 +8,7 @@ import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/features/checkout/domain/entities/shiping_address_entity.dart';
 import 'package:gac/features/user_account/presentation/manager/account_manager_cubit/account_manager_cubit.dart';
 import 'package:gac/features/user_account/presentation/views/widgets/update_user_government_shipping_widget.dart';
+import 'package:gac/generated/l10n.dart';
 import '../../../../../core/widgets/custom_text_field.dart';
 
 class UpdateShippingInformationViewBody extends StatelessWidget {
@@ -17,6 +18,7 @@ class UpdateShippingInformationViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final shippingAddress = context.read<ShippingAddressEntity>();
     final cubit = context.read<AccountManagerCubit>();
+    var locale=S.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0.w),
       child: SingleChildScrollView(
@@ -40,8 +42,8 @@ class UpdateShippingInformationViewBody extends StatelessWidget {
                   shippingAddress.customerCity = value;
                   cubit.userDataChanged();
                 },
-                hintText: shippingAddress.customerCity ?? 'المدينة او القرية',
-                labelText: shippingAddress.customerCity==' '? 'المدينة او القرية':null,
+                hintText: shippingAddress.customerCity ?? locale.city_hint,
+                labelText: shippingAddress.customerCity==' '? locale.city_hint:null,
                
               ),
               verticalSpace(16),
@@ -52,8 +54,8 @@ class UpdateShippingInformationViewBody extends StatelessWidget {
                   shippingAddress.customerStreetName = value;
                   cubit.userDataChanged();
                 },
-                hintText: shippingAddress.customerStreetName ?? 'اسم الشارع' ,
-                labelText: shippingAddress.customerStreetName==' '? 'اسم الشارع':null,
+                hintText: shippingAddress.customerStreetName ?? locale.street_hint ,
+                labelText: shippingAddress.customerStreetName==' '? locale.street_hint:null,
              
               ),
               verticalSpace(16),
@@ -64,8 +66,8 @@ class UpdateShippingInformationViewBody extends StatelessWidget {
                   shippingAddress.customerLocationDescription = value;
                   cubit.userDataChanged();
                 },
-                hintText: shippingAddress.customerLocationDescription ?? 'وصف المكان (اختياري)',
-                labelText:shippingAddress.customerLocationDescription==' '? 'وصف المكان (اختياري)':null,
+                hintText: shippingAddress.customerLocationDescription ?? locale.address_description_hint,
+                labelText:shippingAddress.customerLocationDescription==' '? locale.address_description_hint:null,
                 //initialValue: shippingAddress.customerLocationDescription ?? '',
                 maxLines: 5,
               ),
@@ -77,7 +79,7 @@ class UpdateShippingInformationViewBody extends StatelessWidget {
                     backgroundColor: cubit.hasChanges
                         ? AppColors.primaryColor
                         : Colors.grey.shade400,
-                    text: 'تحديث',
+                    text: locale.save_changes,
                     onPressed: () {
                       if (cubit.hasChanges) {
                         if(cubit.formKey.currentState!.validate()){

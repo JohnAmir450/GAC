@@ -4,13 +4,13 @@ abstract class DatabaseService {
     String? uId,
     required Map<String, dynamic> data,
   });
-  Future<dynamic> getData({
-    required String path,
-    String? documentId,
-    Map<String, dynamic>? query,
-    String? filterValueEqualTo,
-    String? filterValue,
-  });
+  Future<dynamic> getData(
+      {required String path,
+      String? documentId,
+      Map<String, dynamic>? query,
+      String? filterValueEqualTo,
+      String? filterValue,
+      List<Map<String, dynamic>>? whereConditions});
 
   Future<bool> checkIfDataExist({
     required String path,
@@ -22,6 +22,7 @@ abstract class DatabaseService {
     String? documentId,
     String? field,
     Map<String, dynamic>? query,
+    List<Map<String, dynamic>>? whereConditions,
   });
   Future<void> updateData({
     required String path,

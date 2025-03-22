@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_images.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
+import 'package:gac/generated/l10n.dart';
 
 
 class SearchTextField extends StatelessWidget {
@@ -20,7 +21,7 @@ final TextEditingController? controller;
         suffixIcon:SvgPicture.asset(Assets.assetsImagesFilter,fit: BoxFit.none,),
         suffixIconColor: const Color(0xff949D9E),
         prefixIcon: const Icon(Icons.search,size: 40,color: AppColors.primaryColor),
-        hintText: 'ابحث عن…',
+        hintText: S.of(context).search_for,
         hintStyle: TextStyles.regular16.copyWith(color: const Color(0xff949D9E)),
         filled: true,
         fillColor: const Color(0xffF9FAFA),

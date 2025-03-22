@@ -97,4 +97,12 @@ class FirebaseAuthService {
       throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
     }
   }
+  Future<User> getCurrentUser() async {
+    try {
+      return FirebaseAuth.instance.currentUser!;
+    } catch (e) {
+      
+      throw CustomException(message: 'حدث خطأ ما، حاول مرة اخرى');
+    }
+  }
 }

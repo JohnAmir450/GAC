@@ -10,6 +10,8 @@ class ProductModel {
   final String code;
   File? fileImage;
   final bool isFeatured;
+  final String productCategory;
+  final String productType;
   String? imageUrl;
   final int expirationMonths;
    bool isOrganic=true;
@@ -24,8 +26,10 @@ class ProductModel {
     required this.discountPrice,
     required this.expirationMonths,
     required this.isOrganic,
+    required this.productCategory,
     required this.productQuantity,
     required this.name,
+    required this.productType,
     required this.price,
     required this.description,
     required this.code,
@@ -38,7 +42,9 @@ class ProductModel {
 
   factory ProductModel.fromEntity( ProductEntity addProductEntity) {
     return ProductModel(
-      name: addProductEntity.name,    
+      name: addProductEntity.name,
+      productCategory: addProductEntity.productCategory,    
+      productType: addProductEntity.productType,
       price: addProductEntity.price,
       description: addProductEntity.description,
       code: addProductEntity.code,
@@ -56,6 +62,8 @@ class ProductModel {
  
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
+      productType: json['productType'],
+      productCategory: json['category'],
       name: json['name'],
       price: json['price'],
       description: json['description'],
@@ -77,11 +85,13 @@ class ProductModel {
     return {
       'name': name,
       'price': price,
+      'category': productCategory,
       'description': description,
       'code': code,
       'fileImage': fileImage!.path,
       'isFeatured': isFeatured,
       'imageUrl': imageUrl,
+      'productType': productType,
       'expirationMonths': expirationMonths,
       'isOrganic': isOrganic,
       'productQuantity': productQuantity,
@@ -96,9 +106,11 @@ class ProductModel {
     return ProductEntity(
       name: name,    
       price: price,
+      productCategory: productCategory,
       description: description,
       code: code,
       fileImage: fileImage,  
+      productType: productType,
       isFeatured: isFeatured,
       imageUrl: imageUrl,      
       expirationMonths: expirationMonths,

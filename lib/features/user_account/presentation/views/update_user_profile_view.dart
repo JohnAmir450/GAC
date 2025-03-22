@@ -9,16 +9,18 @@ import 'package:gac/core/widgets/custom_app_bar.dart';
 import 'package:gac/features/auth/domain/repos/auth_repo.dart';
 import 'package:gac/features/user_account/presentation/manager/account_manager_cubit/account_manager_cubit.dart';
 import 'package:gac/features/user_account/presentation/views/widgets/update_user_profile_view_body.dart';
+import 'package:gac/generated/l10n.dart';
 
 class UpdateUserProfileView extends StatelessWidget {
   const UpdateUserProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var locale = S.of(context);
     return Scaffold(
       appBar: buildAppBar(
         context,
-        title: 'الملف الشخصي',
+        title: locale.personal_profile,
         onTap: () => context.pop(),
       ),
       body: BlocProvider(
@@ -28,7 +30,7 @@ class UpdateUserProfileView extends StatelessWidget {
           listener: (context, state) {
             if (state is AccountManagerUpdateUserDataSuccessState) {
               showSnackBar(context,
-                  text: 'تم التعديل البيانات بنجاح',
+                  text: locale.data_updated_success,
                   color: AppColors.primaryColor);
             }
           },

@@ -17,7 +17,7 @@ class CategoryView extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProductsCubit(getIt.get<ProductsRepo>())
         ..getProducts(query: {
-          'where': 'category', // Firestore field to filter by (category)
+          'where': 'category', 
           'isEqualTo': categoryName,
         }),
       child: Scaffold(

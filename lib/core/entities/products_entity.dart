@@ -4,8 +4,10 @@ import 'package:gac/core/entities/review_entity.dart';
 
 class ProductEntity {
   final String name;
+  final String productCategory;
   final num price;
   final String description;
+  final String productType;
   final String code;
   File? fileImage;
   final bool isFeatured;
@@ -25,7 +27,9 @@ class ProductEntity {
     required this.productQuantity,
     required this.name,
     required this.price,
+    required this.productCategory,
     required this.description,
+    required this.productType,
     required this.code,
     this.fileImage,
     required this.isFeatured,

@@ -7,6 +7,7 @@ import 'package:gac/core/widgets/custom_app_bar.dart';
 import 'package:gac/features/auth/data/repos/signin_cubit/signin_cubit.dart';
 import 'package:gac/features/auth/domain/repos/auth_repo.dart';
 import 'package:gac/features/auth/presentation/views/widgets/reset_password_view_body.dart';
+import 'package:gac/generated/l10n.dart';
 
 class ResetPasswordView extends StatelessWidget {
   const ResetPasswordView({super.key});
@@ -16,13 +17,13 @@ class ResetPasswordView extends StatelessWidget {
     return BlocProvider(
       create: (context) => SignInCubit(getIt.get<AuthRepo>()),
       child:  Scaffold(
-        appBar: buildAppBar(context, title: 'اعادة تعين الرقم السري',onTap: () {
+        appBar: buildAppBar(context, title: S.of(context).reset_password,onTap: () {
           context.pop();
         },),
           body: BlocListener<SignInCubit, SignInState>(
         listener: (context, state) {
          if(state is SendEmailToResetPasswordSuccessState){
-              showSnackBar(context, text: 'تم ارسال رسالة اعادة تعين الرقم السري الخاص بك');
+              showSnackBar(context, text:  S.of(context).reset_password_message);
             }
             if(state is SendEmailToResetPasswordFailureState){  
               showSnackBar(context, text: state.errMessage, color: Colors.red);

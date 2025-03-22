@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gac/generated/l10n.dart';
 
 class OrDivider extends StatelessWidget {
   const OrDivider({
@@ -7,14 +8,14 @@ class OrDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return  Row(
         children: [
-        Expanded(child: Divider()),
+        const Expanded(child: Divider()),
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 15.0),
-          child: Text('أو',),
+          padding:  const EdgeInsets.symmetric(horizontal: 15.0),
+          child: Text(S.of(context).or,),
         ),
-        Expanded(child: Divider())
+        const Expanded(child: Divider())
       ],);
   }
 }

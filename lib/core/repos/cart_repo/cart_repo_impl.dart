@@ -41,6 +41,7 @@ class CartRepoImpl implements CartRepo {
   Future<Either<Failure, void>> addToCart({
     required String userId,
     required CartModel cartModel,
+    required int cartQuantity,
   }) async {
     try {
       final productDoc = await databaseService.getData(
@@ -60,7 +61,7 @@ class CartRepoImpl implements CartRepo {
       // Create the new cart item
       final cartItem = CartModel(
         productModel: cartModel.productModel,
-        quantity: 1,
+        quantity: cartQuantity,
       );
 
       // Path to the user's data in Firestore

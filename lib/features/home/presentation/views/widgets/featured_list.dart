@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import '../domain/entities/featured_items_entity.dart';
+import '../../../domain/entities/featured_items_entity.dart';
 import 'featured_item.dart';
 
 class FeaturedList extends StatelessWidget {
@@ -17,7 +17,7 @@ class FeaturedList extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        double aspectRatio = constraints.maxWidth > 600 ? 3 / 1 : 9 / 5;
+        double aspectRatio = constraints.maxWidth > 600 ? 3.5 : 3.3;
         return CarouselSlider.builder(
           itemBuilder: (context, index, realIndex) => FeaturedItem(
             featuredEntity: featuredItemsEntityList[index],
@@ -26,7 +26,7 @@ class FeaturedList extends StatelessWidget {
           itemCount: featuredItemsEntityList.length,
           options: CarouselOptions(
             scrollDirection: Axis.horizontal,
-            autoPlay: true,
+            autoPlay: true,enlargeCenterPage: false,
             aspectRatio: aspectRatio,
             enableInfiniteScroll: true,
             autoPlayInterval: const Duration(seconds: 5),

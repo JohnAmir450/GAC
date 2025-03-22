@@ -6,6 +6,10 @@ class Assets {
   /// assets/images/app_icon.jpg
   static const String assetsImagesAppIcon = "assets/images/app_icon.jpg";
 
+  /// Assets for assetsImagesAppLauncher
+  /// assets/images/app_launcher.png
+  static const String assetsImagesAppLauncher = "assets/images/app_launcher.png";
+
   /// Assets for assetsImagesAppLogo
   /// assets/images/app_logo.png
   static const String assetsImagesAppLogo = "assets/images/app_logo.png";
@@ -42,9 +46,17 @@ class Assets {
   /// assets/images/categories.svg
   static const String assetsImagesCategories = "assets/images/categories.svg";
 
+  /// Assets for assetsImagesChief
+  /// assets/images/Chief.png
+  static const String assetsImagesChief = "assets/images/Chief.png";
+
   /// Assets for assetsImagesEmptyCart
   /// assets/images/empty_cart.svg
   static const String assetsImagesEmptyCart = "assets/images/empty_cart.svg";
+
+  /// Assets for assetsImagesEnglishAppName
+  /// assets/images/english_app_name.png
+  static const String assetsImagesEnglishAppName = "assets/images/english_app_name.png";
 
   /// Assets for assetsImagesFacebookIcon
   /// assets/images/facebook_icon.svg
@@ -58,13 +70,21 @@ class Assets {
   /// assets/images/filter.svg
   static const String assetsImagesFilter = "assets/images/filter.svg";
 
+  /// Assets for assetsImagesGacLauncher
+  /// assets/images/gac_launcher.png
+  static const String assetsImagesGacLauncher = "assets/images/gac_launcher.png";
+
+  /// Assets for assetsImagesGacName
+  /// assets/images/gac_name.png
+  static const String assetsImagesGacName = "assets/images/gac_name.png";
+
   /// Assets for assetsImagesGacSplash
   /// assets/images/gac_splash.jpg
   static const String assetsImagesGacSplash = "assets/images/gac_splash.jpg";
 
-  /// Assets for assetsImagesGacSplash12
-  /// assets/images/gac_splash_12.jpg
-  static const String assetsImagesGacSplash12 = "assets/images/gac_splash_12.jpg";
+  /// Assets for assetsImagesGheeFeaturedImage
+  /// assets/images/ghee_featured_image.jpg
+  static const String assetsImagesGheeFeaturedImage = "assets/images/ghee_featured_image.jpg";
 
   /// Assets for assetsImagesGoogleIcon
   /// assets/images/google_icon.svg
@@ -74,6 +94,14 @@ class Assets {
   /// assets/images/home.svg
   static const String assetsImagesHome = "assets/images/home.svg";
 
+  /// Assets for assetsImagesIndustrialDepartmentFeaturedImage
+  /// assets/images/industrial_department_featured_image.png
+  static const String assetsImagesIndustrialDepartmentFeaturedImage = "assets/images/industrial_department_featured_image.png";
+
+  /// Assets for assetsImagesMalizy
+  /// assets/images/Malizy.png
+  static const String assetsImagesMalizy = "assets/images/Malizy.png";
+
   /// Assets for assetsImagesMyOrderIcon
   /// assets/images/my_order_icon.svg
   static const String assetsImagesMyOrderIcon = "assets/images/my_order_icon.svg";
@@ -81,6 +109,10 @@ class Assets {
   /// Assets for assetsImagesNotification
   /// assets/images/notification.svg
   static const String assetsImagesNotification = "assets/images/notification.svg";
+
+  /// Assets for assetsImagesOilsDepartmentFeaturedImage
+  /// assets/images/oils_department_featured_image.png
+  static const String assetsImagesOilsDepartmentFeaturedImage = "assets/images/oils_department_featured_image.png";
 
   /// Assets for assetsImagesOrderConfirmedSuccessfully
   /// assets/images/order_confirmed_successfully.svg
@@ -105,6 +137,22 @@ class Assets {
   /// Assets for assetsImagesShoppingCart
   /// assets/images/shopping_cart.svg
   static const String assetsImagesShoppingCart = "assets/images/shopping_cart.svg";
+
+  /// Assets for assetsImagesShrouk
+  /// assets/images/shrouk.png
+  static const String assetsImagesShrouk = "assets/images/shrouk.png";
+
+  /// Assets for assetsImagesSplash12
+  /// assets/images/splash_12.jpg
+  static const String assetsImagesSplash12 = "assets/images/splash_12.jpg";
+
+  /// Assets for assetsImagesSplashTest
+  /// assets/images/splash_test.png
+  static const String assetsImagesSplashTest = "assets/images/splash_test.png";
+
+  /// Assets for assetsImagesTabarak
+  /// assets/images/Tabarak.png
+  static const String assetsImagesTabarak = "assets/images/Tabarak.png";
 
   /// Assets for assetsImagesTestImage
   /// assets/images/test_image.png

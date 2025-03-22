@@ -6,6 +6,7 @@ import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/widgets/custom_animated_loading_widget.dart';
 import 'package:gac/features/auth/data/sign_up_cubit/sign_up_cubit.dart';
 import 'package:gac/features/auth/presentation/views/widgets/sign_up_view_body.dart';
+import 'package:gac/generated/l10n.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -31,8 +32,8 @@ class SignUpViewBlocConsumer extends StatelessWidget {
           QuickAlert.show(
             context: context,
             type: QuickAlertType.loading,
-            title: 'تم ارسال رابط التفعيل',
-            text: 'الرجاء مراجعة البريد الالكتروني لتفعيل حسابك',
+            title: S.of(context).activation_link,
+            text: S.of(context).please_check_email,
              barrierDismissible: false,
           );
         }

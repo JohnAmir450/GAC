@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/entities/products_entity.dart';
+import 'package:gac/generated/l10n.dart';
 
 class CustomDiscountWidget extends StatelessWidget {
   const CustomDiscountWidget({
@@ -14,17 +15,17 @@ class CustomDiscountWidget extends StatelessWidget {
     return Visibility(
       visible: productEntity.discountPrice>0,
       child: Padding(
-        padding:  EdgeInsets.only(right: rightPadding?? 8.w),
+        padding:  EdgeInsetsDirectional.only(start: rightPadding?? 8.w),
         child: Container(
           padding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
             color: Colors.red,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const Text(
-            'خصم',
-            style: TextStyle(
+          child:  Text(
+            S.of(context).discount_title,
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 14,

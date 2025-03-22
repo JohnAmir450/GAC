@@ -20,40 +20,45 @@ class ProductItemDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Center(
-          child: CustomCachedNetworkImageWidget(
-            height: itemWidth,
-            width: itemWidth * 0.8,
-            fit: BoxFit.fill,
-            imageUrl: productEntity.imageUrl!,
-            borderRadius: 16,
+   
+
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: CustomCachedNetworkImageWidget(
+              height: itemWidth,
+              width: itemWidth * 0.8,
+              fit: BoxFit.fill,
+              imageUrl: productEntity.imageUrl!,
+              borderRadius: 16,
+            ),
           ),
-        ),
-        verticalSpace(8.h),
-        Padding(
-          padding: EdgeInsets.only(right: itemWidth * 0.1),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                productEntity.name,
-                style: TextStyles.bold16,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              verticalSpace(4),
-              PriceTextSpan(productEntity: productEntity),
-              DiscountPriceTextSpan(productEntity: productEntity),
-            ],
+          verticalSpace(8.h),
+          Padding(
+            padding: EdgeInsets.only(right: itemWidth * 0.1),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  productEntity.name,
+                  style: TextStyles.bold16,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                verticalSpace(4),
+                PriceTextSpan(productEntity: productEntity),
+                DiscountPriceTextSpan(productEntity: productEntity),
+              ],
+            ),
           ),
-        ),
-        verticalSpace(8.h),
-        AddToCartButtonBlocConsumer(
-            productEntity: productEntity, itemWidth: itemWidth),
-      ],
+          verticalSpace(8.h),
+          AddToCartButtonBlocConsumer(
+              productEntity: productEntity, itemWidth: itemWidth),
+        ],
+      ),
     );
   }
 }

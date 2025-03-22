@@ -5,7 +5,8 @@ import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/widgets/custom_animated_loading_widget.dart';
-import 'package:gac/features/home/presentation/views/manager/add_order/orders_cubit.dart';
+import 'package:gac/features/home/manager/add_order/orders_cubit.dart';
+import 'package:gac/generated/l10n.dart';
 
 class RedeemUserPoints extends StatelessWidget {
   const RedeemUserPoints({
@@ -27,7 +28,7 @@ class RedeemUserPoints extends StatelessWidget {
         ),
         ListTile(
           title: Text(
-            'النقاط المتاحة : ${ordersCubit.userPoints}',
+            '${S.of(context).available_points} ${ordersCubit.userPoints}',
             style: TextStyles.semiBold16,
           ),
           trailing: BlocBuilder<OrdersCubit, OrdersState>(
@@ -37,11 +38,11 @@ class RedeemUserPoints extends StatelessWidget {
                   if (ordersCubit.userPoints >= 1000) {
                     await ordersCubit.redeemPointsForDiscount(
                         userId: getUserData().uId);
-                  } else if(  ordersCubit.discount > 0) {
-                    showSnackBar(context, text: 'تم استخدام جميع النقاط المتاحة');
-                  }
-                  else {
-                    showSnackBar(context, text: 'لا توجد نقاط كافية للاستخدام');
+                  } else if (ordersCubit.discount > 0) {
+                    showSnackBar(context, text: S.of(context).points_used);
+                  } else {
+                    showSnackBar(context,
+                        text: S.of(context).insufficient_points);
                   }
                 },
                 child: state is PointsLoadingRedeemState
@@ -51,8 +52,8 @@ class RedeemUserPoints extends StatelessWidget {
                       ))
                     : Text(
                         ordersCubit.isDiscountApplied
-                            ? 'تم الاستخدام'
-                            : 'استخدام',
+                            ? S.of(context).redeemed
+                            : S.of(context).redeem,
                         style: TextStyles.semiBold16,
                       ),
               );
@@ -77,10 +78,16 @@ class RedeemUserPoints extends StatelessWidget {
             const SizedBox(width: 8), // Space between icon and text
             Text(
               ordersCubit.isDiscountApplied
-                  ? 'تم خصم ${ordersCubit.discount.toStringAsFixed(2)} جنيه من النقاط '
+                  ? S
+                      .of(context)
+                      .discount_applied(ordersCubit.discount.toStringAsFixed(2))
                   : ordersCubit.userPoints < 1000
-                      ? 'لا توجد نقاط كافية للاستخدام\n الحد الادني 1000 نقطة'
-                      : 'يمكنك استخدام ${(ordersCubit.userPoints * 0.02).roundToDouble()} جنيه كخصم',
+                      ? S.of(context).min_points_required
+                      : S.of(context).redeemable_discount(
+                            (ordersCubit.userPoints * 0.02)
+                                .roundToDouble()
+                                .toString(),
+                          ),
               style: TextStyles.semiBold13.copyWith(
                 color: ordersCubit.userPoints < 1000
                     ? AppColors.secondaryColor

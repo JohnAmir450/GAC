@@ -1,9 +1,9 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gac/core/cubits/language/language_cubit.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
 import 'package:gac/core/helper_functions/on_generate_routes.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
@@ -27,7 +27,10 @@ void main() async {
   OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
   await OneSignal.Notifications.requestPermission(true); // ✅ Ensure it's ready
 
-  runApp(const MyApp()); // ✅ Runs after all initializations
+  runApp(BlocProvider<LanguageCubit>(
+    create: (context) => LanguageCubit(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,32 +39,36 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String getRoute() {
-      final bool isOnboardingViewed = CacheHelper.getData(key: kIsOnboardingViewKey) ?? false;
+      final bool isOnboardingViewed =
+          CacheHelper.getData(key: kIsOnboardingViewKey) ?? false;
       final bool isLoggedIn = FirebaseAuthService().isLoggedIn();
 
       if (!isOnboardingViewed) return Routes.onBoardingView;
       return isLoggedIn ? Routes.mainView : Routes.loginView;
     }
 
-    return ScreenUtilInit(
-      designSize: const Size(360, 800),
-      minTextAdapt: false,
-      child: Builder(
-        builder: (context) {
-          return MaterialApp(
+    return BlocBuilder<LanguageCubit, Locale>(
+      builder: (context, locale) {
+        return ScreenUtilInit(
+          designSize: const Size(360, 800),
+          minTextAdapt: false,
+          child: MaterialApp(
             builder: (context, child) {
               return MediaQuery(
                 data: MediaQuery.of(context).copyWith(
-                  textScaler: const TextScaler.linear(1), 
+                  textScaler: const TextScaler.linear(1),
                 ),
                 child: child!,
               );
             },
             title: 'الشركة العربية الخليجية',
-            theme: ThemeData(
+            themeMode: ThemeMode.light,
+            darkTheme: ThemeData.light(),
+            theme: ThemeData(primaryColorLight: Colors.white,
               fontFamily: 'Cairo',
               scaffoldBackgroundColor: Colors.white,
-              colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
+              colorScheme:
+                  ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
               useMaterial3: true,
             ),
             localizationsDelegates: const [
@@ -71,13 +78,13 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
-            locale: const Locale('ar'),
+            locale: locale ,
             debugShowCheckedModeBanner: false,
             onGenerateRoute: onGenerateRoutes,
             initialRoute: getRoute(),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

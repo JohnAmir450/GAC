@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gac/core/cubits/cart_cubit/cart_cubit.dart';
 import 'package:gac/core/entities/cart_entity.dart';
 import 'package:gac/core/widgets/cart_item.dart';
+import 'package:gac/generated/l10n.dart';
 
 
 class CartProductsList extends StatelessWidget {
@@ -31,7 +32,7 @@ class CartProductsList extends StatelessWidget {
                         productCode: products[productIndex].productEntity.code);
                   },
                   icon: Icons.delete,
-                  label: 'حذف المنتج',
+                  label: S.of(context).delete_product,
                   backgroundColor: Colors.red,
                 ),
               ],

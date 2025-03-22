@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gac/core/entities/categories_entity.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/repos/products_repo/products_repo.dart';
+import 'package:gac/core/utils/app_images.dart';
 import 'package:meta/meta.dart';
 
 part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   final ProductsRepo productsRepo;
-    List<String> categories =const[
-    'شيف',
-    'تبارك',
-    'ماليزي',
-    'سماسم',
-    'الدوار',
+  List<CategoriesEntity> categories = [
+    CategoriesEntity(image: Assets.assetsImagesMalizy, categoryName: 'ماليزي'),
+    CategoriesEntity(image: Assets.assetsImagesChief, categoryName: 'شيف'),
+    CategoriesEntity(image: Assets.assetsImagesTabarak, categoryName: 'تبارك'),
+    CategoriesEntity(image: Assets.assetsImagesShrouk, categoryName: 'شروق'),
   ];
   ProductsCubit(this.productsRepo) : super(ProductsInitialState());
   int productQuantity = 1;
@@ -84,5 +85,21 @@ class ProductsCubit extends Cubit<ProductsState> {
     } catch (e) {
       emit(ProductsFailureState(errorMessage: e.toString()));
     }
+  }
+
+  void getAllProductWeights(
+      {required String currentProductCode,
+      List<Map<String, dynamic>>? whereConditions}) {
+    emit(ProductsLoadingState());
+    final result = productsRepo.getProductWeights(
+        whereConditions: whereConditions,
+        currentProductCode: currentProductCode);
+    result.fold((failure) {
+      emit(ProductsFailureState(errorMessage: failure.message));
+    }, (stream) {
+      stream.listen((products) {
+        emit(ProductsSuccessState(products: products));
+      });
+    });
   }
 }

@@ -25,7 +25,7 @@ final String image,title;
               width: 40.w,
               padding: const EdgeInsets.all(5),
               decoration: ShapeDecoration(
-                color: const Color(0xff1B5E37),
+                color: AppColors.primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -38,8 +38,8 @@ final String image,title;
             Text(
               title,
               style: TextStyles.semiBold11
-                  .copyWith(color: AppColors.primaryColor),
-            )
+                  .copyWith(color: AppColors.primaryColor,fontWeight: FontWeight.bold), ),
+            
           ],
         ));
   }

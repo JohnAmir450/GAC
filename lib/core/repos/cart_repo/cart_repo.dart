@@ -9,7 +9,7 @@ abstract class CartRepo{
 
   Either<Failure,Stream<List<CartEntity>>> getCartProducts({required String userId});
 
-   Future<Either<Failure, void>> addToCart({required String userId, required CartModel cartModel});
+   Future<Either<Failure, void>> addToCart({required String userId, required CartModel cartModel,required int cartQuantity});
 
 Future<Either<Failure,void>>  changeProductQuantity(String productId,int productQuantity);
 

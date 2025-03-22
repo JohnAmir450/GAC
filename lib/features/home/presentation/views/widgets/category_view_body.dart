@@ -11,7 +11,6 @@ class CategoryViewBody extends StatelessWidget {
   const CategoryViewBody({super.key, required this.categoryName});
 
   @override
-  @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [

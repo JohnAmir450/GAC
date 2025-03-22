@@ -8,13 +8,14 @@ import 'package:gac/features/user_account/presentation/manager/account_manager_c
 import 'package:gac/features/user_account/presentation/views/widgets/user_account_view_body.dart';
 
 class UserAccountView extends StatelessWidget {
-  const UserAccountView({super.key});
+  final VoidCallback navigateToHomeScreen;
+  const UserAccountView({super.key, required this.navigateToHomeScreen});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AccountManagerCubit(getIt.get<AuthRepo>(),getIt.get<OrdersRepo>())..getUserPoints(userId: getUserData().uId),
-      child: const SafeArea(child: UserAccountViewBody()),
+      child:  SafeArea(child: UserAccountViewBody(navigateToHomeScreen: navigateToHomeScreen,)),
     );
   }
 }

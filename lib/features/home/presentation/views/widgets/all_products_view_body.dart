@@ -8,6 +8,7 @@ import 'package:gac/features/home/presentation/views/widgets/all_products_bloc_b
 import 'package:gac/features/home/presentation/views/widgets/categories_list_view.dart';
 import 'package:gac/features/home/presentation/views/widgets/custom_all_products_app_bar.dart';
 import 'package:gac/features/home/presentation/views/widgets/products_view_header.dart';
+import 'package:gac/generated/l10n.dart';
 
 class AllProductsViewBody extends StatefulWidget {
   const AllProductsViewBody({super.key});
@@ -38,8 +39,8 @@ class _AllProductsViewBodyState extends State<AllProductsViewBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CustomApplicationAppBar(
-                    title: 'المنتجات',
+                   CustomApplicationAppBar(
+                    title:  S.of(context).products,
                   ),
                   verticalSpace(16),
                   SearchTextField(

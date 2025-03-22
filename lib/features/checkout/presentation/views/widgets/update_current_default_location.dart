@@ -8,13 +8,14 @@ import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_text_field.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
 import 'package:gac/features/checkout/presentation/views/widgets/update_current_government_widget.dart';
+import 'package:gac/generated/l10n.dart';
 
 class UpdateCurrentDefaultLocation extends StatefulWidget {
   const UpdateCurrentDefaultLocation({
     super.key,
-    required this.defaultLocation,
+    required this.defaultLocation, 
   });
-
+ 
   final bool defaultLocation;
 
   @override
@@ -54,12 +55,12 @@ class _UpdateCurrentDefaultLocationState
                     .shippingAddressEntity
                     .customerPhone = value;
               },
-              hintText: ' رقم الهاتف',
+              hintText:  S.of(context).phone_number,
               validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
                       !AppRegex.isPhoneNumberValid(value)) {
-                    return 'برجاء ادخال رقم هاتف صالح';
+                    return S.of(context).phone_number_validation;
                   }
                   return null;
                 },
@@ -75,7 +76,7 @@ class _UpdateCurrentDefaultLocationState
               context.read<OrderEntity>().shippingAddressEntity.customerCity =
                   value;
             },
-            hintText: 'المدينة او القرية',
+            hintText:  S.of(context).city_hint,
           ),
           verticalSpace(16),
           CustomTextFormField(
@@ -87,7 +88,7 @@ class _UpdateCurrentDefaultLocationState
                   .shippingAddressEntity
                   .customerStreetName = value;
             },
-            hintText: 'اسم الشارع',
+            hintText: S.of(context).street_hint,
           ),
           verticalSpace(16),
           CustomTextFormField(
@@ -99,7 +100,7 @@ class _UpdateCurrentDefaultLocationState
                   .shippingAddressEntity
                   .customerLocationDescription = value;
             },
-            hintText: 'وصف المكان  "اختياري"',
+            hintText:  S.of(context).address_description_hint,
             maxLines: 5,
           ),
         ],

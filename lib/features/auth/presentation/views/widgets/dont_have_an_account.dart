@@ -4,6 +4,7 @@ import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
+import 'package:gac/generated/l10n.dart';
 
 class DontHaveAnAccount extends StatelessWidget {
   const DontHaveAnAccount({
@@ -14,7 +15,7 @@ class DontHaveAnAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(TextSpan(children: [
       TextSpan(
-        text: 'لا تمتلك حساب؟ ',
+        text: S.of(context).dont_have_account,
         style: TextStyles.semiBold16.copyWith(
           color: const Color(
             0xff949D9E,
@@ -24,7 +25,7 @@ class DontHaveAnAccount extends StatelessWidget {
       TextSpan(recognizer: TapGestureRecognizer()..onTap = () {
         context.pushNamed(Routes.signUpView);
       },
-        text: 'قم بإنشاء حساب',
+        text: S.of(context).create_account,
         style: TextStyles.bold16.copyWith(
           color: AppColors.primaryColor,
         ),

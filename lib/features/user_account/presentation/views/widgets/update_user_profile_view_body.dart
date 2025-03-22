@@ -10,6 +10,7 @@ import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/core/widgets/custom_text_field.dart';
 import 'package:gac/features/user_account/presentation/manager/account_manager_cubit/account_manager_cubit.dart';
+import 'package:gac/generated/l10n.dart';
 
 class UpdateUserProfileViewBody extends StatefulWidget {
   const UpdateUserProfileViewBody({super.key});
@@ -34,6 +35,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<AccountManagerCubit>();
+    var locale = S.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
       child: SingleChildScrollView(
@@ -44,14 +46,14 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
                  Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
-                    'المعلومات الشخصية : ',
+                    '${locale.personal_information}: ',
                     style: TextStyles.bold16,
                   )),
               verticalSpace(16),
               CustomTextFormField(
                 textInputType: TextInputType.name,
                 controller: cubit.firstNameController,
-                hintText: 'الاسم الاول',
+                hintText: locale.first_name,
                 onChanged: (value) {
                   cubit.firstNameController?.text = value;
                   cubit.userDataChanged();
@@ -61,7 +63,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
               CustomTextFormField(
                  textInputType: TextInputType.name,
                 controller: cubit.secondNameController,
-                hintText: 'الاسم الاخير',
+                hintText: locale.last_name,
                 onChanged: (value) {
                   cubit.secondNameController?.text = value;
                   cubit.userDataChanged();
@@ -71,7 +73,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
               CustomTextFormField(
                 textInputType: TextInputType.phone,
                 controller: cubit.phoneNumberController,
-                hintText: 'رقم الهاتف',
+                hintText:locale.phone_number, 
                 onChanged: (value) {
                   cubit.phoneNumberController?.text = value;
                   cubit.userDataChanged();
@@ -80,7 +82,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
                   if (value == null ||
                       value.isEmpty ||
                       !AppRegex.isPhoneNumberValid(value)) {
-                    return 'برجاء ادخال رقم هاتف صالح';
+                    return locale.phone_number_validation;
                   }
                   return null;
                 },
@@ -90,7 +92,7 @@ class _UpdateUserProfileViewBodyState extends State<UpdateUserProfileViewBody> {
                 builder: (context, state) {
                   return CustomButton(
                     height: isDeviceInPortrait(context) ? 54.h : 100.h,
-                      text: 'حفظ التغيرات',
+                      text: locale.save_changes,
                       backgroundColor: cubit.hasChanges
                           ? AppColors.primaryColor
                           : Colors.grey,

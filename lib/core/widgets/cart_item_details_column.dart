@@ -8,6 +8,7 @@ import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/quantity_bottom_sheet.dart';
+import 'package:gac/generated/l10n.dart';
 
 class CartItemDetailsColumn extends StatelessWidget {
   final CartEntity cartEntity;
@@ -34,7 +35,7 @@ class CartItemDetailsColumn extends StatelessWidget {
               ),
               verticalSpace(12),
               Text(
-                '${cartEntity.quantity} كرتونة',
+                '${cartEntity.quantity} ${S.of(context).carton}',
                 style: TextStyles.semiBold16
                     .copyWith(color: AppColors.secondaryColor),
               ),
@@ -42,7 +43,7 @@ class CartItemDetailsColumn extends StatelessWidget {
               Row(
                 children: [
                   OutlinedButton(
-                    child: Text('الكمية : ${cartEntity.quantity}'),
+                    child: Text('${S.of(context).quantity}  ${cartEntity.quantity}'),
                     onPressed: () {
                       showModalBottomSheet(
                           backgroundColor: Colors.white,

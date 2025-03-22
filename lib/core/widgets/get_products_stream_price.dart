@@ -3,6 +3,7 @@ import 'package:gac/core/cubits/cart_cubit/cart_cubit.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
+import 'package:gac/generated/l10n.dart';
 
 class GetProductStreamPrice extends StatelessWidget {
   const GetProductStreamPrice({
@@ -10,7 +11,7 @@ class GetProductStreamPrice extends StatelessWidget {
     required this.cartCubit,
     required this.productEntity,
     this.priceFunction,
-     this.addedText,
+    this.addedText,
   });
 
   final CartCubit cartCubit;
@@ -24,17 +25,20 @@ class GetProductStreamPrice extends StatelessWidget {
       stream: cartCubit.getProductPriceStream(productEntity.code),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return Text(
+            '         جنيه/للكرتونة',
+            style: TextStyles.bold16.copyWith(color: AppColors.secondaryColor),
+          );
         } else if (snapshot.hasError) {
-          return const Text('Error fetching price');
+          return const Text('حدث خطأ!');
         } else if (snapshot.hasData) {
           final updatedPrice = snapshot.data!;
-          final text=addedText ?? '';
+          final text = addedText ?? '';
           return FittedBox(
             child: Text(
               priceFunction != null
-                  ? '${updatedPrice.roundToDouble() * priceFunction} جنيه'
-                  : '${updatedPrice.roundToDouble()}  جنيه$text',
+                  ? '${updatedPrice.roundToDouble() * priceFunction} ${S.of(context).pound}'
+                  : '${updatedPrice.roundToDouble()}  ${S.of(context).pound}$text',
               style:
                   TextStyles.bold16.copyWith(color: AppColors.secondaryColor),
               maxLines: 2,

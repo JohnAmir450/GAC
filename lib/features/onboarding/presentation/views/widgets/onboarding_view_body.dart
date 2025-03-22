@@ -11,6 +11,7 @@ import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/features/onboarding/presentation/views/widgets/onboarding_background.dart';
 import 'package:gac/features/onboarding/presentation/views/widgets/onboarding_title_and_subtitle_section.dart';
+import 'package:gac/generated/l10n.dart';
 
 class OnBoardingViewBody extends StatelessWidget {
   const OnBoardingViewBody({super.key});
@@ -29,11 +30,11 @@ class OnBoardingViewBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Spacer(
-                  flex: 3,
+                  flex: 2,
                 ),
                 ClipRRect(
                     borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(Assets.assetsImagesAppLogo)),
+                    child: Image.asset(Assets.assetsImagesAppLogo,height: 240.h,width: 240.w,)),
                 verticalSpace(32.h),
                 const TitleAndSubTitleSection(),
                 const Spacer(
@@ -41,7 +42,7 @@ class OnBoardingViewBody extends StatelessWidget {
                 ),
                 CustomButton(
                   height: isDeviceInPortrait(context) ? 54.h : 100.h,
-                  text: 'ابدأ الان', onPressed: () {
+                  text:  S.of(context).start_now, onPressed: () {
                   CacheHelper.saveData(key: kIsOnboardingViewKey, value: true);
                   context.pushNamedAndRemoveUntil(Routes.loginView, predicate: (Route<dynamic> route) => false);
                 }),

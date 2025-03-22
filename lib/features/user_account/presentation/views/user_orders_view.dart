@@ -7,6 +7,7 @@ import 'package:gac/core/widgets/custom_app_bar.dart';
 import 'package:gac/features/auth/domain/repos/auth_repo.dart';
 import 'package:gac/features/user_account/presentation/manager/account_manager_cubit/account_manager_cubit.dart';
 import 'package:gac/features/user_account/presentation/views/widgets/user_orders_view_body.dart';
+import 'package:gac/generated/l10n.dart';
 
 class UserOrdersView extends StatelessWidget {
   const UserOrdersView({super.key});
@@ -16,17 +17,15 @@ class UserOrdersView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(
         context,
-        title: 'طلباتي',
+        title:S.of(context).my_orders,
         onTap: () => context.pop(),
       ),
       body: BlocProvider(
         create: (context) =>
             AccountManagerCubit(getIt.get<AuthRepo>(), getIt.get<OrdersRepo>())
               ..fetchUserOrders(query: {
-                
                 'orderBy': 'orderDate',
                 'descending': true,
-               
               }),
         child: const UserOrdersViewBody(),
       ),

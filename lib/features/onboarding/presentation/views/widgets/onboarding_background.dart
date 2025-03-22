@@ -12,6 +12,8 @@ class OnBoardingBackGround extends StatelessWidget {
     return Positioned(
         right: 0,
         left: 0,
+        
+        
         child: SvgPicture.asset(
           Assets.assetsImagesPageViewItem1BackgroundImage,
           fit: BoxFit.fill,

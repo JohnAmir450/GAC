@@ -21,9 +21,9 @@ class CategoriesListView extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => GestureDetector(
            onTap: () {
-          context.pushNamed(Routes.categoryView, arguments: cubit.categories[index]);
+          context.pushNamed(Routes.categoryView, arguments: cubit.categories[index].categoryName);
         },
-          child: CustomProductCategoryItem(categoryName: cubit.categories[index],)),
+          child: CustomProductCategoryItem(categoryImage: cubit.categories[index].image,categoryName: cubit.categories[index].categoryName,)),
         itemCount: cubit.categories.length,
       ),
     );

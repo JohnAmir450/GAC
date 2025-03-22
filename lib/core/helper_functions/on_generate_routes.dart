@@ -12,6 +12,7 @@ import 'package:gac/features/home/presentation/views/main_view.dart';
 import 'package:gac/features/home/presentation/views/widgets/category_view.dart';
 import 'package:gac/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:gac/features/product/presentation/views/product_view.dart';
+import 'package:gac/features/product_types/presentation/views/product_types_view.dart';
 import 'package:gac/features/user_account/presentation/views/update_shipping_information_view.dart';
 import 'package:gac/features/user_account/presentation/views/user_orders_view.dart';
 import 'package:gac/features/user_account/presentation/views/update_user_profile_view.dart';
@@ -51,11 +52,22 @@ Route onGenerateRoutes(RouteSettings settings) {
             productEntity: productEntity,
           ),
           type: PageTransitionType.fade);
-case Routes.categoryView:
- var categoryName = settings.arguments as String;
+    case Routes.productTypes:
+    var productType = settings.arguments as String;
       return PageTransition(
           duration: const Duration(milliseconds: 50),
-          child:  CategoryView(categoryName: categoryName,),
+          child:  ProductTypesView(
+          productType:productType ,
+         
+          ),
+          type: PageTransitionType.fade);
+    case Routes.categoryView:
+      var categoryName = settings.arguments as String;
+      return PageTransition(
+          duration: const Duration(milliseconds: 50),
+          child: CategoryView(
+            categoryName: categoryName,
+          ),
           type: PageTransitionType.fade);
     case Routes.checkoutView:
       final args = settings.arguments as Map<String, dynamic>;

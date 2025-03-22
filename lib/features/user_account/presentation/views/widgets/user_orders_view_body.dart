@@ -7,12 +7,14 @@ import 'package:gac/features/user_account/presentation/manager/account_manager_c
 import 'package:gac/features/user_account/presentation/views/widgets/custom_order_view_warning.dart';
 import 'package:gac/features/user_account/presentation/views/widgets/fetch_orders_items_list_view.dart';
 import 'package:gac/features/user_account/presentation/views/widgets/filter_section.dart';
+import 'package:gac/generated/l10n.dart';
 
 class UserOrdersViewBody extends StatelessWidget {
   const UserOrdersViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var locale= S.of(context);
     return CustomScrollView(
       slivers: [
         const SliverToBoxAdapter(
@@ -27,10 +29,10 @@ class UserOrdersViewBody extends StatelessWidget {
             builder: (context, state) {
           if (state is FetchUserOrdersSuccessState) {
             if (state.orders.isEmpty) {
-              return const SliverToBoxAdapter(
+              return  SliverToBoxAdapter(
                 child:  EmptyListViewWidget(
-                    title: 'لا يوجد طلبات',
-                    subTitle: 'عند الطلب يمكنك متابعة حالة طلباتك من هنا'),
+                    title:locale.no_orders,
+                    subTitle: locale.no_orders_subtitle),
               );
             }
             return OrdersItemsListView(

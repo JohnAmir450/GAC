@@ -3,6 +3,7 @@ import 'package:gac/core/helper_functions/foramted_date.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/features/checkout/data/models/order_model.dart';
+import 'package:gac/generated/l10n.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({
@@ -14,35 +15,36 @@ class OrderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var locale= S.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalSpace(8),
         Text(
-          'اجمالي مبلغ الطلبية :   ${orderEntity.totalPrice.toStringAsFixed(2)} جنيه',
+          '${locale.total_order_cost}:   ${orderEntity.totalPrice.toStringAsFixed(2)} ${locale.pound}',
           style: TextStyles.bold16,
         ),
         verticalSpace(8),
         
         // User ID
         Text(
-          'الاسم : ${orderEntity.shippingAddressModel.customerName}',
+          '${locale.name}: ${orderEntity.shippingAddressModel.customerName}',
           style: TextStyles.regular14.copyWith(color: Colors.grey),
         ),
         verticalSpace(8),
         Text(
-          'رقم الهاتف : ${orderEntity.shippingAddressModel.customerPhone}',
+          '${locale.phone_number}: ${orderEntity.shippingAddressModel.customerPhone}',
           style: TextStyles.regular14.copyWith(color: Colors.grey),
         ),
         verticalSpace(8),
         Text(
-          '  تاريخ الطلب: ${formatOrderDateFromTimestamp(orderEntity.orderDate)}',
+          '${locale.order_date}: ${formatOrderDateFromTimestamp(orderEntity.orderDate)}',
           style: TextStyles.regular14.copyWith(color: Colors.grey),
         ),
         verticalSpace(8),
         // Shipping Address
           Text(
-          'عنوان التوصيل:',
+          '${locale.delivery_address}:',
           style: TextStyles.bold16,
         ),
         Text(
@@ -53,7 +55,7 @@ class OrderDetails extends StatelessWidget {
         
         // Payment Method
         Text(
-          ' طريقة الدفع: ${orderEntity.payWithCash! ? 'نقدا' : 'نقدا'}',
+          ' ${locale.payment_method}: ${orderEntity.payWithCash! ? locale.cash : locale.cash}',
           style: TextStyles.regular14.copyWith(color: Colors.grey),
         ),
         verticalSpace(16),

@@ -4,6 +4,7 @@ import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
 import 'package:gac/features/checkout/presentation/views/widgets/order_summary_widget.dart';
+import 'package:gac/generated/l10n.dart';
 
 class ReviewOrderSection extends StatelessWidget {
   const ReviewOrderSection({super.key, required this.pageController});
@@ -25,18 +26,18 @@ class ReviewOrderSection extends StatelessWidget {
             const Divider(),
             verticalSpace(8),
                Text(
-              'طريقة الدفع',
+              S.of(context).payment_method,
               style: TextStyles.bold16,
             ),
             verticalSpace(6),
-            const Text(
-              'الدفع عند الاستلام',
+             Text(
+               S.of(context).cash_on_delivery,
             ),
             verticalSpace(16),
             const Divider(),
             verticalSpace(8),
                Text(
-              'عنوان التوصيل',
+               S.of(context).address,
               style: TextStyles.bold16,
             ),
             verticalSpace(6),
@@ -64,7 +65,7 @@ class ReviewOrderSection extends StatelessWidget {
                       Icon(Icons.edit_location_outlined,
                           color: Colors.grey.shade600),
                       Text(
-                        'تعديل',
+                         S.of(context).edit,
                         style: TextStyles.semiBold13
                             .copyWith(color: Colors.grey.shade600),
                       ),

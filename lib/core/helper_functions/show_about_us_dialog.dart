@@ -1,62 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
+import 'package:gac/generated/l10n.dart';
 
 void showAboutUsDialog(BuildContext context) {
+  var locale = S.of(context);
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: Colors.white,
-        title: const Text(
-          'عن الشركة',
+        title: Text(
+          locale.about_us,
           style: TextStyles.bold23,
         ),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildSectionContent(
-                'الشركة العربية الخليجية هي شركة رائدة في صناعة السمن والزيوت، تأسست بهدف تقديم منتجات عالية الجودة تلبي احتياجات الأسر في المنطقة العربية. منذ بداية تأسيسنا، ونحن نسعى جاهدين لتوفير منتجات غذائية تلبي أعلى معايير الجودة والسلامة، مما يجعلنا الخيار الأول لعملائنا في صناعة السمن والزيوت.',
-              ),
-              buildSectionTitle('رؤيتنا'),
-              buildSectionContent(
-                'أن نصبح الشركة الرائدة في صناعة السمن والزيوت في المنطقة العربية، وأن نقدم لعملائنا منتجات مبتكرة وصحية وآمنة، مع الحفاظ على أعلى معايير الجودة.',
-              ),
-              buildSectionTitle('مهمتنا'),
-              buildSectionContent(
-                'مهمتنا هي تقديم منتجات سمن وزيوت عالية الجودة تجمع بين الطعم الرائع والفوائد الصحية. نحن نركز على تحقيق الاستدامة في عملياتنا، ونسعى لتقديم منتجات تساعد عملائنا في تحقيق حياة صحية ومتوازنة.',
-              ),
-              buildSectionTitle('قيمنا'),
-              buildSectionContent(
-                '- **الجودة**: نلتزم بتقديم سمن وزيوت ذات جودة عالية وبمعايير عالمية.\n'
-                '- **الابتكار**: نعمل دائمًا على تطوير وتحسين منتجاتنا لتلبية احتياجات عملائنا.\n'
-                '- **النزاهة**: نؤمن بأهمية النزاهة في جميع تعاملاتنا الداخلية والخارجية.\n'
-                '- **الاستدامة**: نعمل على تقليل الأثر البيئي وتعزيز الاستدامة في عملياتنا.',
-              ),
-              buildSectionTitle('ما نقدمه'),
-              buildSectionContent(
-                'نقدم مجموعة واسعة من المنتجات التي تشمل:\n'
-                '- **السمن النباتي**: سمن ذو طعم رائع وجودة عالية.\n'
-                '- **زيوت الطهي**: مجموعة متنوعة من الزيوت مثل زيت عباد الشمس وزيت الزيتون وزيت الذرة.',
-              ),
-              buildSectionTitle('فريقنا'),
-              buildSectionContent(
-                'يضم فريقنا مجموعة من الخبراء والمتخصصين في صناعة السمن والزيوت، الذين يعملون بجد لضمان تقديم منتجات تلبي توقعات عملائنا في جميع أنحاء المنطقة.',
-              ),
-              buildSectionTitle('إنجازاتنا'),
-              buildSectionContent(
-                'منذ تأسيس الشركة حققنا العديد من النجاحات، ومنها:\n'
-                '- **جوائز الجودة**: حصلنا على العديد من الجوائز تقديرًا لالتزامنا بالجودة.\n'
-                '- **الشهادات الدولية**: نحن حاصلون على شهادات معترف بها في مجال صناعة السمن والزيوت.',
-              ),
-              buildSectionTitle('اتصل بنا'),
-              buildSectionContent(
-                'لأي استفسارات أو شكاوى، يرجى التواصل معنا عبر:\n'
-                 '- الهاتف:\n 01140550072 \n 01028607331\n  0196817723\n'
-                '- البريد الإلكتروني:\n  Gulf-arabian2015@outlook.com \n gulfarabiancompany650@gmail.com\n'
-                '- العنوان: قطعة رقم 5 - المنطقة الصناعية - الروبيكي - مدينة بدر',
-              ),
+              buildSectionContent(locale.about_company),
+              buildSectionTitle(locale.our_vision),
+              buildSectionContent(locale.vision_content),
+              buildSectionTitle(locale.our_mission),
+              buildSectionContent(locale.mission_content),
+              buildSectionTitle(locale.our_values),
+              buildSectionContent(locale.values_content),
+              buildSectionTitle(locale.what_we_offer),
+              buildSectionContent(locale.offer_content),
+              buildSectionTitle(locale.our_team),
+              buildSectionContent(locale.team_content),
+              buildSectionTitle(locale.our_achievements),
+              buildSectionContent(locale.achievements_content),
+              buildSectionTitle(locale.contact_us),
+              buildSectionContent(locale.contact_content),
             ],
           ),
         ),
@@ -67,10 +44,10 @@ void showAboutUsDialog(BuildContext context) {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text(
-                'إغلاق',
+              child: Text(
+                locale.close,
                 textAlign: TextAlign.start,
-                style: TextStyle(color: AppColors.primaryColor),
+                style: const TextStyle(color: AppColors.primaryColor),
               ),
             ),
           ),

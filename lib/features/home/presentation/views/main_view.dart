@@ -25,6 +25,9 @@ class _MainViewState extends State<MainView> {
   void navigateToAllProducts() {
     _onItemTapped(1);
   }
+  void navigateToHomeScreen() {
+    _onItemTapped(0);
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -36,24 +39,9 @@ class _MainViewState extends State<MainView> {
         HomeView(onNavigateToAllProducts: navigateToAllProducts,),
         const AllProductsView(),
         const CartView(),
-        const UserAccountView(),
+         UserAccountView(navigateToHomeScreen: navigateToHomeScreen,),
     ],),
     );
-  }
-  Widget _getSelectedScreen() {
-    
-    switch (selectedIndex) {
-      case 0:
-        return HomeView(onNavigateToAllProducts: navigateToAllProducts,); 
-      case 1:
-        return const AllProductsView(); 
-      case 2:
-      return const CartView();
-      case 3: 
-      return const UserAccountView();
-      default:
-        return HomeView(onNavigateToAllProducts: navigateToAllProducts,);
-    }
   }
 }
  

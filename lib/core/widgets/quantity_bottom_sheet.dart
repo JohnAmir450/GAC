@@ -7,6 +7,7 @@ import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/utils/spacing.dart';
+import 'package:gac/generated/l10n.dart';
 
 class QuantityBottomSheet extends StatelessWidget {
   final String productCode;
@@ -35,7 +36,7 @@ class QuantityBottomSheet extends StatelessWidget {
               listener: (context, state) {
                 if (state is CartCubitChangeProductQuantity) {
                   showSnackBar(context,
-                      text: 'تم تغير كمية المنتج بنجاح',
+                      text:  S.of(context).product_quantity_updated,
                       color: AppColors.lightPrimaryColor);
                 } else if (state is CartCubitProductQuantityExceeds) {
                   showSnackBar(context,

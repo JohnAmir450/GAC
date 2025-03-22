@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
+import 'package:gac/generated/l10n.dart';
 
 class ShippingSection extends StatelessWidget {
   const ShippingSection({super.key, });
@@ -20,15 +21,15 @@ class ShippingSection extends StatelessWidget {
           )),
           child: ListTile(
             title:   Text(
-              'الدفع عند الاستلام',
+             S.of(context).cash_on_delivery,
               style: TextStyles.bold16,
             ),
-            subtitle:  const Text(
-              'التسليم في المكان المحدد',
+            subtitle:   Text(
+             S.of(context).deliver_in_selected_address,
               style: TextStyles.regular16,
             ),
             trailing: Text(
-              '${context.read<OrderEntity>().totalPrice} جنيه',
+              '${context.read<OrderEntity>().totalPrice} ${S.of(context).pound}',
               style: TextStyles.bold16.copyWith(color: AppColors.primaryColor),
             ),
             leading: const CircleAvatar(

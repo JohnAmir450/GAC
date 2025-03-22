@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/features/checkout/presentation/views/widgets/step_item.dart';
+import 'package:gac/generated/l10n.dart'; // Import localization
 
 class CheckoutSteps extends StatelessWidget {
   const CheckoutSteps({
@@ -19,33 +20,35 @@ class CheckoutSteps extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: List.generate(
-          3, // Number of steps
-          (index) => Expanded(
-                  child: GestureDetector(
-                onTap: () {
-                  if (_currentStep == 1) {
-                    if (formKey.currentState!.validate()) {
-                      pageController.animateToPage(
-                        index,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                    } else {
-                      showSnackBar(context, text: 'عليك ملء جميع البيانات');
-                    }
-                  }
-                },
-                child: StepItem(
-                  text: getSteps()[index],
-                  isActive: index <= _currentStep,
-                ),
-              ))),
+        3, // Number of steps
+        (index) => Expanded(
+          child: GestureDetector(
+            onTap: () {
+              if (_currentStep == 1) {
+                if (formKey.currentState!.validate()) {
+                  pageController.animateToPage(
+                    index,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                } else {
+                  showSnackBar(context, text: S.of(context).fill_all_data);
+                }
+              }
+            },
+            child: StepItem(
+              text: getSteps(context)[index], // Use localized text
+              isActive: index <= _currentStep,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
 
-List<String> getSteps() => [
-      'طريقة الدفع ',
-      'العنوان',
-      'مراجعة الطلب',
-    ];
+List<String> getSteps(BuildContext context) => [
+      S.of(context).payment_method,
+      S.of(context).address,
+      S.of(context).review_order,
+];

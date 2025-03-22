@@ -16,7 +16,6 @@ class ProductsRepoImpl extends ProductsRepo {
       final stream = databaseService.getDataStream(
           path: BackendEndpoints.getProducts,
           query: {
-          
             'where': 'isFeatured',
             'isEqualTo': true
           }).map((data) =>
@@ -103,4 +102,52 @@ class ProductsRepoImpl extends ProductsRepo {
       throw Exception('Failed to search products: ${e.toString()}');
     }
   }
+
+  @override
+  Future<Either<Failure, List<ProductEntity>>> getProductsByType(
+      {required String productType}) async {
+    try {
+      var data = await databaseService.getData(
+              path: BackendEndpoints.getProducts,
+              query: {'where': 'productType', 'isEqualTo': productType})
+          as List<Map<String, dynamic>>;
+      List<ProductEntity> products =
+          data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
+
+      return Right(products);
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+@override
+Either<Failure, Stream<List<ProductEntity>>> getProductWeights({
+  required String currentProductCode,
+  Map<String, dynamic>? query,
+  List<Map<String, dynamic>>? whereConditions,
+}) {
+  try {
+    final stream = databaseService.getDataStream(
+      path: BackendEndpoints.getProducts,
+      whereConditions: whereConditions,
+    ).map((data) {
+      // Convert JSON to ProductEntity
+      List<ProductEntity> products = 
+          data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
+
+      // Remove the product with the given code
+      products.removeWhere((product) => product.code == currentProductCode);
+
+      return products;
+    });
+
+    return Right(stream);
+  } catch (e) {
+    return Left(
+      ServerFailure(message: 'فشل في تحميل المنتجات، حاول مرة اخرى!'),
+    );
+  }
+}
+
+
 }

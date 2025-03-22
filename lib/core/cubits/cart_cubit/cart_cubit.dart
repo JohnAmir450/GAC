@@ -50,9 +50,9 @@ class CartCubit extends Cubit<CartState> {
     });
   }
 
-  Future<void> addToCart({required CartModel cartModel}) async {
+  Future<void> addToCart({required CartModel cartModel,required int cartQuantity}) async {
     var result = await cartRepo.addToCart(
-        userId: getUserData().uId, cartModel: cartModel);
+        userId: getUserData().uId, cartModel: cartModel,cartQuantity: cartQuantity);
     result.fold((failure) {
       emit(AddToCartFailureState(errorMessage: failure.message));
     }, (value) {

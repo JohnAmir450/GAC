@@ -5,6 +5,7 @@ import 'package:gac/core/helper_functions/custom_quick_alret_view.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/features/checkout/data/models/order_model.dart';
 import 'package:gac/features/user_account/presentation/manager/account_manager_cubit/account_manager_cubit.dart';
+import 'package:gac/generated/l10n.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 
 import '../../../../../core/utils/app_text_styles.dart';
@@ -19,6 +20,7 @@ class CancelOrderButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var locale = S.of(context);
     return Visibility(
         visible: orderEntity.orderStatus == 'جاري التأكيد',
         child: ElevatedButton(
@@ -29,9 +31,9 @@ class CancelOrderButton extends StatelessWidget {
             ),
             onPressed: () async {
               customQuickAlertView(context,
-                  text: 'هل انت متاكد من الغاء الطلب؟ يمكنك الالغاء طالما لم يتم تأكيده',
-                  title: 'الغاء الطلب',
-                  confirmBtnText: 'تاكيد',
+                  text:locale.order_cancel_confirmation,
+                  title: locale.order_cancel,
+                  confirmBtnText: locale.confirm,
                   type: QuickAlertType.confirm, onConfirmBtnTap: () {
                 context
                     .read<AccountManagerCubit>()
@@ -44,9 +46,9 @@ class CancelOrderButton extends StatelessWidget {
                 context.pop();
               });
             },
-            child: const FittedBox(
+            child:  FittedBox(
                 child: Text(
-              'الغاء الطلب',
+              locale.order_cancel,
               style: TextStyles.semiBold11,
             ))));
   }

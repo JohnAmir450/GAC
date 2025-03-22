@@ -6,6 +6,7 @@ import 'package:gac/core/models/cart_model.dart';
 import 'package:gac/core/models/product_model.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
+import 'package:gac/generated/l10n.dart';
 
 class AddToCartButtonBlocConsumer extends StatelessWidget {
   const AddToCartButtonBlocConsumer({
@@ -26,7 +27,7 @@ class AddToCartButtonBlocConsumer extends StatelessWidget {
         } else if (state is AddToCartSuccessState) {
           showSnackBar(
             context,
-            text: 'تم اضافة المنتج للسلة بنجاح',
+            text: S.of(context).product_added_success,
             color: AppColors.lightPrimaryColor,
           );
         }
@@ -35,6 +36,7 @@ class AddToCartButtonBlocConsumer extends StatelessWidget {
         return GestureDetector(
           onTap: () async {
             await context.read<CartCubit>().addToCart(
+              cartQuantity: 1,
                   cartModel: CartModel(
                     productModel:
                         ProductModel.fromEntity(productEntity),

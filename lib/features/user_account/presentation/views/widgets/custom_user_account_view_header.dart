@@ -4,6 +4,7 @@ import 'package:gac/core/helper_functions/get_user_data.dart';
 import 'package:gac/core/utils/app_images.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
 import 'package:gac/features/user_account/presentation/manager/account_manager_cubit/account_manager_cubit.dart';
+import 'package:gac/generated/l10n.dart';
 import '../../../../../core/utils/spacing.dart';
 
 class CustomUserAccountViewHeader extends StatelessWidget {
@@ -43,7 +44,7 @@ class CustomUserAccountViewHeader extends StatelessWidget {
                 builder: (context, state) {
                    var cubit = context.watch<AccountManagerCubit>();
                   return Text(
-                    'النقاط المتاحة : ${cubit.userPoints}',
+                    '${S.of(context).available_points} ${cubit.userPoints}',
                     style: TextStyles.regular16
                         .copyWith(color: const Color(0xff949D9E)),
                   );

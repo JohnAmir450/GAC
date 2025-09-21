@@ -24,8 +24,11 @@ class OrderConfirmedSuccessfully extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 140.0.h, horizontal: 16),
             child: Column(
               children: [
-                SvgPicture.asset(Assets.assetsImagesOrderConfirmedSuccessfully),
-                verticalSpace(16),
+                Padding(
+                  padding: EdgeInsets.only(right: 24.0.w),
+                  child: SvgPicture.asset(Assets.assetsImagesOrderConfirmedSuccessfully,height: MediaQuery.sizeOf(context).height * 0.2,fit: BoxFit.fill,),
+                ),
+                verticalSpace(24.h),
                   Text(
                  locale.order_confirmed_successfully,
                   style: TextStyles.bold16,

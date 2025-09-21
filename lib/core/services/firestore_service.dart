@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gac/core/errors/custom_exceptions.dart';
@@ -59,7 +58,6 @@ Future<dynamic> getData({
         if (query['orderBy'] != null) {
           var orderByField = query['orderBy'];
           var descending = query['descending']??false;
-           log('Ordering by $orderByField, descending: $descending');
           data = data.orderBy(orderByField, descending: descending);
         }
         if (query['limit'] != null) {

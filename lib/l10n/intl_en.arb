@@ -248,7 +248,9 @@
   "shopInsideProducts": "Shop inside {productType} products",
   "ghee": "Ghee",
   "oils": "Oils",
-  "industrial": "Industrial"
+  "industrial": "Industrial",
+
+  "maximum_quantity": "Maximum quantity is 50"
  
 
 }

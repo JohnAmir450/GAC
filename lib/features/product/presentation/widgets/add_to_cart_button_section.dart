@@ -8,6 +8,7 @@ import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/models/cart_model.dart';
 import 'package:gac/core/models/product_model.dart';
 import 'package:gac/core/utils/app_text_styles.dart';
+import 'package:gac/core/utils/custom_snak_bar.dart';
 import 'package:gac/core/utils/spacing.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/core/widgets/custom_text_field.dart';
@@ -35,26 +36,27 @@ class _AddToCartButtonSectionState extends State<AddToCartButtonSection> {
   }
 
   @override
-
   Widget build(BuildContext context) {
-    var locale=S.of(context);
+    var locale = S.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
       child: Row(
         children: [
           Expanded(
             flex: 5,
             child: CustomButton(
-              height: isDeviceInPortrait(context)? 54.h :80.h,
+                height: isDeviceInPortrait(context) ? 54.h : 80.h,
                 text: locale.add_to_cart,
                 onPressed: () {
-                  context.read<CartCubit>().addToCart(
-                      cartQuantity: cartQuantity,
-                      cartModel: CartModel(
-                          productModel: ProductModel.fromEntity(
-                            widget.productEntity,
-                          ),
-                          quantity: cartQuantity));
+                  cartQuantity > 50
+                      ? showSnackBar(context, text:locale.maximum_quantity)
+                      : context.read<CartCubit>().addToCart(
+                          cartQuantity: cartQuantity,
+                          cartModel: CartModel(
+                              productModel: ProductModel.fromEntity(
+                                widget.productEntity,
+                              ),
+                              quantity: cartQuantity));
                 }),
           ),
           horizontalSpace(16),
@@ -69,7 +71,7 @@ class _AddToCartButtonSectionState extends State<AddToCartButtonSection> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   FittedBox(
+                  FittedBox(
                     child: Text(
                       locale.quantity,
                       style: const TextStyle(fontSize: 12, color: Colors.grey),
@@ -79,7 +81,7 @@ class _AddToCartButtonSectionState extends State<AddToCartButtonSection> {
                     isDense: true,
                     fillColor: Colors.white,
                     controller: _controller,
-                   style: TextStyles.bold16,
+                    style: TextStyles.bold16,
                     textInputType: TextInputType.number,
                     border: InputBorder.none,
                     textAlign: TextAlign.center,

@@ -50,7 +50,7 @@ class CartRepoImpl implements CartRepo {
       );
 
       // Check if the requested quantity exceeds the available stock
-      if (productDoc['productQuantity'] <= 0) {
+      if (productDoc['productQuantity'] <= 0 || productDoc['productQuantity'] < cartQuantity) {
         return left(
           ServerFailure(
             message:

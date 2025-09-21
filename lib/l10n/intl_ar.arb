@@ -253,7 +253,9 @@
   "shopInsideProducts": "تسوق داخل منتجات ال{productType}",
   "ghee": "سمن",
   "oils": "زيوت",
-  "industrial": "صناعي"
+  "industrial": "صناعي",
+
+  "maximum_quantity": "الحد الاقصى للكمية هو 50 كرتونة"
 
 
 

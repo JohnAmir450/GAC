@@ -98,12 +98,15 @@ class LoginViewBody extends StatelessWidget {
                   text: 'تسجيل الدخول بواسطة ابل',
                 ),
               ),
-              LoginMethodItem(
-                onTap: () {
-                  cubit.signInWithFacebook();
-                },
-                image: Assets.assetsImagesFacebookIcon,
-                text:S.of(context).sign_with_facebook,
+              Visibility(
+                visible: false,
+                child: LoginMethodItem(
+                  onTap: () {
+                    cubit.signInWithFacebook();
+                  },
+                  image: Assets.assetsImagesFacebookIcon,
+                  text:S.of(context).sign_with_facebook,
+                ),
               )
             ],
           ),

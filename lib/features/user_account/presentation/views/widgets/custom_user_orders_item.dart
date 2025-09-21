@@ -19,7 +19,6 @@ class UserOrdersItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 12),
       child: Card(
-        color: Colors.white,
         elevation: 4,
         borderOnForeground: true,
         child: Padding(

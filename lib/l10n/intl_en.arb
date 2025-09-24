@@ -250,7 +250,8 @@
   "oils": "Oils",
   "industrial": "Industrial",
 
-  "maximum_quantity": "Maximum quantity is 50"
- 
+  "maximum_quantity": "Maximum quantity is 50",
+  "this_field_required": "This field is required",
+  "confirm_your_profile": "Confirm your profile"
 
 }

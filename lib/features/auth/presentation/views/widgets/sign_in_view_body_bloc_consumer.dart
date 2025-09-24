@@ -15,15 +15,15 @@ class SignInViewBodyBlocConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
-
     return BlocConsumer<SignInCubit, SignInState>(
       listener: (context, state) async {
-        
         if (state is SignInSuccessState) {
-         
+          if (state.userEntity.phoneNumber == '') {
+            context.pushReplacementNamed(Routes.completeGoogleSignUpView,arguments: state.userEntity );
+          } else {
             context.pushReplacementNamed(Routes.mainView);
           }
+        }
         if (state is SignInFailureState) {
           showSnackBar(context, text: state.message, color: Colors.red);
         }

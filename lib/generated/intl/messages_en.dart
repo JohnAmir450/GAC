@@ -123,6 +123,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
     "confirm_order": MessageLookupByLibrary.simpleMessage("Confirm Order"),
+    "confirm_your_profile": MessageLookupByLibrary.simpleMessage(
+      "Confirm your profile",
+    ),
     "confirmed": MessageLookupByLibrary.simpleMessage("Confirmed"),
     "contact_content": MessageLookupByLibrary.simpleMessage(
       "For any inquiries or complaints, please contact us via:\n- **Phone**:\n 01140550072 \n 01028607331\n 0196817723\n- **Email**:\n Gulf-arabian2015@outlook.com \n gulfarabiancompany650@gmail.com\n- **Address**: Plot No. 5 - Industrial Zone - Robiki - Badr City",
@@ -442,6 +445,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "there_is_no_products": MessageLookupByLibrary.simpleMessage(
       "there is no products",
+    ),
+    "this_field_required": MessageLookupByLibrary.simpleMessage(
+      "This field is required",
     ),
     "timeout": MessageLookupByLibrary.simpleMessage(
       "The operation took too long. Try again",

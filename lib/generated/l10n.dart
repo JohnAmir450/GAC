@@ -1838,6 +1838,26 @@ class S {
       args: [],
     );
   }
+
+  /// `This field is required`
+  String get this_field_required {
+    return Intl.message(
+      'This field is required',
+      name: 'this_field_required',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm your profile`
+  String get confirm_your_profile {
+    return Intl.message(
+      'Confirm your profile',
+      name: 'confirm_your_profile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

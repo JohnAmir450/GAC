@@ -3,6 +3,8 @@ import 'package:gac/core/entities/cart_entity.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/services/firebase_auth_service.dart';
+import 'package:gac/features/auth/domain/entities/user_entity.dart';
+import 'package:gac/features/auth/presentation/views/complete_user_profile_view.dart';
 import 'package:gac/features/auth/presentation/views/login_view.dart';
 import 'package:gac/features/auth/presentation/views/reset_password_view.dart';
 import 'package:gac/features/auth/presentation/views/signup_view.dart';
@@ -38,6 +40,12 @@ Route onGenerateRoutes(RouteSettings settings) {
           duration: const Duration(milliseconds: 50),
           child: const SignUpView(),
           type: PageTransitionType.fade);
+    case Routes.completeGoogleSignUpView:
+      var userEntity = settings.arguments as UserEntity?;
+      return PageTransition(
+          duration: const Duration(milliseconds: 50),
+          child: CompleteUserProfileView(userEntity: userEntity),
+          type: PageTransitionType.fade);
     case Routes.mainView:
       return PageTransition(
           duration: const Duration(milliseconds: 50),
@@ -53,12 +61,11 @@ Route onGenerateRoutes(RouteSettings settings) {
           ),
           type: PageTransitionType.fade);
     case Routes.productTypes:
-    var productType = settings.arguments as String;
+      var productType = settings.arguments as String;
       return PageTransition(
           duration: const Duration(milliseconds: 50),
-          child:  ProductTypesView(
-          productType:productType ,
-         
+          child: ProductTypesView(
+            productType: productType,
           ),
           type: PageTransitionType.fade);
     case Routes.categoryView:

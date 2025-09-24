@@ -32,10 +32,6 @@ class AuthRepoImpl implements AuthRepo {
       user = await firebaseAuthService.createUserWithEmailAndPassword(
           email: email, password: password);
 
-      if (!user.emailVerified) {
-        return Left(ServerFailure(
-            message: 'الرجاء تفعيل الحساب من خلال البريد الالكتروني'));
-      }
       var userEntity = UserEntity(
           name: name,
           secondName: secondName,
@@ -112,6 +108,25 @@ class AuthRepoImpl implements AuthRepo {
       }
 
       return Left(ServerFailure(message: 'حدث خطأ ما، حاول مرة اخرى'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> completeGoogleSignUp({
+    required UserEntity userEntity,
+  }) async {
+    try {
+      await databaseService.addData(
+        path: BackendEndpoints.addUserData,
+        uId: userEntity.uId,
+        data: UserModel.fromEntity(userEntity).toMap(),
+      );
+      await saveUserData(userEntity: userEntity);
+      return Right(userEntity);
+    } catch (e) {
+      return Left(
+        ServerFailure(message: 'فشل في استكمال تسجيل الدخول: ${e.toString()}'),
+      );
     }
   }
 
@@ -234,67 +249,70 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-
-
-@override
-Future<Either<Failure, void>> deleteAccount({required String uId, String? password}) async {
-  try {
-
-
-    User? user =await getCurrentUser();
-
-    // Re-authenticate user based on provider
-    if (user.providerData.any((info) => info.providerId == 'password')) {
-      if (password == null || password.isEmpty) {
-        return Left(ServerFailure(message: "Password is required for account deletion"));
-      }
-      AuthCredential credential = EmailAuthProvider.credential(
-        email: user.email!,
-        password: password,
-      );
-      await user.reauthenticateWithCredential(credential);
-    } else if (user.providerData.any((info) => info.providerId == 'google.com')) {
-      GoogleSignIn googleSignIn = GoogleSignIn();
-      GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      if (googleUser == null) {
-        return Left(ServerFailure(message: "Google re-authentication failed"));
-      }
-      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      await user.reauthenticateWithCredential(credential);
-    }
-
-    // ✅ Delete user data from Firestore first
-    await databaseService.deleteData(
-      path: BackendEndpoints.getUserData,
-      uId: uId,
-    );
-
-    // ✅ Delete Firebase Auth user
-    await firebaseAuthService.deleteUser();
-
-    // ✅ Clear Local Cache
-    await CacheHelper.removeData(key: kSaveUserDataKey);
-    await CacheHelper.removeData(key: kSaveUserLocationKey);
-
-    return const Right(null);
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'wrong-password') {
-      return Left(ServerFailure(message: "Incorrect password"));
-    } else if (e.code == 'user-mismatch') {
-      return Left(ServerFailure(message: "User mismatch. Try signing in again"));
-    } else {
-      return Left(ServerFailure(message: "Re-authentication failed: ${e.message}"));
-    }
-  } catch (e) {
-    return Left(ServerFailure(message: "Unexpected error: ${e.toString()}"));
-  }
-}
   @override
-Future<User> getCurrentUser() async {
+  Future<Either<Failure, void>> deleteAccount(
+      {required String uId, String? password}) async {
+    try {
+      User? user = await getCurrentUser();
+
+      // Re-authenticate user based on provider
+      if (user.providerData.any((info) => info.providerId == 'password')) {
+        if (password == null || password.isEmpty) {
+          return Left(ServerFailure(
+              message: "Password is required for account deletion"));
+        }
+        AuthCredential credential = EmailAuthProvider.credential(
+          email: user.email!,
+          password: password,
+        );
+        await user.reauthenticateWithCredential(credential);
+      } else if (user.providerData
+          .any((info) => info.providerId == 'google.com')) {
+        GoogleSignIn googleSignIn = GoogleSignIn();
+        GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+        if (googleUser == null) {
+          return Left(
+              ServerFailure(message: "Google re-authentication failed"));
+        }
+        GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+        AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await user.reauthenticateWithCredential(credential);
+      }
+
+      // ✅ Delete user data from Firestore first
+      await databaseService.deleteData(
+        path: BackendEndpoints.getUserData,
+        uId: uId,
+      );
+
+      // ✅ Delete Firebase Auth user
+      await firebaseAuthService.deleteUser();
+
+      // ✅ Clear Local Cache
+      await CacheHelper.removeData(key: kSaveUserDataKey);
+      await CacheHelper.removeData(key: kSaveUserLocationKey);
+
+      return const Right(null);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        return Left(ServerFailure(message: "Incorrect password"));
+      } else if (e.code == 'user-mismatch') {
+        return Left(
+            ServerFailure(message: "User mismatch. Try signing in again"));
+      } else {
+        return Left(
+            ServerFailure(message: "Re-authentication failed: ${e.message}"));
+      }
+    } catch (e) {
+      return Left(ServerFailure(message: "Unexpected error: ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<User> getCurrentUser() async {
     return await firebaseAuthService.getCurrentUser();
   }
 

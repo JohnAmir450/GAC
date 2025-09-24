@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/features/auth/domain/entities/user_entity.dart';
@@ -22,7 +21,6 @@ class SignUpCubit extends Cubit<SignUpState> {
   bool isTermsChecked = false;
   Icon suffixIcon = const Icon(Icons.visibility);
   bool isObscured = true;
-  Timer? verificationTimer;
 
   void changePasswordVisibility() {
     isObscured = !isObscured;
@@ -45,58 +43,40 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
 
     result.fold((failure) {
-      if (failure.message == 'الرجاء تفعيل الحساب من خلال البريد الالكتروني') {
-        // Emit verification state
-        emit(SignUpVerificationSentState());
-
-        verificationTimer =
-            Timer.periodic(const Duration(seconds: 5), (timer) async {
-          final currentUser = FirebaseAuth.instance.currentUser;
-
-          // Reload current user to check email verification status
-          await currentUser?.reload();
-
-          // If email is verified, cancel timer and proceed to success
-          if (currentUser?.emailVerified ?? false) {
-            verificationTimer?.cancel();
-            var userEntity = UserEntity(
-              name: nameController.text,
-              email: emailController.text,
-              secondName: secondNameController.text,
-              phoneNumber: phoneNumberController.text,
-              uId: currentUser!.uid,
-              cartList: [],
-              points: 0,
-            );
-
-            await authRepo.addUserData(userEntity: userEntity);
-            await authRepo.getUserData(uId: currentUser.uid);
-            await authRepo.saveUserData(userEntity: userEntity);
-            emit(SignUpSuccessState(userEntity: userEntity));
-            await close();
-          }
-
-          // If verification fails after 5 minutes (60 seconds * 5), cancel and show failure
-          if (timer.tick > 60 * 5) {
-            // 5 minutes
-            await currentUser?.delete();
-            verificationTimer?.cancel();
-            emit(SignUpFailureState(
-                message:
-                    'انتهت صلاحيةالتحقق من البريد الالكتروني، حاول مرة اخرى!'));
-          }
-        });
-      } else {
-        emit(SignUpFailureState(message: failure.message));
-      }
+      emit(SignUpFailureState(message: failure.message));
     }, (user) async {
       emit(SignUpSuccessState(userEntity: user));
     });
   }
 
-  @override
-  Future<void> close() {
-    verificationTimer?.cancel(); // Cancel the timer if the cubit is disposed
-    return super.close();
+  Future<void> completeGoogleSignUp({required String userId}) async {
+    emit(SignUpLoadingState());
+
+    try {
+      var userEntity = UserEntity(
+        uId: userId,
+        email: emailController.text,
+        name: nameController.text,
+        secondName: secondNameController.text,
+        phoneNumber: phoneNumberController.text,
+        points: 0,
+      );
+
+      var result = await authRepo.completeGoogleSignUp(userEntity: userEntity);
+
+      result.fold((failure) {
+        emit(SignUpFailureState(message: failure.message));
+      }, (user) async {
+        emit(SignUpSuccessState(userEntity: user));
+      });
+    } catch (e) {
+      emit(SignUpFailureState(
+          message: 'فشل في استكمال تسجيل الدخول: ${e.toString()}'));
+    }
+  }
+
+    Future<void> deleteUserData(String uId) async {
+    await authRepo.deleteAccount(uId: uId);
+    
   }
 }

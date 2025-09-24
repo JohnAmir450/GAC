@@ -255,8 +255,12 @@
   "oils": "زيوت",
   "industrial": "صناعي",
 
-  "maximum_quantity": "الحد الاقصى للكمية هو 50 كرتونة"
+  "maximum_quantity": "الحد الاقصى للكمية هو 50 كرتونة",
 
+  "this_field_required": "هذا الحقل مطلوب",
+
+
+  "confirm_your_profile": "تأكيد بيانات الحساب"
 
 
   

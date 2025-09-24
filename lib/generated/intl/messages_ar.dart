@@ -121,6 +121,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "confirm": MessageLookupByLibrary.simpleMessage("خروج"),
     "confirm_order": MessageLookupByLibrary.simpleMessage("تاكيد الطلب"),
+    "confirm_your_profile": MessageLookupByLibrary.simpleMessage(
+      "تأكيد بيانات الحساب",
+    ),
     "confirmed": MessageLookupByLibrary.simpleMessage("تم التأكيد"),
     "contact_content": MessageLookupByLibrary.simpleMessage(
       "لأي استفسارات أو شكاوى، يرجى التواصل معنا عبر:\n- **الهاتف**:\n 01140550072 \n 01028607331\n 0196817723\n- **البريد الإلكتروني**:\n Gulf-arabian2015@outlook.com \n gulfarabiancompany650@gmail.com\n- **العنوان**: قطعة رقم 5 - المنطقة الصناعية - الروبيكي - مدينة بدر",
@@ -425,6 +428,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "there_is_no_products": MessageLookupByLibrary.simpleMessage(
       "لا يوجد منتجات لعرضها حاليا",
+    ),
+    "this_field_required": MessageLookupByLibrary.simpleMessage(
+      "هذا الحقل مطلوب",
     ),
     "timeout": MessageLookupByLibrary.simpleMessage(
       "العملية استغرقت وقتًا طويلاً. حاول مرة أخرى",

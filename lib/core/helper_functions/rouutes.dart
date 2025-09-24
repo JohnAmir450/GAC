@@ -3,6 +3,7 @@ class Routes{
   static const loginView = '/loginView';
   static const resetPasswordView = '/resetPasswordView';
   static const signUpView = '/signUpView';
+  static const completeGoogleSignUpView='/completeGoogleSignUpView';
   static const mainView = '/mainView';
   static const homeView = '/homeView';
   static const productView = '/productView';

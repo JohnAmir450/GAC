@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:gac/core/errors/failures.dart';
+import 'package:gac/core/models/settings_model.dart';
 import 'package:gac/core/repos/orders_repo/orders_repo.dart';
 import 'package:gac/core/services/database_service.dart';
 import 'package:gac/core/utils/backend_endpoints.dart';
@@ -209,22 +211,48 @@ class OrdersRepoImpl implements OrdersRepo {
   }
 
   @override
-  Future<double> redeemPointsForDiscount({required String userId}) async {
-    int currentPoints = await getUserPoints(userId: userId);
 
-    if (currentPoints < 100) return 0; // Minimum threshold (optional)
+Future<DiscountSettingsModel> getDiscountSettings() async {
+  final doc = await FirebaseFirestore.instance
+      .collection('settings')
+      .doc('discountValue')
+      .get();
 
-    double discount = currentPoints * 0.02;
-
-    // Deduct points from the user
-    await databaseService.updateData(
-      path: BackendEndpoints.getUserData,
-      documentId: userId,
-      data: {'points': 0}, // Reset points after applying the discount
-    );
-
-    return discount; // Return the discount amount
+  if (!doc.exists) {
+    throw Exception("Discount settings not found in Firestore");
   }
+
+  return DiscountSettingsModel(
+    discount: (doc.data()?['discount'] ?? 0.02).toDouble(),
+    minPoints: (doc.data()?['minPoints'] ?? 100).toInt(),
+  );
+}
+
+@override
+Future<double> redeemPointsForDiscount({required String userId}) async {
+  // 1️⃣ Get user points
+  int currentPoints = await getUserPoints(userId: userId);
+
+  // 2️⃣ Fetch settings
+  DiscountSettingsModel settings = await getDiscountSettings();
+
+  // 3️⃣ Check minimum threshold
+  if (currentPoints < settings.minPoints) return 0;
+
+  // 4️⃣ Calculate discount
+  double discount = currentPoints * settings.discount;
+
+  // 5️⃣ Deduct points
+  await databaseService.updateData(
+    path: BackendEndpoints.getUserData,
+    documentId: userId,
+    data: {'points': 0},
+  );
+
+  return discount;
+}
+
+
 
   @override
   Future<Either<Failure, void>> updateProductSellingCountIfCancelled({

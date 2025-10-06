@@ -21,7 +21,7 @@ class SignUpViewBlocConsumer extends StatelessWidget {
     return BlocConsumer<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccessState) {
-          context.pushReplacementNamed(Routes.mainView);
+          context.pushNamedAndRemoveUntil(Routes.mainView, predicate: (Route<dynamic> route) => false,);
         }
         if (state is SignUpFailureState) {
          
@@ -40,9 +40,10 @@ class SignUpViewBlocConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return  ModalProgressHUD(
+          blur: 2.0,
           inAsyncCall: state is SignUpLoadingState,
           progressIndicator: const CustomAnimatedLoadingWidget(),
-          child: const SignUpViewBody());
+          child: SafeArea(child: const SignUpViewBody()));
       },
     );
   }

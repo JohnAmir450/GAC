@@ -45,7 +45,7 @@ class _AddToCartButtonSectionState extends State<AddToCartButtonSection> {
           Expanded(
             flex: 5,
             child: CustomButton(
-                height: isDeviceInPortrait(context) ? 54.h : 80.h,
+                height: isDeviceInPortrait(context) ? 54.h : 60.h,
                 text: locale.add_to_cart,
                 onPressed: () {
                   cartQuantity > 50

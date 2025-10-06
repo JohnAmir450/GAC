@@ -564,13 +564,13 @@ class S {
     );
   }
 
-  /// `Not enough points to redeem\n Minimum required: 1000 points`
-  String get min_points_required {
+  /// `Not enough points to redeem\n Minimum required: {points} points`
+  String min_points_required(Object points) {
     return Intl.message(
-      'Not enough points to redeem\n Minimum required: 1000 points',
+      'Not enough points to redeem\n Minimum required: $points points',
       name: 'min_points_required',
       desc: '',
-      args: [],
+      args: [points],
     );
   }
 
@@ -1854,6 +1854,41 @@ class S {
     return Intl.message(
       'Confirm your profile',
       name: 'confirm_your_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are no notifications`
+  String get there_is_no_notifications {
+    return Intl.message(
+      'There are no notifications',
+      name: 'there_is_no_notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A verification email has been sent to you, please check your email`
+  String get send_you_email_verification {
+    return Intl.message(
+      'A verification email has been sent to you, please check your email',
+      name: 'send_you_email_verification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend`
+  String get resend {
+    return Intl.message('Resend', name: 'resend', desc: '', args: []);
+  }
+
+  /// `A verification email has been resent successfully`
+  String get email_resent_success {
+    return Intl.message(
+      'A verification email has been resent successfully',
+      name: 'email_resent_success',
       desc: '',
       args: [],
     );

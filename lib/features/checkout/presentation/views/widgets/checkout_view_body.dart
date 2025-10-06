@@ -6,6 +6,8 @@ import 'package:gac/core/helper_functions/cache_helper.dart';
 import 'package:gac/core/helper_functions/get_user_data.dart';
 import 'package:gac/core/helper_functions/is_device_in_portrait.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
+import 'package:gac/core/utils/spacing.dart';
+import 'package:gac/core/widgets/custom_app_bar_widget.dart';
 import 'package:gac/core/widgets/custom_button.dart';
 import 'package:gac/features/checkout/data/models/shipping_address_model.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
@@ -30,6 +32,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   @override
   void initState() {
     context.read<OrdersCubit>().getUserPoints(userId: getUserData().uId);
+    context.read<OrdersCubit>().getDiscountSettings();
     _pageController = PageController(initialPage: _currentStep);
     _pageController.addListener(() {
       setState(() {
@@ -62,46 +65,53 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CheckoutSteps(
-          currentStep: _currentStep,
-          pageController: _pageController,
-          formKey: _formKey,
-        ),
-        Expanded(
-          child: CheckoutStepsPageView(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+      child: Column(
+        children: [
+          CustomAppBar(
+            title: S.of(context).confirm_order,
+          ),
+          verticalSpace(16.h),
+          CheckoutSteps(
+            currentStep: _currentStep,
             pageController: _pageController,
             formKey: _formKey,
-            autoValidateMode: autoValidateMode,
           ),
-        ),
-        CustomButton(
-            height: isDeviceInPortrait(context) ? 54.h : 100.h,
-            text: _currentStep == 2
-                ? S.of(context).confirm_order
-                : S.of(context).next,
-            onPressed: () async {
-              if (_currentStep == 1) {
-                _handleAddressValidation();
-              } else if (_currentStep == 2) {
-                var finalPrice = (context.read<OrderEntity>().totalPrice -
-                        context.read<OrdersCubit>().discount)
-                    .roundToDouble();
-
-                var orderEntity = context
-                    .read<OrderEntity>()
-                    .copyWith(totalPrice: finalPrice);
-
-                context.read<OrdersCubit>().addOrder(orderEntity: orderEntity);
-                saveUserLocationData(
-                    shippingAddressModel: ShippingAddressModel.fromEntity(
-                        orderEntity.shippingAddressEntity));
-              } else {
-                _goToNextStep();
-              }
-            }),
-      ],
+          Expanded(
+            child: CheckoutStepsPageView(
+              pageController: _pageController,
+              formKey: _formKey,
+              autoValidateMode: autoValidateMode,
+            ),
+          ),
+          CustomButton(
+              height: isDeviceInPortrait(context) ? 54.h : 100.h,
+              text: _currentStep == 2
+                  ? S.of(context).confirm_order
+                  : S.of(context).next,
+              onPressed: () async {
+                if (_currentStep == 1) {
+                  _handleAddressValidation();
+                } else if (_currentStep == 2) {
+                  var finalPrice = (context.read<OrderEntity>().totalPrice -
+                          context.read<OrdersCubit>().discount)
+                      .roundToDouble();
+      
+                  var orderEntity = context
+                      .read<OrderEntity>()
+                      .copyWith(totalPrice: finalPrice);
+      
+                  context.read<OrdersCubit>().addOrder(orderEntity: orderEntity);
+                  saveUserLocationData(
+                      shippingAddressModel: ShippingAddressModel.fromEntity(
+                          orderEntity.shippingAddressEntity));
+                } else {
+                  _goToNextStep();
+                }
+              }),
+        ],
+      ),
     );
   }
 
@@ -125,3 +135,5 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     await CacheHelper.saveData(key: kSaveUserLocationKey, value: userData);
   }
 }
+
+

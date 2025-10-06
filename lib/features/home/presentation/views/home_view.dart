@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/cubits/products_cubit/products_cubit.dart';
@@ -13,8 +14,13 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: BlocProvider(
-      create: (context) => ProductsCubit(getIt.get<ProductsRepo>()),
-      child:  HomeViewBody(onNavigateToAllProducts:onNavigateToAllProducts ,),
+      create: (context) => ProductsCubit(getIt.get<ProductsRepo>())
+        ..checkAndToastIfNotVerified()
+        ..getNotifications()
+        ..getBestSellingProducts(),
+      child: HomeViewBody(
+        onNavigateToAllProducts: onNavigateToAllProducts,
+      ),
     ));
   }
 }

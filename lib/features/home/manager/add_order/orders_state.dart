@@ -18,3 +18,10 @@ final class GovernmentChanged extends OrdersState {}
 
 final class PointsRedeemedState extends OrdersState {}
 final class PointsLoadingRedeemState extends OrdersState {}
+
+final class DiscountSettingsLoadedState extends OrdersState {
+  final DiscountSettingsModel discountSettingsModel;
+
+  DiscountSettingsLoadedState({required this.discountSettingsModel});
+}
+final class DiscountSettingsLoadingState extends OrdersState {}

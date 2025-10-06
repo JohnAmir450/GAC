@@ -26,6 +26,7 @@ class AddOrderCubitBlocBuilder extends StatelessWidget {
       },
       builder: (context, state) {
         return ModalProgressHUD(
+          blur: 2.0,
           inAsyncCall: state is AddOrderLoadingState,
           progressIndicator: const CustomAnimatedLoadingWidget(),
           child: child,

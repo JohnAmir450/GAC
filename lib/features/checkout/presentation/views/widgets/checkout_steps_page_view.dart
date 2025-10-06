@@ -8,7 +8,7 @@ class CheckoutStepsPageView extends StatelessWidget {
       {super.key,
       required this.pageController,
       required this.formKey,
-      required this.autoValidateMode,
+      required this.autoValidateMode, 
       });
   final PageController pageController;
   final GlobalKey<FormState> formKey;

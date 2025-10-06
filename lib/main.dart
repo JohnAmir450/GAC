@@ -10,27 +10,28 @@ import 'package:gac/core/helper_functions/rouutes.dart';
 import 'package:gac/core/services/firebase_auth_service.dart';
 import 'package:gac/core/services/get_it_service.dart';
 import 'package:gac/core/utils/app_colors.dart';
-import 'package:gac/core/utils/bloc_observer.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/firebase_options.dart';
 import 'package:gac/generated/l10n.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:upgrader/upgrader.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await CacheHelper.init();
-  Bloc.observer = MyBlocObserver();
   setupGetIt();
 
   OneSignal.initialize('0a35afa9-5361-43e2-9149-df923ce38aee');
-  await OneSignal.Notifications.requestPermission(true); // ✅ Ensure it's ready
+  await OneSignal.Notifications.requestPermission(true);
 
-  runApp(BlocProvider<LanguageCubit>(
-    create: (context) => LanguageCubit(),
-    child: const MyApp(),
-  ));
+  runApp(
+    BlocProvider<LanguageCubit>(
+      create: (context) => LanguageCubit(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -53,18 +54,26 @@ class MyApp extends StatelessWidget {
           designSize: const Size(360, 800),
           minTextAdapt: false,
           child: MaterialApp(
-            builder: (context, child) {
-              return MediaQuery(
-                data: MediaQuery.of(context).copyWith(
-                  textScaler: const TextScaler.linear(1),
+            builder: (context, child) { 
+              return UpgradeAlert(  
+                barrierDismissible: true,
+                dialogStyle: UpgradeDialogStyle.cupertino, 
+                showLater: true,
+                 showIgnore: true,
+                 showReleaseNotes: false,
+                child: MediaQuery(
+                  data: MediaQuery.of(context).copyWith(
+                    textScaler: const TextScaler.linear(1),
+                  ),
+                  child: child!,
                 ),
-                child: child!,
               );
             },
             title: 'الشركة العربية الخليجية',
             themeMode: ThemeMode.light,
             darkTheme: ThemeData.light(),
-            theme: ThemeData(primaryColorLight: Colors.white,
+            theme: ThemeData(
+              primaryColorLight: Colors.white,
               fontFamily: 'Cairo',
               scaffoldBackgroundColor: Colors.white,
               colorScheme:
@@ -78,7 +87,7 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
-            locale: locale ,
+            locale: locale,
             debugShowCheckedModeBanner: false,
             onGenerateRoute: onGenerateRoutes,
             initialRoute: getRoute(),

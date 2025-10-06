@@ -149,12 +149,14 @@ class UserAuthActionsButtons extends StatelessWidget {
       title: locale.delete_account,
       type: QuickAlertType.warning,
       confirmBtnText: locale.delete,
-      onConfirmBtnTap: () async {
-        await cubit.deleteAccount(uId: getUserData().uId, password: password);
+      onConfirmBtnTap: () {
         context.pushNamedAndRemoveUntil(
           Routes.onBoardingView,
           predicate: (Route<dynamic> route) => false,
         );
+        Future.microtask(() async {
+          await cubit.deleteAccount(uId: getUserData().uId, password: password);
+        });
       },
     );
   }

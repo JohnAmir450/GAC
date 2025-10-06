@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:gac/core/errors/failures.dart';
+import 'package:gac/core/models/settings_model.dart';
 import 'package:gac/features/checkout/data/models/order_model.dart';
 import 'package:gac/features/checkout/domain/entities/checkout_product_details.dart';
 import 'package:gac/features/checkout/domain/entities/order_entity.dart';
@@ -31,4 +32,6 @@ Future<Either<Failure, void>> cancelOrder({required String orderNumber});
    // Add the operator parameter
   });
   Future<void> updateProductSellingCount({required String productCode, required int quantitySold});
+
+Future<DiscountSettingsModel> getDiscountSettings() ;
 } 

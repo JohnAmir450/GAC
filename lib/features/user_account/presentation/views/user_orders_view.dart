@@ -27,7 +27,7 @@ class UserOrdersView extends StatelessWidget {
                 'orderBy': 'orderDate',
                 'descending': true,
               }),
-        child: const UserOrdersViewBody(),
+        child: SafeArea(child: const UserOrdersViewBody()),
       ),
     );
   }

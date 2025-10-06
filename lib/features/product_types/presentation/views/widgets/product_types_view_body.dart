@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/helper_functions/get_dummy_product.dart';
+import 'package:gac/core/services/analytics_service.dart';
 import 'package:gac/features/home/presentation/views/widgets/empty_cart_view_widget.dart';
 import 'package:gac/features/product_types/manager/product_types/product_types_cubit.dart';
 import 'package:gac/features/product_types/presentation/views/widgets/product_types_grid_view.dart';
@@ -22,6 +23,7 @@ class ProductTypesViewBody extends StatefulWidget {
 class _ProductTypesViewBodyState extends State<ProductTypesViewBody> {
   @override
   void initState() {
+    AnalyticsService.logScreenView(screenName: 'ProductTypesView: ${widget.productType}');
     context
         .read<ProductTypesCubit>()
         .getProductsByType(categoryType: widget.productType);

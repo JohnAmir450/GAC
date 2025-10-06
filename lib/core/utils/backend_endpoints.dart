@@ -4,4 +4,5 @@ class BackendEndpoints {
   static const getProducts = 'products';
   static const addOrders = 'orders';
   static const getOrders = 'orders';
+  static const getNotifications = 'notifications';
 }

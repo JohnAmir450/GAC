@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/entities/categories_entity.dart';
 import 'package:gac/core/entities/products_entity.dart';
+import 'package:gac/core/models/notification_model.dart';
 import 'package:gac/core/repos/products_repo/products_repo.dart';
 import 'package:gac/core/utils/app_images.dart';
 import 'package:meta/meta.dart';
@@ -19,7 +21,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit(this.productsRepo) : super(ProductsInitialState());
   int productQuantity = 1;
   int productLength = 0;
-
+ bool isEmailVerified = false;
   final TextEditingController searchController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   void getBestSellingProducts() async {
@@ -64,7 +66,17 @@ class ProductsCubit extends Cubit<ProductsState> {
       });
     });
   }
+void checkAndToastIfNotVerified() async {
+    if (!isEmailVerified) {
+      final user = FirebaseAuth.instance.currentUser;
+      await user?.reload();
+      final updatedUser = FirebaseAuth.instance.currentUser;
 
+      isEmailVerified = updatedUser?.emailVerified ?? false;
+
+      emit(CheckUserEmailVerification(isVerified: isEmailVerified));
+    }
+  }
   // Future<void> addToCart({required CartModel cartModel}) async{
 
   //   var result= await productsRepo
@@ -99,6 +111,20 @@ class ProductsCubit extends Cubit<ProductsState> {
     }, (stream) {
       stream.listen((products) {
         emit(ProductsSuccessState(products: products));
+      });
+    });
+  }
+
+  void getNotifications()  {
+    emit(GetNotificationsLoadingState());
+    var result =  productsRepo.getNotifications();
+    result.fold((failure) {
+      emit(GetNotificationsFailureState(errorMessage: failure.message));
+    }, (stream) {
+      stream.listen((notifications) {
+        emit(GetNotificationsSuccessState(notifications: notifications));
+      }, onError: (error) {
+        emit(GetNotificationsFailureState(errorMessage: error.toString()));
       });
     });
   }

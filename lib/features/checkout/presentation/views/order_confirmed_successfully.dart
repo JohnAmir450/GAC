@@ -16,6 +16,8 @@ class OrderConfirmedSuccessfully extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+
     var locale=S.of(context);
     return Scaffold(
       body: SingleChildScrollView(

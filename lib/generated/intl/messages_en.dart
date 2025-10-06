@@ -24,12 +24,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(discount) => "${discount} EGP has been deducted from points";
 
-  static String m2(orderId) => "Order Number: #${orderId}";
+  static String m2(points) =>
+      "Not enough points to redeem\n Minimum required: ${points} points";
 
-  static String m3(redeemable_amount) =>
+  static String m3(orderId) => "Order Number: #${orderId}";
+
+  static String m4(redeemable_amount) =>
       "You can use ${redeemable_amount} EGP as a discount";
 
-  static String m4(productType) => "Shop inside ${productType} products";
+  static String m5(productType) => "Shop inside ${productType} products";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -201,6 +204,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "This email is already in use",
     ),
     "email_hint": MessageLookupByLibrary.simpleMessage("Email"),
+    "email_resent_success": MessageLookupByLibrary.simpleMessage(
+      "A verification email has been resent successfully",
+    ),
     "error_dialog_title": MessageLookupByLibrary.simpleMessage("Error"),
     "expiry": MessageLookupByLibrary.simpleMessage("Expiry"),
     "facebook_login_failed": MessageLookupByLibrary.simpleMessage(
@@ -255,9 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "maximum_quantity": MessageLookupByLibrary.simpleMessage(
       "Maximum quantity is 50",
     ),
-    "min_points_required": MessageLookupByLibrary.simpleMessage(
-      "Not enough points to redeem\n Minimum required: 1000 points",
-    ),
+    "min_points_required": m2,
     "mission_content": MessageLookupByLibrary.simpleMessage(
       "Our mission is to provide high-quality ghee and oil products that combine great taste with health benefits. We focus on achieving sustainability in our operations and aim to offer products that help our customers achieve a healthy and balanced life.",
     ),
@@ -321,7 +325,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "order_date": MessageLookupByLibrary.simpleMessage("Order Date"),
     "order_items": MessageLookupByLibrary.simpleMessage("Items"),
-    "order_number": m2,
+    "order_number": m3,
     "order_summary": MessageLookupByLibrary.simpleMessage("Order Summary:"),
     "organic": MessageLookupByLibrary.simpleMessage("Organic"),
     "our_achievements": MessageLookupByLibrary.simpleMessage(
@@ -391,8 +395,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Request limit exceeded. Try again later",
     ),
     "redeem": MessageLookupByLibrary.simpleMessage("Redeem"),
-    "redeemable_discount": m3,
+    "redeemable_discount": m4,
     "redeemed": MessageLookupByLibrary.simpleMessage("Redeemed"),
+    "resend": MessageLookupByLibrary.simpleMessage("Resend"),
     "reset_password": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "reset_password_message": MessageLookupByLibrary.simpleMessage(
       "A reset password message has been sent to you.",
@@ -404,10 +409,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "review_order": MessageLookupByLibrary.simpleMessage("Review Order"),
     "save_changes": MessageLookupByLibrary.simpleMessage("Save Changes"),
     "search_for": MessageLookupByLibrary.simpleMessage("Search for"),
+    "send_you_email_verification": MessageLookupByLibrary.simpleMessage(
+      "A verification email has been sent to you, please check your email",
+    ),
     "shipping_info": MessageLookupByLibrary.simpleMessage(
       "Shipping Information",
     ),
-    "shopInsideProducts": m4,
+    "shopInsideProducts": m5,
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
     "sign_in_canceled": MessageLookupByLibrary.simpleMessage(
       "Sign-in was canceled",
@@ -442,6 +450,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "terms_modifications_content": MessageLookupByLibrary.simpleMessage(
       "The Company reserves the right to modify these Terms and Conditions at any time. Users will be notified of any changes by updating the effective date at the top of this page. Your continued use of the Application after such modifications constitutes your acceptance of the modified Terms.",
+    ),
+    "there_is_no_notifications": MessageLookupByLibrary.simpleMessage(
+      "There are no notifications",
     ),
     "there_is_no_products": MessageLookupByLibrary.simpleMessage(
       "there is no products",

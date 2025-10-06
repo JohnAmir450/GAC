@@ -28,7 +28,7 @@ class CartItem extends StatelessWidget {
           CustomCachedNetworkImageWidget(
             imageUrl: cartEntity.productEntity.imageUrl!,
             borderRadius: 16,
-            height: MediaQuery.of(context).size.height * 0.13,
+            height: MediaQuery.of(context).size.height * 0.12,
             fit: BoxFit.cover,
           ),
           horizontalSpace(18),

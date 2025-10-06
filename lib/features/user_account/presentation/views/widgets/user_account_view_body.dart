@@ -17,21 +17,20 @@ class UserAccountViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var locale=S.of(context);
+    var locale = S.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             CustomApplicationAppBar(
-              title:locale.my_account,
+            CustomApplicationAppBar(
+              title: locale.my_account,
               showNotificationIcon: false,
             ),
             verticalSpace(24),
             const CustomUserAccountViewHeader(),
             verticalSpace(16),
-           
             UserAccountListTileItem(
               text: locale.profile,
               icon: Icons.person_outlined,
@@ -56,20 +55,31 @@ class UserAccountViewBody extends StatelessWidget {
               },
             ),
             verticalSpace(16),
-            LanguageSwitcherTile(navigateToHomeScreen:  navigateToHomeScreen ,),
-
+            LanguageSwitcherTile(
+              navigateToHomeScreen: navigateToHomeScreen,
+            ),
+            verticalSpace(16),
+            UserAccountListTileItem(
+              text: locale.reset_password,
+              icon: Icons.lock_outline,
+              onTap: () {
+                context.pushNamed(Routes.resetPasswordView);
+              },
+            ),
             verticalSpace(12),
-             Text(locale.help),
+            Text(locale.help),
             GestureDetector(
               onTap: () {
                 showAboutUsDialog(context);
               },
-              child:  UserAccountListTileItem(text: locale.about_us, icon: Icons.error_outline),
+              child: UserAccountListTileItem(
+                  text: locale.about_us, icon: Icons.error_outline),
             ),
             verticalSpace(16),
             GestureDetector(
               onTap: () => showTermsAndConditionsDialog(context),
-              child:  UserAccountListTileItem(text:locale.terms_conditions, icon: Icons.policy_outlined),
+              child: UserAccountListTileItem(
+                  text: locale.terms_conditions, icon: Icons.policy_outlined),
             ),
             verticalSpace(MediaQuery.sizeOf(context).height * 0.1),
             const UserAuthActionsButtons(),
@@ -79,6 +89,3 @@ class UserAccountViewBody extends StatelessWidget {
     );
   }
 }
-
-
-

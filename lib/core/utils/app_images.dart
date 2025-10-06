@@ -66,10 +66,6 @@ class Assets {
   /// assets/images/featured_shape.svg
   static const String assetsImagesFeaturedShape = "assets/images/featured_shape.svg";
 
-  /// Assets for assetsImagesFilter
-  /// assets/images/filter.svg
-  static const String assetsImagesFilter = "assets/images/filter.svg";
-
   /// Assets for assetsImagesGacLauncher
   /// assets/images/gac_launcher.png
   static const String assetsImagesGacLauncher = "assets/images/gac_launcher.png";

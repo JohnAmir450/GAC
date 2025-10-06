@@ -27,3 +27,22 @@ final class AddToCartFailureState extends ProductsState {
   final String errorMessage;  
   AddToCartFailureState({required this.errorMessage});
 }
+
+final class GetNotificationsLoadingState extends ProductsState {}
+
+final class GetNotificationsSuccessState extends ProductsState {
+  final List<NotificationModel> notifications;
+
+  GetNotificationsSuccessState({required this.notifications});
+}
+
+final class GetNotificationsFailureState extends ProductsState {
+  final String errorMessage;
+
+  GetNotificationsFailureState({required this.errorMessage});
+}
+
+class CheckUserEmailVerification extends ProductsState {
+  final bool isVerified;
+  CheckUserEmailVerification({this.isVerified = false});
+}

@@ -31,7 +31,7 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      bottomNavigationBar: CustomButtonNavigationBar(selectedIndex:selectedIndex ,onItemTapped:_onItemTapped ,),
+      bottomNavigationBar: SafeArea(child: CustomButtonNavigationBar(selectedIndex:selectedIndex ,onItemTapped:_onItemTapped ,)),
     
     body: IndexedStack(
       index: selectedIndex,

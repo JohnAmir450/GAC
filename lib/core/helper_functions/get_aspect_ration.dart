@@ -17,7 +17,7 @@ double getProductHeight(BuildContext context) {
   if (height < 750 ) {
     return 2.3;
   } else if (height <= 1000) {
-    return 2.9;
+    return 2.6;
   } else {
     return 2.7;
   }

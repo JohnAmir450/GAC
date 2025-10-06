@@ -7,6 +7,7 @@ abstract class DatabaseService {
   Future<dynamic> getData(
       {required String path,
       String? documentId,
+      String? nestedPath,
       Map<String, dynamic>? query,
       String? filterValueEqualTo,
       String? filterValue,
@@ -20,6 +21,7 @@ abstract class DatabaseService {
   Stream<List<Map<String, dynamic>>> getDataStream({
     required String path,
     String? documentId,
+     String? nestedPath,
     String? field,
     Map<String, dynamic>? query,
     List<Map<String, dynamic>>? whereConditions,

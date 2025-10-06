@@ -84,7 +84,7 @@
   "insufficient_points": "لا توجد نقاط كافية للاستخدام",
   "points_used": "تم استخدام جميع النقاط المتاحة",
   "discount_applied": "تم خصم {discount} جنيه من النقاط",
-  "min_points_required": "لا توجد نقاط كافية للاستخدام\n الحد الأدنى 1000 نقطة",
+  "min_points_required": "لا توجد نقاط كافية للاستخدام\n الحد الأدنى {points} نقطة",
   "redeemable_discount": "يمكنك استخدام {redeemable_amount} جنيه كخصم",
   "discount_title": "خصم",
 
@@ -260,8 +260,12 @@
   "this_field_required": "هذا الحقل مطلوب",
 
 
-  "confirm_your_profile": "تأكيد بيانات الحساب"
+  "confirm_your_profile": "تأكيد بيانات الحساب",
+  "there_is_no_notifications": "لا يوجد اشعارات",
 
+  "send_you_email_verification":  "تم إرسال ايميل لتأكيد الحساب، راجع الإيميل من فضلك",
+  "resend": "إعادة إرسال",
+  "email_resent_success": "تم إعادة إرسال ايميل تأكيد الحساب بنجاح"
 
   
 

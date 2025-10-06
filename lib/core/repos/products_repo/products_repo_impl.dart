@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/errors/failures.dart';
+import 'package:gac/core/helper_functions/get_user_data.dart';
+import 'package:gac/core/models/notification_model.dart';
 import 'package:gac/core/models/product_model.dart';
 import 'package:gac/core/repos/products_repo/products_repo.dart';
 import 'package:gac/core/services/database_service.dart';
@@ -46,7 +48,10 @@ class ProductsRepoImpl extends ProductsRepo {
       {Map<String, dynamic>? query}) {
     try {
       final stream = databaseService
-          .getDataStream(path: BackendEndpoints.getProducts, query: query,)
+          .getDataStream(
+        path: BackendEndpoints.getProducts,
+        query: query,
+      )
           .map((data) {
         return data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
       });
@@ -120,34 +125,55 @@ class ProductsRepoImpl extends ProductsRepo {
     }
   }
 
-@override
-Either<Failure, Stream<List<ProductEntity>>> getProductWeights({
-  required String currentProductCode,
-  Map<String, dynamic>? query,
-  List<Map<String, dynamic>>? whereConditions,
-}) {
-  try {
-    final stream = databaseService.getDataStream(
-      path: BackendEndpoints.getProducts,
-      whereConditions: whereConditions,
-    ).map((data) {
-      // Convert JSON to ProductEntity
-      List<ProductEntity> products = 
-          data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
+  @override
+  Either<Failure, Stream<List<ProductEntity>>> getProductWeights({
+    required String currentProductCode,
+    Map<String, dynamic>? query,
+    List<Map<String, dynamic>>? whereConditions,
+  }) {
+    try {
+      final stream = databaseService
+          .getDataStream(
+        path: BackendEndpoints.getProducts,
+        whereConditions: whereConditions,
+      )
+          .map((data) {
+        // Convert JSON to ProductEntity
+        List<ProductEntity> products =
+            data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
 
-      // Remove the product with the given code
-      products.removeWhere((product) => product.code == currentProductCode);
+        // Remove the product with the given code
+        products.removeWhere((product) => product.code == currentProductCode);
 
-      return products;
-    });
+        return products;
+      });
 
-    return Right(stream);
-  } catch (e) {
-    return Left(
-      ServerFailure(message: 'فشل في تحميل المنتجات، حاول مرة اخرى!'),
-    );
+      return Right(stream);
+    } catch (e) {
+      return Left(
+        ServerFailure(message: 'فشل في تحميل المنتجات، حاول مرة اخرى!'),
+      );
+    }
   }
-}
 
-
+  @override
+  Either<Failure, Stream<List<NotificationModel>>> getNotifications()  {
+    try {
+      final  data =  databaseService.getDataStream(
+              path: BackendEndpoints.getUserData,
+              documentId: getUserData().uId,
+              nestedPath: BackendEndpoints.getNotifications,
+              query: {
+                'orderBy': 'timestamp',
+                'descending': true,
+              }
+              )
+          .map((data) => data
+              .map((e) => NotificationModel.fromJson(e))  .toList());
+      return Right(data);
+        
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
 }

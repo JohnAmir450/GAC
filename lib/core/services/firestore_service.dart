@@ -21,6 +21,7 @@ class FireStoreService implements DatabaseService {
 Future<dynamic> getData({
   required String path,
   String? documentId,
+  String? nestedPath,
   Map<String, dynamic>? query,
   String? filterValueEqualTo,
   String? filterValue,
@@ -29,8 +30,13 @@ Future<dynamic> getData({
   try {
     // If documentId is provided, fetch the document by its ID
     if (documentId != null) {
-      var data = await firestore.collection(path).doc(documentId).get();
-      return data.data();
+      if (nestedPath==null) {
+  var data = await firestore.collection(path).doc(documentId).get();
+  return data.data();
+}else{
+  var data = await firestore.collection(path).doc(documentId).collection(nestedPath).get();
+  return data.docs.map((e) => e.data()).toList();
+}
     } else {
       // Query the collection
       Query<Map<String, dynamic>> data = firestore.collection(path);
@@ -85,6 +91,7 @@ Future<dynamic> getData({
 Stream<List<Map<String, dynamic>>> getDataStream({
   required String path,
   String? documentId,
+   String? nestedPath,
   String? field, // Extract specific field (e.g., "cartList")
   Map<String, dynamic>? query,
   List<Map<String, dynamic>>? whereConditions, // New: List of conditions
@@ -92,7 +99,8 @@ Stream<List<Map<String, dynamic>>> getDataStream({
   Query<Map<String, dynamic>> data = firestore.collection(path);
 
   // Handle fetching specific document and extracting a field
-  if (documentId != null) {
+ if (documentId != null) {
+  if (nestedPath == null) {
     return firestore.collection(path).doc(documentId).snapshots().map((snapshot) {
       if (snapshot.exists && snapshot.data() != null) {
         if (field != null && snapshot.data()![field] != null) {
@@ -105,6 +113,27 @@ Stream<List<Map<String, dynamic>>> getDataStream({
       }
     });
   } else {
+    // ✅ nestedPath مع query (orderBy + descending + limit)
+    Query<Map<String, dynamic>> nestedQuery = firestore
+        .collection(path)
+        .doc(documentId)
+        .collection(nestedPath);
+
+    if (query != null) {
+      if (query['orderBy'] != null) {
+        nestedQuery = nestedQuery.orderBy(query['orderBy'], descending: query['descending'] ?? false);
+      }
+      if (query['limit'] != null) {
+        nestedQuery = nestedQuery.limit(query['limit']);
+      }
+    }
+
+    return nestedQuery.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => doc.data()).toList();
+    });
+  }
+}
+ else {
     // 🔹 Apply `whereConditions` dynamically
     if (whereConditions != null) {
       for (var condition in whereConditions) {
@@ -125,6 +154,7 @@ Stream<List<Map<String, dynamic>>> getDataStream({
         }
       }
     }
+
 
     // 🔹 Apply `query` parameters (ordering, limits)
     if (query != null) {

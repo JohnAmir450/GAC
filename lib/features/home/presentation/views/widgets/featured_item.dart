@@ -24,7 +24,7 @@ class FeaturedItem extends StatelessWidget {
       },
       child: Container(
           width: screenWidth * 0.95, // Adjust width to avoid overflow
-          margin: EdgeInsets.symmetric(horizontal: 8.w),
+          margin: EdgeInsets.symmetric(horizontal: 4.w),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.r),
             child: Image.asset(featuredEntity.image, fit: BoxFit.fitWidth),

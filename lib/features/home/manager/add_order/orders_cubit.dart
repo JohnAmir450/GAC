@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/helper_functions/cache_helper.dart';
 import 'package:gac/core/helper_functions/get_user_data.dart';
+import 'package:gac/core/models/settings_model.dart';
 import 'package:gac/core/repos/orders_repo/orders_repo.dart';
 import 'package:gac/core/utils/chache_helper_keys.dart';
 import 'package:gac/features/auth/data/models/user_model.dart';
@@ -59,6 +60,11 @@ class OrdersCubit extends Cubit<OrdersState> {
 
   Future<void> getUserPoints({required String userId}) async {
     userPoints = await ordersRepo.getUserPoints(userId: userId);
+  }
+  Future<void> getDiscountSettings() async {
+    emit(DiscountSettingsLoadingState());
+    final settings= await ordersRepo.getDiscountSettings();
+    emit(DiscountSettingsLoadedState(discountSettingsModel: settings));
   }
 
   void updatePhoneNumberIfNeeded(BuildContext context, String phoneNumber) {

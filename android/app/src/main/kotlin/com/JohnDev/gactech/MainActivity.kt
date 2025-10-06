@@ -1,4 +1,4 @@
-package com.ArabianGulf.gac
+package com.johndev.gactech
 
 import io.flutter.embedding.android.FlutterActivity
 

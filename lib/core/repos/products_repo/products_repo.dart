@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/errors/failures.dart';
+import 'package:gac/core/models/notification_model.dart';
 
 abstract class ProductsRepo {
   Future<Either<Failure, List<ProductEntity>>> getProducts();
@@ -21,4 +22,5 @@ abstract class ProductsRepo {
     List<Map<String, dynamic>>? whereConditions,
     Map<String, dynamic>? query,
   });
+ Either<Failure, Stream<List<NotificationModel>>> getNotifications();
 }

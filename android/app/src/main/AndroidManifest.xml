@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="الشركة العربية الخليجية"
+        android:label="العربية الخليجية"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
@@ -51,7 +51,8 @@
     </application>
     
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility?hl=en and

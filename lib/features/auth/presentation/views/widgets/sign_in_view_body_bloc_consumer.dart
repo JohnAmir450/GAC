@@ -19,9 +19,13 @@ class SignInViewBodyBlocConsumer extends StatelessWidget {
       listener: (context, state) async {
         if (state is SignInSuccessState) {
           if (state.userEntity.phoneNumber == '') {
-            context.pushReplacementNamed(Routes.completeGoogleSignUpView,arguments: state.userEntity );
+            context.pushReplacementNamed(Routes.completeGoogleSignUpView,
+                arguments: state.userEntity);
           } else {
-            context.pushReplacementNamed(Routes.mainView);
+            context.pushNamedAndRemoveUntil(
+              Routes.mainView,
+              predicate: (Route<dynamic> route) => false,
+            );
           }
         }
         if (state is SignInFailureState) {
@@ -30,6 +34,7 @@ class SignInViewBodyBlocConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return ModalProgressHUD(
+            blur: 2.0,
             inAsyncCall: state is SignInLoadingState,
             progressIndicator: const CustomAnimatedLoadingWidget(),
             child: const LoginViewBody());

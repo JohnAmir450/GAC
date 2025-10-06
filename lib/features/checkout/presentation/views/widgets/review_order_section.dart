@@ -7,8 +7,7 @@ import 'package:gac/features/checkout/presentation/views/widgets/order_summary_w
 import 'package:gac/generated/l10n.dart';
 
 class ReviewOrderSection extends StatelessWidget {
-  const ReviewOrderSection({super.key, required this.pageController});
-
+  const ReviewOrderSection({super.key, required this.pageController,});
   final PageController pageController;
 
   @override
@@ -21,7 +20,7 @@ class ReviewOrderSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const OrderSummaryWidget(),
+             OrderSummaryWidget( ),
             verticalSpace(24),
             const Divider(),
             verticalSpace(8),

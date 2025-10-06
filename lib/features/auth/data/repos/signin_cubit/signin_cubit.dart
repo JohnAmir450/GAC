@@ -68,7 +68,7 @@ Icon suffixIcon = const Icon(Icons.visibility);
     });
   }
 
-  Future<void> sendEmailToResetPassword() async {
+  Future<void> sendEmailToResetPassword({String? email}) async {
     if (_isEmailButtonDisabled) return; // Prevent multiple presses
 
     //emit(SendEmailToResetPasswordLoadingState()); // Add loading state
@@ -80,7 +80,7 @@ Icon suffixIcon = const Icon(Icons.visibility);
     _startTimer();
 
     var result = await authRepo.sendPasswordResetEmail(
-        email: emailToResetPasswordController.text);
+        email: email ?? emailToResetPasswordController.text);
 
     result.fold((failure) {
       emit(SendEmailToResetPasswordFailureState(errMessage: failure.message));

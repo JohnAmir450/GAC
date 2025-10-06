@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gac/core/entities/cart_entity.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/helper_functions/rouutes.dart';
+import 'package:gac/core/services/analytics_service.dart';
 import 'package:gac/core/services/firebase_auth_service.dart';
 import 'package:gac/features/auth/domain/entities/user_entity.dart';
 import 'package:gac/features/auth/presentation/views/complete_user_profile_view.dart';
@@ -26,21 +27,25 @@ Route onGenerateRoutes(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const OnBoardingView());
 
     case Routes.loginView:
+     AnalyticsService.logScreenView(screenName: 'LoginView');
       return PageTransition(
           duration: const Duration(milliseconds: 50),
           child: const LoginView(),
           type: PageTransitionType.fade);
     case Routes.resetPasswordView:
+     AnalyticsService.logScreenView(screenName: 'ForgetPasswordView');
       return PageTransition(
           duration: const Duration(milliseconds: 50),
           child: const ResetPasswordView(),
           type: PageTransitionType.fade);
     case Routes.signUpView:
+     AnalyticsService.logScreenView(screenName: 'SignUpView');
       return PageTransition(
           duration: const Duration(milliseconds: 50),
           child: const SignUpView(),
           type: PageTransitionType.fade);
     case Routes.completeGoogleSignUpView:
+     AnalyticsService.logScreenView(screenName: 'CompleteGoogleSignUpView');
       var userEntity = settings.arguments as UserEntity?;
       return PageTransition(
           duration: const Duration(milliseconds: 50),
@@ -97,16 +102,19 @@ Route onGenerateRoutes(RouteSettings settings) {
           ),
           type: PageTransitionType.fade);
     case Routes.userProfileView:
+     AnalyticsService.logScreenView(screenName: 'UserProfileView');
       return PageTransition(
           duration: const Duration(milliseconds: 50),
           child: const UpdateUserProfileView(),
           type: PageTransitionType.fade);
     case Routes.updateUserShippingInformationView:
+     AnalyticsService.logScreenView(screenName: 'UpdateShippingInformationView');
       return PageTransition(
           duration: const Duration(milliseconds: 50),
           child: const UpdateShippingInformationView(),
           type: PageTransitionType.fade);
     case Routes.userOrdersView:
+     AnalyticsService.logScreenView(screenName: 'UserOrdersView');
       return PageTransition(
           duration: const Duration(milliseconds: 50),
           child: const UserOrdersView(),

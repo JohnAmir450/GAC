@@ -77,7 +77,7 @@
   "insufficient_points": "Not enough points to redeem",
   "points_used": "All available points have been used",
   "discount_applied": "{discount} EGP has been deducted from points",
-  "min_points_required": "Not enough points to redeem\n Minimum required: 1000 points",
+  "min_points_required": "Not enough points to redeem\n Minimum required: {points} points",
   "redeemable_discount": "You can use {redeemable_amount} EGP as a discount",
   "discount_title": "Discount",
 
@@ -252,6 +252,10 @@
 
   "maximum_quantity": "Maximum quantity is 50",
   "this_field_required": "This field is required",
-  "confirm_your_profile": "Confirm your profile"
+  "confirm_your_profile": "Confirm your profile",
+  "there_is_no_notifications": "There are no notifications",
+  "send_you_email_verification":  "A verification email has been sent to you, please check your email",
+  "resend": "Resend",
+   "email_resent_success": "A verification email has been resent successfully"
 
 }

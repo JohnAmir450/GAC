@@ -10,7 +10,7 @@ import 'package:gac/features/home/manager/add_order/orders_cubit.dart';
 import 'package:gac/generated/l10n.dart';
 
 class OrderSummaryWidget extends StatelessWidget {
-  const OrderSummaryWidget({super.key});
+  const OrderSummaryWidget({super.key, });
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class OrderSummaryWidget extends StatelessWidget {
               ),
               contentPadding: EdgeInsets.zero,
             ),
-            RedeemUserPoints(ordersCubit: ordersCubit),
+            RedeemUserPoints(ordersCubit: ordersCubit ,),
             const Divider(
               height: 40,
               thickness: 0.5,

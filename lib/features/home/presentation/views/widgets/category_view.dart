@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gac/core/helper_functions/extentions.dart';
 import 'package:gac/core/repos/products_repo/products_repo.dart';
+import 'package:gac/core/services/analytics_service.dart';
 import 'package:gac/core/services/get_it_service.dart';
 import 'package:gac/core/widgets/custom_app_bar.dart';
 import 'package:gac/features/home/presentation/views/widgets/category_view_body.dart';
@@ -14,6 +15,7 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AnalyticsService.logScreenView(screenName: 'CategoryView: $categoryName');
     return BlocProvider(
       create: (context) => ProductsCubit(getIt.get<ProductsRepo>())
         ..getProducts(query: {
@@ -26,8 +28,10 @@ class CategoryView extends StatelessWidget {
           title: categoryName,
           onTap: () => context.pop(),
         ),
-        body: CategoryViewBody(
-          categoryName: categoryName,
+        body: SafeArea(
+          child: CategoryViewBody(
+            categoryName: categoryName,
+          ),
         ),
       ),
     );

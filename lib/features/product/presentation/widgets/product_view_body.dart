@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gac/core/cubits/cart_cubit/cart_cubit.dart';
 import 'package:gac/core/entities/products_entity.dart';
 import 'package:gac/core/models/product_detailed_model.dart';
+import 'package:gac/core/services/analytics_service.dart';
 import 'package:gac/core/utils/app_colors.dart';
 import 'package:gac/core/utils/app_images.dart';
 import 'package:gac/core/utils/custom_snak_bar.dart';
@@ -31,6 +32,7 @@ class _ProductViewBodyState extends State<ProductViewBody> {
   @override
   void initState() {
     super.initState();
+    AnalyticsService.logScreenView(screenName: 'ProductView: ${widget.productEntity.name}');
     _scrollController = ScrollController();
     _scrollController.addListener(_handleScroll);
   }

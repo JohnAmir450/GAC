@@ -24,12 +24,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m1(discount) => "تم خصم ${discount} جنيه من النقاط";
 
-  static String m2(orderId) => "رقم الطلب : ${orderId}#";
+  static String m2(points) =>
+      "لا توجد نقاط كافية للاستخدام\n الحد الأدنى ${points} نقطة";
 
-  static String m3(redeemable_amount) =>
+  static String m3(orderId) => "رقم الطلب : ${orderId}#";
+
+  static String m4(redeemable_amount) =>
       "يمكنك استخدام ${redeemable_amount} جنيه كخصم";
 
-  static String m4(productType) => "تسوق داخل منتجات ال${productType}";
+  static String m5(productType) => "تسوق داخل منتجات ال${productType}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -191,6 +194,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "هذا البريد مستخدم من قبل",
     ),
     "email_hint": MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
+    "email_resent_success": MessageLookupByLibrary.simpleMessage(
+      "تم إعادة إرسال ايميل تأكيد الحساب بنجاح",
+    ),
     "error_dialog_title": MessageLookupByLibrary.simpleMessage("حدث خطأ"),
     "expiry": MessageLookupByLibrary.simpleMessage("الصلاحية"),
     "facebook_login_failed": MessageLookupByLibrary.simpleMessage(
@@ -247,9 +253,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "maximum_quantity": MessageLookupByLibrary.simpleMessage(
       "الحد الاقصى للكمية هو 50 كرتونة",
     ),
-    "min_points_required": MessageLookupByLibrary.simpleMessage(
-      "لا توجد نقاط كافية للاستخدام\n الحد الأدنى 1000 نقطة",
-    ),
+    "min_points_required": m2,
     "mission_content": MessageLookupByLibrary.simpleMessage(
       "مهمتنا هي تقديم منتجات سمن وزيوت عالية الجودة تجمع بين الطعم الرائع والفوائد الصحية. نحن نركز على تحقيق الاستدامة في عملياتنا، ونسعى لتقديم منتجات تساعد عملائنا في تحقيق حياة صحية ومتوازنة.",
     ),
@@ -312,7 +316,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "order_date": MessageLookupByLibrary.simpleMessage("تاريخ الطلب"),
     "order_items": MessageLookupByLibrary.simpleMessage("الطلبية"),
-    "order_number": m2,
+    "order_number": m3,
     "order_summary": MessageLookupByLibrary.simpleMessage("ملخص الطلب :"),
     "organic": MessageLookupByLibrary.simpleMessage("اورجانيك"),
     "our_achievements": MessageLookupByLibrary.simpleMessage("إنجازاتنا"),
@@ -376,8 +380,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "تم تجاوز الحد الأقصى للطلبات. حاول لاحقًا",
     ),
     "redeem": MessageLookupByLibrary.simpleMessage("استخدام"),
-    "redeemable_discount": m3,
+    "redeemable_discount": m4,
     "redeemed": MessageLookupByLibrary.simpleMessage("تم الاستخدام"),
+    "resend": MessageLookupByLibrary.simpleMessage("إعادة إرسال"),
     "reset_password": MessageLookupByLibrary.simpleMessage(
       "اعادة تعين الرقم السري",
     ),
@@ -391,8 +396,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "review_order": MessageLookupByLibrary.simpleMessage("مراجعة الطلب"),
     "save_changes": MessageLookupByLibrary.simpleMessage("حفظ التغييرات"),
     "search_for": MessageLookupByLibrary.simpleMessage("ابحث عن"),
+    "send_you_email_verification": MessageLookupByLibrary.simpleMessage(
+      "تم إرسال ايميل لتأكيد الحساب، راجع الإيميل من فضلك",
+    ),
     "shipping_info": MessageLookupByLibrary.simpleMessage("معلومات التوصيل"),
-    "shopInsideProducts": m4,
+    "shopInsideProducts": m5,
     "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "sign_in_canceled": MessageLookupByLibrary.simpleMessage(
       "تم إلغاء تسجيل الدخول",
@@ -425,6 +433,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "terms_modifications_content": MessageLookupByLibrary.simpleMessage(
       "تحتفظ الشركة بالحق في تعديل هذه الشروط والأحكام في أي وقت. سيتم إخطار المستخدمين بأي تغييرات عن طريق تحديث تاريخ السريان في أعلى هذه الصفحة. يعتبر استمرار استخدامك للتطبيق بعد إجراء التعديلات موافقة منك على الشروط المعدلة.",
+    ),
+    "there_is_no_notifications": MessageLookupByLibrary.simpleMessage(
+      "لا يوجد اشعارات",
     ),
     "there_is_no_products": MessageLookupByLibrary.simpleMessage(
       "لا يوجد منتجات لعرضها حاليا",
